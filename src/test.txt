@@ -1,0 +1,8 @@
+flushdb
+addgraphnode graph omar1
+addgraphnode graph omar2
+addgraphnode graph omar3
+addgraphedge graph omar1 omar2 2
+addgraphedge graph omar2 omar3 5
+listgraphedges graph
+shortestpath graph omar1 omar3

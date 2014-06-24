@@ -252,6 +252,14 @@ struct redisCommand redisCommandTable[] = {
     {"punsubscribe",punsubscribeCommand,-1,"rpslt",0,NULL,0,0,0,0,0},
     {"publish",publishCommand,3,"pltr",0,NULL,0,0,0,0,0},
     {"pubsub",pubsubCommand,-2,"pltrR",0,NULL,0,0,0,0,0},
+
+    // Graph Commands
+    {"addgraphnode",addgraphnodeCommand,3,"wm",0,NULL,1,1,1,0,0},
+    {"addgraphedge",addgraphedgeCommand,5,"wm",0,NULL,1,1,1,0,0},
+    {"listgraphnodes",listgraphnodesCommand,2,"r",0,NULL,1,1,1,0,0},
+    {"listgraphedges",listgraphedgesCommand,2,"r",0,NULL,1,1,1,0,0},
+    {"shortestpath",shortestpathCommand,4,"r",0,NULL,1,1,1,0,0},
+
     {"watch",watchCommand,-2,"rs",0,NULL,1,-1,1,0,0},
     {"unwatch",unwatchCommand,1,"rs",0,NULL,0,0,0,0,0},
     {"cluster",clusterCommand,-2,"ar",0,NULL,0,0,0,0,0},

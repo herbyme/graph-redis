@@ -169,6 +169,7 @@
 #define REDIS_SET 2
 #define REDIS_ZSET 3
 #define REDIS_HASH 4
+#define REDIS_GRAPH 5
 
 /* Objects encoding. Some kind of objects like Strings and Hashes can be
  * internally represented in multiple ways. The 'encoding' field of the object
@@ -1480,6 +1481,14 @@ void pfaddCommand(redisClient *c);
 void pfcountCommand(redisClient *c);
 void pfmergeCommand(redisClient *c);
 void pfdebugCommand(redisClient *c);
+
+// Graph Commands
+void addgraphnodeCommand(redisClient *c);
+void addgraphedgeCommand(redisClient *c);
+void listgraphnodesCommand(redisClient *c);
+void listgraphedgesCommand(redisClient *c);
+void shortestpathCommand(redisClient *c);
+
 
 #if defined(__GNUC__)
 void *calloc(size_t count, size_t size) __attribute__ ((deprecated));

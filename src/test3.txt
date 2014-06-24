@@ -1,0 +1,28 @@
+flushdb
+addgraphnode graph omar1
+addgraphnode graph omar2
+addgraphnode graph omar3
+addgraphnode graph omar4
+addgraphnode graph omar5
+addgraphnode graph omar6
+addgraphnode graph omar7
+addgraphnode graph omar8
+addgraphnode graph omar9
+addgraphnode graph omar10
+addgraphnode graph omar11
+addgraphnode graph omar12
+addgraphedge graph omar1 omar2 1
+addgraphedge graph omar2 omar4 1
+addgraphedge graph omar3 omar4 1
+addgraphedge graph omar4 omar5 2
+addgraphedge graph omar4 omar6 1
+addgraphedge graph omar7 omar6 1
+addgraphedge graph omar7 omar8 1
+addgraphedge graph omar5 omar8 1
+addgraphedge graph omar7 omar9 10
+addgraphedge graph omar8 omar10 3
+addgraphedge graph omar9 omar10 3
+addgraphedge graph omar9 omar11 1
+addgraphedge graph omar10 omar12 5
+addgraphedge graph omar11 omar12 1
+shortestpath graph omar1 omar12
