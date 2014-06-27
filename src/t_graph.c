@@ -53,10 +53,10 @@ List* ListCreate() {
   return list;
 }
 
-GraphNode* GraphNodeCreate(char *name, float value) {
+GraphNode* GraphNodeCreate(robj *key, float value) {
   GraphNode* graphNode = zmalloc(sizeof(GraphNode));
-  char *new_name = zmalloc(strlen(name));
-  strcpy(new_name, name);
+  char *new_name = zmalloc(strlen(key->ptr));
+  strcpy(new_name, key->ptr);
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
   graphNode->value = value;
@@ -152,10 +152,12 @@ void* HashGetObject(Hash *hash, void *key) {
     return NULL;
   }
 }
+
 void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
   robj *distances_obj = createZsetObject();
   zset *distances = distances_obj->ptr;
+
   robj *visited = createZsetZiplistObject();
   robj *parents = createHashObject();
 
@@ -164,6 +166,8 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   // Initialization
   zslInsert(distances->zsl, 0, node1->key);
   dictAdd(distances->dict, node1->key, NULL);
+
+
 
   // Main loop
   GraphNode *current_node = node1;
@@ -254,6 +258,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     } else  {
       current_node = NULL;
     }
+
   }
 
   // Building reply
@@ -268,7 +273,6 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
     robj *read = createStringObject(vstr, vlen);
     cur_node = GraphGetNode(graph, read);
-    cur_node->key->refcount = 2;
     count++;
     if (equalStringObjects(read, node1->key)) {
       break;
@@ -283,7 +287,6 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
     robj *read = createStringObject(vstr, vlen);
     cur_node = GraphGetNode(graph, read);
-
     if (cur_node != NULL)
       addReplyBulk(c, cur_node->key);
     if (equalStringObjects(read, node1->key)) {
@@ -298,6 +301,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
 }
 
 void shortestpathCommand(redisClient *c) {
+
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -305,6 +309,7 @@ void shortestpathCommand(redisClient *c) {
 
   GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
+
 
   redisAssert(node1 != NULL);
   redisAssert(node2 != NULL);
@@ -316,10 +321,12 @@ void shortestpathCommand(redisClient *c) {
 
 robj *createGraphObject() {
   Graph *ptr = GraphCreate();
-  return createObject(REDIS_GRAPH, ptr);
+  robj *obj = createObject(REDIS_GRAPH, ptr);
+  obj->refcount = 100;
+  return obj;
 }
 
-void addgraphnodeCommand(redisClient *c) {
+void gvertixCommand(redisClient *c) {
 
   robj *graph;
   robj *key = c->argv[1];
@@ -327,22 +334,25 @@ void addgraphnodeCommand(redisClient *c) {
   robj *value;
   if (graph == NULL) {
     graph = createGraphObject();
-    value = shared.cone;
     dbAdd(c->db, key, graph);
   }
-  else {
-    value = shared.czero;
-  }
+
+  // Check if graph vertex already exists
 
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *graph_node = GraphNodeCreate(c->argv[2]->ptr, 0);
-  GraphAddNode(graph_object, graph_node);
+  GraphNode *graph_node = GraphGetNode(graph_object, c->argv[2]);
 
-  addReplyBulk(c, value);
+  if (graph_node == NULL ) {
+    graph_node = GraphNodeCreate(c->argv[2], 0);
+    GraphAddNode(graph_object, graph_node);
+    addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
   return REDIS_OK;
 }
 
-void addgraphedgeCommand(redisClient *c) {
+void gedgeCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);

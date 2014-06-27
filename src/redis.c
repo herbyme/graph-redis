@@ -254,8 +254,8 @@ struct redisCommand redisCommandTable[] = {
     {"pubsub",pubsubCommand,-2,"pltrR",0,NULL,0,0,0,0,0},
 
     // Graph Commands
-    {"addgraphnode",addgraphnodeCommand,3,"wm",0,NULL,1,1,1,0,0},
-    {"addgraphedge",addgraphedgeCommand,5,"wm",0,NULL,1,1,1,0,0},
+    {"gvertix",gvertixCommand,3,"wm",0,NULL,1,1,1,0,0},
+    {"gedge",gedgeCommand,5,"wm",0,NULL,1,1,1,0,0},
     {"listgraphnodes",listgraphnodesCommand,2,"r",0,NULL,1,1,1,0,0},
     {"listgraphedges",listgraphedgesCommand,2,"r",0,NULL,1,1,1,0,0},
     {"shortestpath",shortestpathCommand,4,"r",0,NULL,1,1,1,0,0},

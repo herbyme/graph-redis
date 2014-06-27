@@ -1483,8 +1483,8 @@ void pfmergeCommand(redisClient *c);
 void pfdebugCommand(redisClient *c);
 
 // Graph Commands
-void addgraphnodeCommand(redisClient *c);
-void addgraphedgeCommand(redisClient *c);
+void gvertixCommand(redisClient *c);
+void gedgeCommand(redisClient *c);
 void listgraphnodesCommand(redisClient *c);
 void listgraphedgesCommand(redisClient *c);
 void shortestpathCommand(redisClient *c);
