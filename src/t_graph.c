@@ -217,16 +217,21 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     zslDelete(distances->zsl, current_node_distance, current_node->key);
     dictDelete(distances->dict, current_node->key);
 
+    // Marking the node as visited
+    visited->ptr = zzlInsert(visited->ptr, current_node->key, 1);
+
     // Checking each of the neighbours
-    List *edges = graph->edges;
-    ListNode *current_list_node = edges->root;
+    //List *edges = graph->edges;
+    //ListNode *current_list_node = edges->root;
 
-    while(current_list_node != NULL) {
+    int neighbours_count = listTypeLength(current_node->edges);
+    int j;
 
-      // Marking the node as visited
-      visited->ptr = zzlInsert(visited->ptr, current_node->key, 1);
+    for (j = 0; j < neighbours_count; j++) {
 
-      GraphEdge *edge = (GraphEdge *)(current_list_node->value);
+      listNode *ln = listIndex(current_node->edges->ptr, j);
+      robj *edge_object = listNodeValue(ln);
+      GraphEdge *edge = (GraphEdge *)(edge_object->ptr);
       GraphNode *neighbour = NULL;
 
       if (edge->node1 == current_node) {
@@ -239,7 +244,6 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
 
         // If neighbour already visited, skip
         if (zzlFind(visited->ptr, neighbour->key, NULL)) {
-          current_list_node = current_list_node->next;
           continue;
         }
 
@@ -269,7 +273,6 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
         }
 
       }
-      current_list_node = current_list_node->next;
     }
 
     // READING MINIMUM
