@@ -27,6 +27,7 @@ typedef struct {
 typedef struct {
   float value;
   robj *key;
+  robj *edges;
 } GraphNode;
 
 typedef struct {
@@ -59,6 +60,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   strcpy(new_name, key->ptr);
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
+  graphNode->edges = createListObject();
   graphNode->value = value;
   return graphNode;
 }
@@ -98,6 +100,25 @@ GraphNode* GraphGetNode(Graph *graph, robj *key) {
   if (current != NULL) {
     return (GraphNode *)(current->value);
   }
+  return NULL;
+}
+
+GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
+  ListNode* current = graph->edges->root;
+  // TODO: Still to finish !
+  if (current == NULL)
+    return NULL;
+  while (current != NULL) {
+    GraphEdge *edge = (GraphEdge *)(current->value);
+    if (equalStringObjects(node1->key, edge->node1->key) && equalStringObjects(node2->key, edge->node2->key)) {
+      break;
+    }
+    current = current->next;
+  }
+  if (current != NULL) {
+    return (GraphEdge *)(current->value);
+  }
+
   return NULL;
 }
 
@@ -166,8 +187,6 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   // Initialization
   zslInsert(distances->zsl, 0, node1->key);
   dictAdd(distances->dict, node1->key, NULL);
-
-
 
   // Main loop
   GraphNode *current_node = node1;
@@ -297,6 +316,12 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   robj *distance_reply= createStringObjectFromLongDouble(final_distance);
   addReplyBulk(c, distance_reply);
 
+  // Clear memory
+  zfree(distances_obj->ptr);
+  dictRelease(distances->dict);
+  zslFree(distances->zsl);
+  freeHashObject(parents);
+
   return REDIS_OK;
 }
 
@@ -352,8 +377,9 @@ void gvertixCommand(redisClient *c) {
   return REDIS_OK;
 }
 
-void gedgeCommand(redisClient *c) {
+void gedgeexistsCommand(redisClient *c) {
   robj *graph;
+  GraphEdge *edge;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
 
@@ -362,16 +388,49 @@ void gedgeCommand(redisClient *c) {
   GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
 
+  // Check whether the edge already exists
+  edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+
+  if (edge != NULL) {
+    addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
+  return REDIS_OK;
+}
+
+void gedgeCommand(redisClient *c) {
+  robj *graph;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+
+  Graph *graph_object = (Graph *)(graph->ptr);
+
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+
+  // Check whether the edge already exists
+  edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+
+  if (edge != NULL) {
+    addReply(c, shared.czero);
+    return REDIS_OK;
+  }
+
   char *value_string = c->argv[4]->ptr;
   float value_float = atof(value_string);
 
-  GraphEdge *edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
+  edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
   GraphAddEdge(graph_object, edge);
 
   robj *value;
-  value = createStringObject("ok", strlen("ok"));
-  addReplyBulk(c, value);
+  addReply(c, shared.cone);
   return REDIS_OK;
+}
+
+void gedgeincrbyCommand(redisClient *c) {
+
 }
 
 void listgraphnodesCommand(redisClient *c) {

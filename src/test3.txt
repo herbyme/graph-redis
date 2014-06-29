@@ -13,6 +13,7 @@ gvertix graph omar10
 gvertix graph omar11
 gvertix graph omar12
 gedge graph omar1 omar2 1
+gedge graph omar1 omar2 0
 gedge graph omar2 omar4 1
 gedge graph omar3 omar4 1
 gedge graph omar4 omar5 2
@@ -26,5 +27,7 @@ gedge graph omar9 omar10 3
 gedge graph omar9 omar11 1
 gedge graph omar10 omar12 5
 gedge graph omar11 omar12 1
+gedgeexists graph omar1 omar2
+gedgeexists graph omar1 omar11
 shortestpath graph omar1 omar12
 shortestpath graph omar1 omar12
