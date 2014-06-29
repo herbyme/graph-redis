@@ -34,6 +34,7 @@ typedef struct {
   GraphNode *node1;
   GraphNode *node2;
   float value;
+  robj *key;
 } GraphEdge;
 
 typedef struct {
@@ -70,6 +71,7 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   graphEdge->node1 = node1;
   graphEdge->node2 = node2;
   graphEdge->value = value;
+  graphEdge->key = createObject(REDIS_GRAPH, graphEdge);
   return graphEdge;
 }
 
@@ -81,6 +83,8 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
   ListAddNode(graph->edges, listNode);
+  listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
+  listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
 }
 
 Graph* GraphCreate() {
@@ -111,6 +115,10 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
   while (current != NULL) {
     GraphEdge *edge = (GraphEdge *)(current->value);
     if (equalStringObjects(node1->key, edge->node1->key) && equalStringObjects(node2->key, edge->node2->key)) {
+      break;
+    }
+    // The graph is undirected graph
+    if (equalStringObjects(node2->key, edge->node1->key) && equalStringObjects(node1->key, edge->node2->key)) {
       break;
     }
     current = current->next;
@@ -351,7 +359,7 @@ robj *createGraphObject() {
   return obj;
 }
 
-void gvertixCommand(redisClient *c) {
+void gvertexCommand(redisClient *c) {
 
   robj *graph;
   robj *key = c->argv[1];
@@ -377,14 +385,39 @@ void gvertixCommand(redisClient *c) {
   return REDIS_OK;
 }
 
+void gneighboursCommand(redisClient *c) {
+  robj *graph;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *node = GraphGetNode(graph_object, c->argv[2]);
+
+  // Neighbours count
+  long count = listTypeLength(node->edges);
+  addReplyMultiBulkLen(c, count);
+  int i;
+  for (i = 0; i < count; i++) {
+    listNode *ln = listIndex(node->edges->ptr, i);
+    robj *obj = listNodeValue(ln);
+    edge = obj->ptr;
+    if (equalStringObjects(edge->node1->key, node->key)) {
+      addReplyBulk(c, edge->node2->key);
+    } else {
+      addReplyBulk(c, edge->node1->key);
+    }
+  }
+
+  RETURN_OK
+
+}
+
 void gedgeexistsCommand(redisClient *c) {
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
-
   Graph *graph_object = (Graph *)(graph->ptr);
-
   GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
 
@@ -431,9 +464,30 @@ void gedgeCommand(redisClient *c) {
 
 void gedgeincrbyCommand(redisClient *c) {
 
+  robj *graph;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+
+  char *value_string = c->argv[4]->ptr;
+  float value_float = atof(value_string);
+
+  // Check whether the edge already exists
+  edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+
+  if (edge != NULL) {
+    edge->value += value_float;
+    addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
+  return REDIS_OK;
 }
 
-void listgraphnodesCommand(redisClient *c) {
+void gverticesCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -460,11 +514,10 @@ void listgraphnodesCommand(redisClient *c) {
     current_node = current_node->next;
   }
 
-
   return REDIS_OK;
 }
 
-void listgraphedgesCommand(redisClient *c) {
+void gedgesCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);

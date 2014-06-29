@@ -1483,12 +1483,13 @@ void pfmergeCommand(redisClient *c);
 void pfdebugCommand(redisClient *c);
 
 // Graph Commands
-void gvertixCommand(redisClient *c);
+void gvertexCommand(redisClient *c);
 void gedgeCommand(redisClient *c);
 void gedgeexistsCommand(redisClient *c);
 void gedgeincrbyCommand(redisClient *c);
-void listgraphnodesCommand(redisClient *c);
-void listgraphedgesCommand(redisClient *c);
+void gneighboursCommand(redisClient *c);
+void gverticesCommand(redisClient *c);
+void gedgesCommand(redisClient *c);
 void shortestpathCommand(redisClient *c);
 
 

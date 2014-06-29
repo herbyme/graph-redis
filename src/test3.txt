@@ -1,18 +1,19 @@
 flushdb
-gvertix graph omar1
-gvertix graph omar2
-gvertix graph omar3
-gvertix graph omar4
-gvertix graph omar5
-gvertix graph omar5
-gvertix graph omar6
-gvertix graph omar7
-gvertix graph omar8
-gvertix graph omar9
-gvertix graph omar10
-gvertix graph omar11
-gvertix graph omar12
+gvertex graph omar1
+gvertex graph omar2
+gvertex graph omar3
+gvertex graph omar4
+gvertex graph omar5
+gvertex graph omar5
+gvertex graph omar6
+gvertex graph omar7
+gvertex graph omar8
+gvertex graph omar9
+gvertex graph omar10
+gvertex graph omar11
+gvertex graph omar12
 gedge graph omar1 omar2 1
+gedgeincrby graph omar1 omar2 1
 gedge graph omar1 omar2 0
 gedge graph omar2 omar4 1
 gedge graph omar3 omar4 1
@@ -27,7 +28,9 @@ gedge graph omar9 omar10 3
 gedge graph omar9 omar11 1
 gedge graph omar10 omar12 5
 gedge graph omar11 omar12 1
+gneighbours graph omar2
 gedgeexists graph omar1 omar2
+gedgeexists graph omar2 omar1
 gedgeexists graph omar1 omar11
 shortestpath graph omar1 omar12
 shortestpath graph omar1 omar12
