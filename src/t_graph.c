@@ -411,8 +411,7 @@ void gneighboursCommand(redisClient *c) {
     }
   }
 
-  RETURN_OK
-
+  return REDIS_OK;
 }
 
 void gedgeexistsCommand(redisClient *c) {
