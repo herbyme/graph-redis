@@ -418,6 +418,10 @@ void gneighboursCommand(redisClient *c) {
   return REDIS_OK;
 }
 
+void gcommonCommand(redisClient *c) {
+
+}
+
 void gedgeexistsCommand(redisClient *c) {
   robj *graph;
   GraphEdge *edge;
@@ -486,11 +490,11 @@ void gedgeincrbyCommand(redisClient *c) {
 
   if (edge != NULL) {
     edge->value += value_float;
-    addReply(c, shared.cone);
+    addReplyLongLong(c, edge->value);
+    return REDIS_OK;
   } else {
-    addReply(c, shared.czero);
+    gedgeCommand(c);
   }
-  return REDIS_OK;
 }
 
 void gverticesCommand(redisClient *c) {
