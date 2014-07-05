@@ -374,17 +374,21 @@ void gvertexCommand(redisClient *c) {
   }
 
   // Check if graph vertex already exists
-
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *graph_node = GraphGetNode(graph_object, c->argv[2]);
 
-  if (graph_node == NULL ) {
-    graph_node = GraphNodeCreate(c->argv[2], 0);
-    GraphAddNode(graph_object, graph_node);
-    addReply(c, shared.cone);
-  } else {
-    addReply(c, shared.czero);
+  int added = 0;
+
+  int i;
+  for (i = 2; i < c->argc; i++) {
+    GraphNode *graph_node = GraphGetNode(graph_object, c->argv[i]);
+    if (graph_node == NULL) {
+      graph_node = GraphNodeCreate(c->argv[i], 0);
+      GraphAddNode(graph_object, graph_node);
+      added++;
+    }
   }
+
+  addReplyLongLong(c, added);
   return REDIS_OK;
 }
 

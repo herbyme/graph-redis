@@ -1,7 +1,5 @@
 flushdb
-gvertex graph omar1
-gvertex graph omar2
-gvertex graph omar3
+gvertex graph omar1 omar2 omar3
 gvertex graph omar4
 gvertex graph omar5
 gvertex graph omar5
