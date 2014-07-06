@@ -1362,6 +1362,7 @@ void clientCommand(redisClient *c) {
         if (c->argc == 3) {
             /* Old style syntax: CLIENT KILL <addr> */
             addr = c->argv[2]->ptr;
+            skipme = 0; /* With the old form, you can kill yourself. */
         } else if (c->argc > 3) {
             int i = 2; /* Next option index. */
 
@@ -1409,7 +1410,9 @@ void clientCommand(redisClient *c) {
         while ((ln = listNext(&li)) != NULL) {
             client = listNodeValue(ln);
             if (addr && strcmp(getClientPeerId(client),addr) != 0) continue;
-            if (type != -1 && getClientType(client) != type) continue;
+            if (type != -1 &&
+                (client->flags & REDIS_MASTER ||
+                 getClientType(client) != type)) continue;
             if (id != 0 && client->id != id) continue;
             if (c == client && skipme) continue;
 
@@ -1492,7 +1495,7 @@ void rewriteClientCommandVector(redisClient *c, int argc, ...) {
     va_start(ap,argc);
     for (j = 0; j < argc; j++) {
         robj *a;
-        
+
         a = va_arg(ap, robj*);
         argv[j] = a;
         incrRefCount(a);
@@ -1514,7 +1517,7 @@ void rewriteClientCommandVector(redisClient *c, int argc, ...) {
  * The new val ref count is incremented, and the old decremented. */
 void rewriteClientCommandArgument(redisClient *c, int i, robj *newval) {
     robj *oldval;
-   
+
     redisAssertWithInfo(c,NULL,i < c->argc);
     oldval = c->argv[i];
     c->argv[i] = newval;
