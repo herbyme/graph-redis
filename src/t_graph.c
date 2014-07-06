@@ -449,7 +449,6 @@ robj *neighboursToSet(GraphNode *node) {
 }
 
 void gcommonCommand(redisClient *c) {
-
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -461,7 +460,6 @@ void gcommonCommand(redisClient *c) {
 
   set1 = neighboursToSet(node1);
   set2 = neighboursToSet(node2);
-  //
 
   if (set1 == NULL || set2 == NULL) {
     addReplyMultiBulkLen(c, 0);
@@ -477,9 +475,6 @@ void gcommonCommand(redisClient *c) {
     set2 = set1;
     set1 = temp;
   }
-
-  // Debug length
-  //addReplyLongLong(c, setTypeSize(set2));
 
   setTypeIterator *si = setTypeInitIterator(set1);
   int encoding;
@@ -500,6 +495,10 @@ void gcommonCommand(redisClient *c) {
     addReplyBulk(c, eleobj);
   }
   setTypeReleaseIterator(si);
+
+  freeSetObject(set1);
+  freeSetObject(set2);
+  freeSetObject(result);
 
   return REDIS_OK;
 }
