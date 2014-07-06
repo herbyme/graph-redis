@@ -418,8 +418,90 @@ void gneighboursCommand(redisClient *c) {
   return REDIS_OK;
 }
 
+robj *neighboursToSet(GraphNode *node) {
+
+  // Creating neighbours set of the first node
+
+  GraphEdge *edge;
+  robj *set = NULL;
+  long count;
+  count = listTypeLength(node->edges);
+  int i;
+  for (i = 0; i < count; i++) {
+    listNode *ln = listIndex(node->edges->ptr, i);
+    robj *edge_obj = listNodeValue(ln);
+    edge = edge_obj->ptr;
+    robj *neighbour_key;
+    if (equalStringObjects(edge->node1->key, node->key)) {
+      neighbour_key = edge->node2->key;
+    } else {
+      neighbour_key = edge->node1->key;
+    }
+    if (set == NULL) {
+      set = setTypeCreate(neighbour_key);
+      setTypeAdd(set, neighbour_key);
+    } else {
+      setTypeAdd(set, neighbour_key);
+    }
+  }
+
+  return set;
+}
+
 void gcommonCommand(redisClient *c) {
 
+  robj *graph;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
+  robj *set1 = NULL;
+  robj *set2 = NULL;
+
+  set1 = neighboursToSet(node1);
+  set2 = neighboursToSet(node2);
+  //
+
+  if (set1 == NULL || set2 == NULL) {
+    RETURN_OK
+    return;
+  }
+
+  robj *result = createIntsetObject();
+
+  // Switch set1, and set2 if set1 length is bigger. To improve performance
+  robj *temp;
+  if (setTypeSize(set1) > setTypeSize(set2)) {
+    temp = set2;
+    set2 = set1;
+    set1 = temp;
+  }
+
+  // Debug length
+  //addReplyLongLong(c, setTypeSize(set2));
+
+  setTypeIterator *si = setTypeInitIterator(set1);
+  int encoding;
+  int intobj;
+  robj *eleobj;
+
+  while((encoding = setTypeNext(si,&eleobj,&intobj)) != -1) {
+    if (setTypeIsMember(set2, eleobj)){
+      setTypeAdd(result, eleobj);
+    }
+  }
+  setTypeReleaseIterator(si);
+
+  addReplyMultiBulkLen(c, setTypeSize(result));
+
+  si = setTypeInitIterator(set1);
+  while((encoding = setTypeNext(si,&eleobj,&intobj)) != -1) {
+    addReplyBulk(c, eleobj);
+  }
+  setTypeReleaseIterator(si);
+
+  return REDIS_OK;
 }
 
 void gedgeexistsCommand(redisClient *c) {
