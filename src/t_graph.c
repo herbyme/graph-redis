@@ -464,8 +464,8 @@ void gcommonCommand(redisClient *c) {
   //
 
   if (set1 == NULL || set2 == NULL) {
-    RETURN_OK
-    return;
+    addReplyMultiBulkLen(c, 0);
+    return REDIS_OK;
   }
 
   robj *result = createIntsetObject();
