@@ -1492,8 +1492,10 @@ void gneighboursCommand(redisClient *c);
 void gcommonCommand(redisClient *c);
 void gverticesCommand(redisClient *c);
 void gedgesCommand(redisClient *c);
-void shortestpathCommand(redisClient *c);
 
+// Graph Algorithms
+void gshortestpathCommand(redisClient *c);
+void gmintreeCommand(redisClient *c);
 
 #if defined(__GNUC__)
 void *calloc(size_t count, size_t size) __attribute__ ((deprecated));

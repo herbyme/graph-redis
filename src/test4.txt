@@ -7,4 +7,5 @@ gedgeincrby graph omar4 omar3 5
 gedgeincrby graph omar4 omar2 5
 gcommon graph omar1 omar4
 gcommon graph omar1 omar5
+gedges graph
 

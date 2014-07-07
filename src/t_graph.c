@@ -22,6 +22,7 @@ typedef struct ListNode {
 
 typedef struct {
   ListNode *root;
+  int size;
 } List;
 
 typedef struct {
@@ -38,8 +39,8 @@ typedef struct {
 } GraphEdge;
 
 typedef struct {
-  List *nodes;
-  List *edges;
+  List *nodes; //TODO: Use redis lists like the GraphNode
+  List *edges; //TODO: Use redis lists like the GraphNode
 } Graph;
 
 ListNode* ListNodeCreate(void* value) {
@@ -52,6 +53,7 @@ ListNode* ListNodeCreate(void* value) {
 List* ListCreate() {
   List* list = zmalloc(sizeof(List));
   list->root = NULL;
+  list->size = 0;
   return list;
 }
 
@@ -95,6 +97,7 @@ Graph* GraphCreate() {
 }
 
 GraphNode* GraphGetNode(Graph *graph, robj *key) {
+  // TODO: To improve using a hash
   ListNode* current = graph->nodes->root;
   if (current == NULL)
     return NULL;
@@ -145,6 +148,7 @@ void ListAddNode(List *list, ListNode *node) {
   } else {
     (ListTail(list))->next = node;
   }
+  list->size++;
 }
 
 typedef struct HashObject {
@@ -336,8 +340,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   return REDIS_OK;
 }
 
-void shortestpathCommand(redisClient *c) {
-
+void gshortestpathCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -345,7 +348,6 @@ void shortestpathCommand(redisClient *c) {
 
   GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
-
 
   redisAssert(node1 != NULL);
   redisAssert(node2 != NULL);
@@ -360,6 +362,49 @@ robj *createGraphObject() {
   robj *obj = createObject(REDIS_GRAPH, ptr);
   obj->refcount = 100;
   return obj;
+}
+
+void gmintreeCommand(redisClient *c) {
+  // Using Prim's Algorithm
+  robj *graph;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+
+  robj *graph2_key = c->argv[2];
+
+  robj *graph2 = createGraphObject();
+  Graph *graph2_object = (Graph *)(graph2->ptr);
+  dbAdd(c->db, graph2_key, graph2);
+
+  // Adding first node
+  GraphNode *node;
+  node = (GraphNode *)(graph_object->nodes->root->value);
+  GraphAddNode(graph2_object, node);
+
+  // Creating a priority-queue for edges
+  robj *queue = createZsetObject();
+  zset *qzs = queue->ptr;
+
+  // TODO: Make sure first node has edges, and that's not a problem, but it should be a connected graph !
+
+  // Insert the first node edges to the queue
+  robj *list = node->edges;
+  GraphEdge *edge;
+  int count, i;
+  count = listTypeLength(list);
+  for(i = 0; i < count; i++) {
+    edge = (GraphEdge *)(listNodeValue(listIndex(list->ptr, i)));
+    zslInsert(qzs->zsl, edge->value, edge);
+  }
+
+  // While the minimum edge connects existing node to new node
+  while (0) {
+
+
+  }
+
+  RETURN_OK
 }
 
 void gvertexCommand(redisClient *c) {
@@ -554,7 +599,6 @@ void gedgeCommand(redisClient *c) {
 }
 
 void gedgeincrbyCommand(redisClient *c) {
-
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];

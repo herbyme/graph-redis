@@ -263,7 +263,8 @@ struct redisCommand redisCommandTable[] = {
 
     {"gvertices",gverticesCommand,2,"r",0,NULL,1,1,1,0,0},
     {"gedges",gedgesCommand,2,"r",0,NULL,1,1,1,0,0},
-    {"shortestpath",shortestpathCommand,4,"r",0,NULL,1,1,1,0,0},
+    {"gshortestpath",gshortestpathCommand,4,"r",0,NULL,1,1,1,0,0},
+    {"gmintree",gmintreeCommand,3,"r",0,NULL,1,1,1,0,0},
 
     {"watch",watchCommand,-2,"rs",0,NULL,1,-1,1,0,0},
     {"unwatch",unwatchCommand,1,"rs",0,NULL,0,0,0,0,0},
