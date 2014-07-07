@@ -398,7 +398,8 @@ void gmintreeCommand(redisClient *c) {
     zslInsert(qzs->zsl, edge->value, edge);
   }
 
-  // While the minimum edge connects existing node to new node
+  // While the minimum edge connects existing node to new node, or BETTER: until the
+  // new graph nodes length == graph 1 nodes length
   while (0) {
 
 
