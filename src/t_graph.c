@@ -73,7 +73,12 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   graphEdge->node1 = node1;
   graphEdge->node2 = node2;
   graphEdge->value = value;
-  graphEdge->key = createObject(REDIS_GRAPH, graphEdge);
+
+  // unique Edge key
+  char *buffer = (char *)(zmalloc(20 * sizeof(char)));
+  sprintf(buffer, "%d", (int)(buffer));
+  graphEdge->key = createStringObject(buffer, strlen(buffer));
+
   return graphEdge;
 }
 
@@ -130,6 +135,24 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
     return (GraphEdge *)(current->value);
   }
 
+  return NULL;
+}
+
+GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
+  ListNode* current = graph->edges->root;
+  // TODO: Still to finish !
+  if (current == NULL)
+    return NULL;
+  while (current != NULL) {
+    GraphEdge *edge = (GraphEdge *)(current->value);
+    if (equalStringObjects(key, edge->key)) {
+      break;
+    }
+    current = current->next;
+  }
+  if (current != NULL) {
+    return (GraphEdge *)(current->value);
+  }
   return NULL;
 }
 
@@ -390,19 +413,28 @@ void gmintreeCommand(redisClient *c) {
 
   // Insert the first node edges to the queue
   robj *list = node->edges;
+  robj *edge_key;
   GraphEdge *edge;
   int count, i;
   count = listTypeLength(list);
   for(i = 0; i < count; i++) {
-    edge = (GraphEdge *)(listNodeValue(listIndex(list->ptr, i)));
-    zslInsert(qzs->zsl, edge->value, edge);
+    edge_key = listNodeValue(listIndex(list->ptr, i));
+    edge = GraphGetEdgeByKey(graph_object, edge_key);
+    zslInsert(qzs->zsl, edge->value, edge->key);
   }
 
   // While the minimum edge connects existing node to new node, or BETTER: until the
   // new graph nodes length == graph 1 nodes length
   while (0) {
+    zskiplistNode *node;
+    node = qzs->zsl->header->level[0].forward;
+    if (node != NULL) {
+      GraphEdge *edge = (GraphEdge *)(node->obj);
+      zslDelete(qzs->zsl, edge->value, edge->key);
 
-
+    } else {
+      break;
+    }
   }
 
   RETURN_OK
