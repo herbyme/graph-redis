@@ -78,6 +78,7 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
   sprintf(buffer, "%d", (int)(buffer));
   graphEdge->key = createStringObject(buffer, strlen(buffer));
+  graphEdge->key->refcount = 100;
 
   return graphEdge;
 }
@@ -425,12 +426,13 @@ void gmintreeCommand(redisClient *c) {
 
   // While the minimum edge connects existing node to new node, or BETTER: until the
   // new graph nodes length == graph 1 nodes length
-  while (0) {
+  while (1) {
     zskiplistNode *node;
     node = qzs->zsl->header->level[0].forward;
     if (node != NULL) {
-      GraphEdge *edge = (GraphEdge *)(node->obj);
-      zslDelete(qzs->zsl, edge->value, edge->key);
+      GraphEdge *edge = GraphGetEdgeByKey(graph_object, node->obj);
+      zslDelete(qzs->zsl, node->score, edge->key);
+      break;
 
     } else {
       break;
