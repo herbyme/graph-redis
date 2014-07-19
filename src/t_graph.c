@@ -14,6 +14,12 @@
   addReplyBulk(c, value20); \
   return REDIS_OK;
 
+robj *cloneStringObject(robj *obj) {
+  char *str = zmalloc(sizeof(char) * strlen(obj->ptr));
+  strcpy(str, obj->ptr);
+  return createStringObject(str, strlen(str));
+}
+
 typedef struct ListNode {
   void* value;
   struct ListNode *next;
@@ -114,6 +120,11 @@ GraphNode* GraphGetNode(Graph *graph, robj *key) {
     return (GraphNode *)(current->value);
   }
   return NULL;
+}
+
+int GraphNodeExists(Graph *graph, robj *key) {
+  GraphNode *node = GraphGetNode(graph, key);
+  return (node != NULL);
 }
 
 GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
@@ -432,7 +443,35 @@ void gmintreeCommand(redisClient *c) {
     if (node != NULL) {
       GraphEdge *edge = GraphGetEdgeByKey(graph_object, node->obj);
       zslDelete(qzs->zsl, node->score, edge->key);
-      break;
+      GraphNode *node1, *node2;
+      node1 = edge->node1;
+      node2 = edge->node2;
+
+      char a, b;
+      a = GraphNodeExists(graph2_object, node1->key);
+      b = GraphNodeExists(graph2_object, node2->key);
+      if (a ^ b) {
+        // Adding the edge to graph2
+        GraphAddEdge(graph2_object, edge);
+
+        // HERE: Add the new node to graph2
+        GraphNode *node_to_add = a ? GraphNodeCreate(node2->key, 0) : GraphNodeCreate(node1->key, 0);
+        GraphAddNode(graph2_object, node_to_add);
+
+        // Adding the node edges to the queue, if they don't exist before
+        list = (a ? node2 : node1)->edges;
+        count = listTypeLength(list);
+        for(i = 0; i < count; i++) {
+          GraphEdge *edge2;
+          edge_key = listNodeValue(listIndex(list->ptr, i));
+          edge2 = GraphGetEdgeByKey(graph_object, edge_key);
+          // Check if the edge already exists in graph2
+          GraphNode *tmp_edge = GraphGetEdgeByKey(graph2_object, edge_key);
+          if (tmp_edge == NULL) {
+            zslInsert(qzs->zsl, edge2->value, edge2->key);
+          }
+        }
+      }
 
     } else {
       break;
@@ -453,7 +492,6 @@ void gvertexCommand(redisClient *c) {
     dbAdd(c->db, key, graph);
   }
 
-  // Check if graph vertex already exists
   Graph *graph_object = (Graph *)(graph->ptr);
 
   int added = 0;
@@ -461,6 +499,7 @@ void gvertexCommand(redisClient *c) {
   int i;
   for (i = 2; i < c->argc; i++) {
     GraphNode *graph_node = GraphGetNode(graph_object, c->argv[i]);
+  // TODO: Check if graph vertex already exists
     if (graph_node == NULL) {
       graph_node = GraphNodeCreate(c->argv[i], 0);
       GraphAddNode(graph_object, graph_node);

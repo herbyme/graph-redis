@@ -5,7 +5,9 @@ gedge graph omar3 omar2 1
 gedge graph omar4 omar3 1
 gedge graph omar4 omar5 1
 gedge graph omar1 omar4 100
+gedge graph omar1 omar5 2
 gedges graph
 gmintree graph graph2
+gvertices graph
 gvertices graph2
-
+gedges graph2
