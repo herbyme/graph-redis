@@ -269,8 +269,8 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     for (j = 0; j < neighbours_count; j++) {
 
       listNode *ln = listIndex(current_node->edges->ptr, j);
-      robj *edge_object = listNodeValue(ln);
-      GraphEdge *edge = (GraphEdge *)(edge_object->ptr);
+      robj *edge_key = listNodeValue(ln);
+      GraphEdge *edge = GraphGetEdgeByKey(graph, edge_key);
       GraphNode *neighbour = NULL;
 
       if (edge->node1 == current_node) {
