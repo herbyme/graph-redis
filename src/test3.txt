@@ -27,3 +27,4 @@ gedge graph omar9 omar11 1
 gedge graph omar10 omar12 5
 gedge graph omar11 omar12 1
 gneighbours graph omar2
+gshortestpath graph omar1 omar2
