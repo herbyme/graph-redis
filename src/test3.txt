@@ -27,8 +27,3 @@ gedge graph omar9 omar11 1
 gedge graph omar10 omar12 5
 gedge graph omar11 omar12 1
 gneighbours graph omar2
-gedgeexists graph omar1 omar2
-gedgeexists graph omar2 omar1
-gedgeexists graph omar1 omar11
-shortestpath graph omar1 omar12
-shortestpath graph omar1 omar12

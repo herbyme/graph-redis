@@ -482,7 +482,6 @@ void gmintreeCommand(redisClient *c) {
 }
 
 void gvertexCommand(redisClient *c) {
-
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyWrite(c->db, key);
@@ -513,6 +512,7 @@ void gvertexCommand(redisClient *c) {
 
 void gneighboursCommand(redisClient *c) {
   robj *graph;
+  robj *edge_key;
   GraphEdge *edge;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -523,10 +523,10 @@ void gneighboursCommand(redisClient *c) {
   long count = listTypeLength(node->edges);
   addReplyMultiBulkLen(c, count);
   int i;
+  robj *list = node->edges;
   for (i = 0; i < count; i++) {
-    listNode *ln = listIndex(node->edges->ptr, i);
-    robj *obj = listNodeValue(ln);
-    edge = obj->ptr;
+    edge_key = listNodeValue(listIndex(list->ptr, i));
+    edge = GraphGetEdgeByKey(graph_object, edge_key);
     if (equalStringObjects(edge->node1->key, node->key)) {
       addReplyBulk(c, edge->node2->key);
     } else {
