@@ -656,13 +656,14 @@ void gedgeCommand(redisClient *c) {
   // Check whether the edge already exists
   edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
 
+  char *value_string = c->argv[4]->ptr;
+  float value_float = atof(value_string);
+
   if (edge != NULL) {
+    edge->value = value_float;
     addReply(c, shared.czero);
     return REDIS_OK;
   }
-
-  char *value_string = c->argv[4]->ptr;
-  float value_float = atof(value_string);
 
   edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
   GraphAddEdge(graph_object, edge);
