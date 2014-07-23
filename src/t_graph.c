@@ -342,7 +342,8 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
     robj *read = createStringObject(vstr, vlen);
     cur_node = GraphGetNode(graph, read);
-    count++;
+    if (cur_node != NULL)
+      count++;
     if (equalStringObjects(read, node1->key)) {
       break;
     }
@@ -350,18 +351,29 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
 
   addReplyMultiBulkLen(c, count + 1);
   cur_node = node2;
-  addReplyBulk(c, node2->key);
+
+  robj **replies = zmalloc(sizeof(robj *) * count);
+  int k = count - 1;
+  replies[k--] = node2->key;
 
   while(cur_node != NULL) {
     ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
     robj *read = createStringObject(vstr, vlen);
     cur_node = GraphGetNode(graph, read);
-    if (cur_node != NULL)
-      addReplyBulk(c, cur_node->key);
+    if (cur_node != NULL) {
+      replies[k--] = cur_node->key;
+    }
     if (equalStringObjects(read, node1->key)) {
       break;
     }
   }
+  redisAssert(k == -1);
+
+  // Path nodes reversed
+  for(k = 0; k < count; k++)
+    addReplyBulk(c, replies[k]);
+
+  zfree(replies);
 
   robj *distance_reply= createStringObjectFromLongDouble(final_distance);
   addReplyBulk(c, distance_reply);
