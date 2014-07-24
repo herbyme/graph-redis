@@ -254,6 +254,7 @@ struct redisCommand redisCommandTable[] = {
     {"pubsub",pubsubCommand,-2,"pltrR",0,NULL,0,0,0,0,0},
 
     // Graph Commands
+    {"gsetdirected",gsetdirectedCommand,2,"wm",0,NULL,1,1,1,0,0},
     {"gvertex",gvertexCommand,-3,"wm",0,NULL,1,1,1,0,0},
     {"gneighbours",gneighboursCommand,3,"r",0,NULL,1,1,1,0,0},
     {"gcommon",gcommonCommand,4,"r",0,NULL,1,1,1,0,0},

@@ -47,6 +47,7 @@ typedef struct {
 typedef struct {
   List *nodes; //TODO: Use redis lists like the GraphNode
   List *edges; //TODO: Use redis lists like the GraphNode
+  char directed;
 } Graph;
 
 ListNode* ListNodeCreate(void* value) {
@@ -98,13 +99,16 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
   ListAddNode(graph->edges, listNode);
   listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
-  listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
+  if (! graph->directed ) {
+    listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
+  }
 }
 
 Graph* GraphCreate() {
   Graph* graph = zmalloc(sizeof(Graph));
   graph->nodes = ListCreate();
   graph->edges = ListCreate();
+  graph->directed = 0;
   return graph;
 }
 
@@ -138,8 +142,10 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
       break;
     }
     // The graph is undirected graph
-    if (equalStringObjects(node2->key, edge->node1->key) && equalStringObjects(node1->key, edge->node2->key)) {
-      break;
+    if (! graph->directed ) {
+      if (equalStringObjects(node2->key, edge->node1->key) && equalStringObjects(node1->key, edge->node2->key)) {
+        break;
+      }
     }
     current = current->next;
   }
@@ -489,6 +495,16 @@ void gmintreeCommand(redisClient *c) {
       break;
     }
   }
+
+  RETURN_OK
+}
+
+void gsetdirectedCommand(redisClient *c) {
+  robj *graph;
+  robj *key = c->argv[1];
+  graph = lookupKeyWrite(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  graph_object->directed = 1;
 
   RETURN_OK
 }
