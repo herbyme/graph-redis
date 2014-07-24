@@ -35,6 +35,7 @@ typedef struct {
   float value;
   robj *key;
   robj *edges;
+  robj *incoming; // Only for directed graphs
 } GraphNode;
 
 typedef struct {
@@ -71,6 +72,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
   graphNode->edges = createListObject();
+  graphNode->incoming = createListObject();
   graphNode->value = value;
   return graphNode;
 }
@@ -99,7 +101,10 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
   ListAddNode(graph->edges, listNode);
   listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
-  if (! graph->directed ) {
+  if (graph->directed ) {
+    listTypePush(graphEdge->node2->incoming, graphEdge->key, REDIS_TAIL);
+  }
+  else {
     listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
   }
 }
@@ -535,6 +540,33 @@ void gvertexCommand(redisClient *c) {
   }
 
   addReplyLongLong(c, added);
+  return REDIS_OK;
+}
+
+void gincomingCommand(redisClient *c) {
+  robj *graph;
+  robj *edge_key;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *node = GraphGetNode(graph_object, c->argv[2]);
+
+  // Neighbours count
+  long count = listTypeLength(node->incoming);
+  addReplyMultiBulkLen(c, count);
+  int i;
+  robj *list = node->incoming;
+  for (i = 0; i < count; i++) {
+    edge_key = listNodeValue(listIndex(list->ptr, i));
+    edge = GraphGetEdgeByKey(graph_object, edge_key);
+    if (equalStringObjects(edge->node1->key, node->key)) {
+      addReplyBulk(c, edge->node2->key);
+    } else {
+      addReplyBulk(c, edge->node1->key);
+    }
+  }
+
   return REDIS_OK;
 }
 

@@ -1490,6 +1490,7 @@ void gedgeCommand(redisClient *c);
 void gedgeexistsCommand(redisClient *c);
 void gedgeincrbyCommand(redisClient *c);
 void gneighboursCommand(redisClient *c);
+void gincomingCommand(redisClient *c);
 void gcommonCommand(redisClient *c);
 void gverticesCommand(redisClient *c);
 void gedgesCommand(redisClient *c);
