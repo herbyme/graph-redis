@@ -141,8 +141,8 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   }
   listTypeReleaseIterator(li);
 
-
   // Deleting from Graph (TODO)
+  ListDeleteNode(graph->edges, graphEdge);
 
 }
 
@@ -234,39 +234,28 @@ void ListAddNode(List *list, ListNode *node) {
   list->size++;
 }
 
-typedef struct HashObject {
-  void *key;
-  void *value;
-} HashObject;
+void ListDeleteNode(List *list, void *value) {
+  ListNode* previous = NULL;
+  ListNode* current = list->root;
 
-typedef struct Hash {
-  List* nodes;
-} Hash;
+  while (current != NULL) {
+    if ((void *)(current->value) == value) {
+      if (previous) {
+        previous->next = current->next;
+      } else {
+        list->root = current->next;
+      }
+      zfree(current);
+      list->size--;
 
-Hash* HashCreate() {
-  Hash* hash = zmalloc(sizeof(Hash));
-  hash->nodes = ListCreate();
-  return hash;
-}
+      return;
+    }
 
-void HashSetObject(Hash *hash, void *key, void *value) {
-  HashObject* hashObject = zmalloc(sizeof(HashObject));
-  hashObject->key = key;
-  hashObject->value = value;
-  ListNode* listNode = ListNodeCreate(hashObject);
-  ListAddNode(hash->nodes, listNode);
-}
-
-void* HashGetObject(Hash *hash, void *key) {
-  ListNode* current = hash->nodes->root;
-  while (current != NULL && ((HashObject *)(current->value))->key != key) {
+    previous = current;
     current = current->next;
   }
-  if (current != NULL) {
-    return ((HashObject *)(current->value))->value;
-  } else {
-    return NULL;
-  }
+
+  return;
 }
 
 void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) {

@@ -18,6 +18,8 @@ describe 'Minimum spanning tree' do
     path.last.should eq '3'
     path = redis.gshortestpath 'graph1', 'd', 'a'
     path.last.should eq '3'
+    edges = redis.gedges 'graph1'
+    edges.length.should eq (3 * 3)
   end
 
 end
