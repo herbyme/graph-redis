@@ -260,6 +260,7 @@ struct redisCommand redisCommandTable[] = {
     {"gneighbours",gneighboursCommand,3,"r",0,NULL,1,1,1,0,0},
     {"gcommon",gcommonCommand,4,"r",0,NULL,1,1,1,0,0},
     {"gedge",gedgeCommand,5,"wm",0,NULL,1,1,1,0,0},
+    {"gedgerem",gedgeremCommand,4,"wm",0,NULL,1,1,1,0,0},
     {"gedgeincrby",gedgeincrbyCommand,5,"wm",0,NULL,1,1,1,0,0},
     {"gedgeexists",gedgeexistsCommand,4,"r",0,NULL,1,1,1,0,0},
 

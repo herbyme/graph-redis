@@ -1487,6 +1487,7 @@ void pfdebugCommand(redisClient *c);
 void gvertexCommand(redisClient *c);
 void gsetdirectedCommand(redisClient *c);
 void gedgeCommand(redisClient *c);
+void gedgeremCommand(redisClient *c);
 void gedgeexistsCommand(redisClient *c);
 void gedgeincrbyCommand(redisClient *c);
 void gneighboursCommand(redisClient *c);

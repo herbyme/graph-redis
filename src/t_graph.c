@@ -99,7 +99,7 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
-  ListAddNode(graph->edges, listNode);
+  ListAddNode(graph->edges, listNode); // TODO: Change !
   listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
   if (graph->directed ) {
     listTypePush(graphEdge->node2->incoming, graphEdge->key, REDIS_TAIL);
@@ -107,6 +107,43 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   else {
     listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
   }
+}
+
+void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
+
+  listTypeEntry entry;
+  listTypeIterator *li;
+
+  GraphNode *node1 = graphEdge->node1;
+  GraphNode *node2 = graphEdge->node2;
+
+  li = listTypeInitIterator(node1->edges, 0, REDIS_TAIL);
+
+  // Deleting from node1
+  while (listTypeNext(li,&entry)) {
+    if (listTypeEqual(&entry,graphEdge->key)) {
+      listTypeDelete(&entry);
+      //removed++;
+      break;
+    }
+  }
+  listTypeReleaseIterator(li);
+
+  // Deleting from node2
+  li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, REDIS_TAIL);
+  // Deleting from node1
+  while (listTypeNext(li,&entry)) {
+    if (listTypeEqual(&entry,graphEdge->key)) {
+      listTypeDelete(&entry);
+      //removed++;
+      break;
+    }
+  }
+  listTypeReleaseIterator(li);
+
+
+  // Deleting from Graph (TODO)
+
 }
 
 Graph* GraphCreate() {
@@ -723,12 +760,32 @@ void gedgeCommand(redisClient *c) {
     edge->value = value_float;
     addReply(c, shared.czero);
     return REDIS_OK;
+  } else {
+    edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
+    GraphAddEdge(graph_object, edge);
+
+    robj *value;
+    addReply(c, shared.cone);
+    return REDIS_OK;
   }
+}
 
-  edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
-  GraphAddEdge(graph_object, edge);
+void gedgeremCommand(redisClient *c) {
+  robj *graph;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
 
-  robj *value;
+  Graph *graph_object = (Graph *)(graph->ptr);
+
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+
+  // Check whether the edge already exists
+  edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+
+  GraphDeleteEdge(graph_object, edge);
+
   addReply(c, shared.cone);
   return REDIS_OK;
 }
