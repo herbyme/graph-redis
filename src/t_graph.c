@@ -773,9 +773,13 @@ void gedgeremCommand(redisClient *c) {
   // Check whether the edge already exists
   edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
 
-  GraphDeleteEdge(graph_object, edge);
+  if (edge) {
+    GraphDeleteEdge(graph_object, edge);
+    addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
 
-  addReply(c, shared.cone);
   return REDIS_OK;
 }
 

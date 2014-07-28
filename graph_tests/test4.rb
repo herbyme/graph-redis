@@ -22,5 +22,26 @@ describe 'Minimum spanning tree' do
     edges.length.should eq (3 * 3)
   end
 
+  it 'should correctly remove edges from undirected graphs' do
+    redis.flushdb
+    redis.gvertex 'graph1', 'a', 'b', 'c', 'd'
+    redis.gsetdirected 'graph1'
+    redis.gedge 'graph1', 'a', 'b', 1
+    redis.gedge 'graph1', 'c', 'b', 1
+    redis.gedge 'graph1', 'c', 'd', 1
+    redis.gedge 'graph1', 'd', 'b', 1
+    redis.gedge 'graph1', 'b', 'c', 1
+    incoming = redis.gincoming 'graph1', 'b'
+    incoming.length.should eq 3
+    redis.gedgerem('graph1', 'a', 'c').should eq 0
+    redis.gedgerem('graph1', 'c', 'b').should eq 1
+    incoming = redis.gincoming 'graph1', 'b'
+    incoming.length.should eq 2
+
+    path = redis.gshortestpath 'graph1', 'c', 'b'
+    path.last.should eq '2'
+  end
+
+
 end
 
