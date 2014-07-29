@@ -35,6 +35,7 @@ typedef struct {
   float value;
   robj *key;
   robj *edges;
+  dict *edges_hash;
   robj *incoming; // Only for directed graphs
 } GraphNode;
 
@@ -72,6 +73,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
   graphNode->edges = createListObject();
+  graphNode->edges_hash = dictCreate(&dbDictType, NULL);
   graphNode->incoming = createListObject();
   graphNode->value = value;
   return graphNode;
@@ -100,12 +102,22 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
   ListAddNode(graph->edges, listNode); // TODO: Change !
+
+  // Node 1 edges
+  // edges list
   listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
+  // edges hash
+  sds hash_key = sdsdup(graphEdge->node2->key->ptr);
+  redisAssert(dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge) == DICT_OK);
+
+  // Node 2 edges
   if (graph->directed ) {
     listTypePush(graphEdge->node2->incoming, graphEdge->key, REDIS_TAIL);
   }
-  else {
+  else { // Undirected
     listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
+    sds hash_key2 = sdsdup(graphEdge->node1->key->ptr);
+    redisAssert(dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge) == DICT_OK);
   }
 }
 
@@ -174,28 +186,11 @@ int GraphNodeExists(Graph *graph, robj *key) {
 }
 
 GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
-  ListNode* current = graph->edges->root;
-  // TODO: Still to finish !
-  if (current == NULL)
-    return NULL;
-  while (current != NULL) {
-    GraphEdge *edge = (GraphEdge *)(current->value);
-    if (equalStringObjects(node1->key, edge->node1->key) && equalStringObjects(node2->key, edge->node2->key)) {
-      break;
-    }
-    // The graph is undirected graph
-    if (! graph->directed ) {
-      if (equalStringObjects(node2->key, edge->node1->key) && equalStringObjects(node1->key, edge->node2->key)) {
-        break;
-      }
-    }
-    current = current->next;
-  }
-  if (current != NULL) {
-    return (GraphEdge *)(current->value);
-  }
+  dictEntry *entry = dictFind(node1->edges_hash, node2->key->ptr);
+  if (entry == NULL) return NULL;
 
-  return NULL;
+  GraphEdge *edge = (GraphEdge *)(dictGetVal(entry));
+  return edge;
 }
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
@@ -718,7 +713,9 @@ void gedgeexistsCommand(redisClient *c) {
   GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
 
   // Check whether the edge already exists
-  edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+  edge = NULL;
+  if (graph_node1 != NULL && graph_node2 != NULL)
+    edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
 
   if (edge != NULL) {
     addReply(c, shared.cone);
@@ -870,4 +867,19 @@ void gedgesCommand(redisClient *c) {
   }
 
   return REDIS_OK;
+}
+
+void testCommand(redisClient *c) {
+
+  // Writing and reading from a hash
+  dict *d = dictCreate(&dbDictType, NULL);
+  robj *key = createStringObject("key", strlen("key"));
+  sds key_str = sdsdup(key->ptr);
+  robj *value = createStringObject("omar", strlen("omar"));
+  redisAssert(dictAdd(d, key_str, value) == DICT_OK);
+  dictEntry *entry = dictFind(d,key->ptr);
+  robj *get_value = (robj *)(dictGetVal(entry));
+  redisAssert(equalStringObjects(get_value, value));
+
+  RETURN_OK
 }

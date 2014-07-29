@@ -1495,6 +1495,7 @@ void gincomingCommand(redisClient *c);
 void gcommonCommand(redisClient *c);
 void gverticesCommand(redisClient *c);
 void gedgesCommand(redisClient *c);
+void testCommand(redisClient *c); // For testing purposes
 
 // Graph Algorithms
 void gshortestpathCommand(redisClient *c);
