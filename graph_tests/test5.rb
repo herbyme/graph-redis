@@ -14,12 +14,8 @@ describe 'Minimum spanning tree' do
     redis.gedgeexists('graph1', 'a', 'b').should eq 1
     redis.gedgeexists('graph1', 'b', 'a').should eq 1
     redis.gedgerem('graph1', 'b', 'a').should eq 1
-    #redis.gedgeexists('graph1', 'b', 'a').should eq 1
-  end
-
-  it 'should correctly remove edges from undirected graphs' do
-    redis.flushdb
-    redis.gvertex 'graph1', 'a', 'b', 'c', 'd'
+    redis.gedgeexists('graph1', 'a', 'b').should eq 0
+    redis.gedgeexists('graph1', 'b', 'a').should eq 0
   end
 
 end

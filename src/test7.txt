@@ -1,8 +1,0 @@
-flushdb
-test 1
-gvertex graph1 a b c
-gsetdirected graph1
-gedge graph1 a b 1
-gedgeexists graph1 a b
-gedgeexists graph1 b a
-

@@ -122,7 +122,6 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
 }
 
 void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
-
   listTypeEntry entry;
   listTypeIterator *li;
 
@@ -135,27 +134,29 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   while (listTypeNext(li,&entry)) {
     if (listTypeEqual(&entry,graphEdge->key)) {
       listTypeDelete(&entry);
-      //removed++;
       break;
     }
   }
   listTypeReleaseIterator(li);
+  // Deleting from node1 hash
+  dictDeleteNoFree(node1->edges_hash, graphEdge->node2->key->ptr);
 
   // Deleting from node2
   li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, REDIS_TAIL);
-  // Deleting from node1
   while (listTypeNext(li,&entry)) {
     if (listTypeEqual(&entry,graphEdge->key)) {
       listTypeDelete(&entry);
-      //removed++;
       break;
     }
   }
   listTypeReleaseIterator(li);
+  if (!graph->directed) {
+    // Deleting from node2 hash
+    dictDeleteNoFree(node2->edges_hash, graphEdge->node1->key->ptr);
+  }
 
-  // Deleting from Graph (TODO)
+  // Deleting from Graph
   ListDeleteNode(graph->edges, graphEdge);
-
 }
 
 Graph* GraphCreate() {
@@ -457,8 +458,9 @@ void gmintreeCommand(redisClient *c) {
   dbAdd(c->db, graph2_key, graph2);
 
   // Adding first node
-  GraphNode *node;
-  node = (GraphNode *)(graph_object->nodes->root->value);
+  GraphNode *node, *root;
+  root = (GraphNode *)(graph_object->nodes->root->value);
+  node = GraphNodeCreate(root->key, 0);
   GraphAddNode(graph2_object, node);
 
   // Creating a priority-queue for edges
@@ -468,7 +470,7 @@ void gmintreeCommand(redisClient *c) {
   // TODO: Make sure first node has edges, and that's not a problem, but it should be a connected graph !
 
   // Insert the first node edges to the queue
-  robj *list = node->edges;
+  robj *list = root->edges;
   robj *edge_key;
   GraphEdge *edge;
   int count, i;
@@ -494,14 +496,18 @@ void gmintreeCommand(redisClient *c) {
       char a, b;
       a = GraphNodeExists(graph2_object, node1->key);
       b = GraphNodeExists(graph2_object, node2->key);
+
       if (a ^ b) {
-        // Adding the edge to graph2
-        GraphAddEdge(graph2_object, edge);
 
         // HERE: Add the new node to graph2
         GraphNode *node_to_add = a ? GraphNodeCreate(node2->key, 0) : GraphNodeCreate(node1->key, 0);
         GraphAddNode(graph2_object, node_to_add);
 
+        // Adding the edge to graph2
+        GraphNode *temp = GraphGetNode(graph2_object, a ? node1->key: node2->key);
+        GraphEdge *new_edge = GraphEdgeCreate(temp, node_to_add, edge->value);
+        GraphAddEdge(graph2_object, new_edge);
+        
         // Adding the node edges to the queue, if they don't exist before
         list = (a ? node2 : node1)->edges;
         count = listTypeLength(list);
@@ -515,6 +521,7 @@ void gmintreeCommand(redisClient *c) {
             zslInsert(qzs->zsl, edge2->value, edge2->key);
           }
         }
+
       }
 
     } else {
@@ -523,6 +530,8 @@ void gmintreeCommand(redisClient *c) {
   }
 
   RETURN_OK
+    return;
+
 }
 
 void gsetdirectedCommand(redisClient *c) {
