@@ -817,6 +817,12 @@ void gverticesCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
+  
+  robj *o;
+  if (graph == NULL || checkType(c, o, REDIS_GRAPH)) {
+    addReply(c, shared.czero);
+    return;
+  }
 
   Graph *graph_object = (Graph *)(graph->ptr);
 
