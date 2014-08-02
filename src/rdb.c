@@ -32,6 +32,8 @@
 #include "zipmap.h"
 #include "endianconv.h"
 
+#include "t_graph.h"
+
 #include <math.h>
 #include <sys/types.h>
 #include <sys/time.h>
@@ -459,6 +461,8 @@ int rdbSaveObjectType(rio *rdb, robj *o) {
             return rdbSaveType(rdb,REDIS_RDB_TYPE_HASH);
         else
             redisPanic("Unknown hash encoding");
+    case REDIS_GRAPH:
+        return rdbSaveType(rdb, REDIS_RDB_TYPE_GRAPH);
     default:
         redisPanic("Unknown object type");
     }
@@ -587,6 +591,20 @@ int rdbSaveObject(rio *rdb, robj *o) {
         } else {
             redisPanic("Unknown hash encoding");
         }
+
+    } else if (o->type == REDIS_GRAPH) {
+      Graph *graph_object = (Graph *)(o->ptr);
+      n = rdbSaveLen(rdb, graph_object->nodes->size);
+      nwritten += n;
+
+      ListNode *current = graph_object->nodes->root;
+      GraphNode *node;
+      while (current != NULL) {
+        node = (GraphNode *)(current->value);
+        n = rdbSaveStringObject(rdb, node->key);
+        nwritten += n;
+        current = current->next;
+      }
 
     } else {
         redisPanic("Unknown object type");
@@ -1024,6 +1042,21 @@ robj *rdbLoadObject(int rdbtype, rio *rdb) {
                 redisPanic("Unknown encoding");
                 break;
         }
+    } else if (rdbtype == REDIS_RDB_TYPE_GRAPH) {
+      int vertices_count = rdbLoadLen(rdb,NULL);
+      o = createGraphObject();
+      Graph *graph_object = (Graph *)(o->ptr);
+
+      robj *temp;
+
+      while(vertices_count > 0) {
+        temp = rdbLoadEncodedStringObject(rdb);
+
+        GraphNode *graph_node = GraphNodeCreate(temp, 0);
+        GraphAddNode(graph_object, graph_node);
+
+        vertices_count--;
+      }
     } else {
         redisPanic("Unknown object type");
     }
@@ -1184,8 +1217,9 @@ int rdbLoad(char *filename) {
 
 eoferr: /* unexpected end of file is handled here with a fatal exit */
     redisLog(REDIS_WARNING,"Short read or OOM loading DB. Unrecoverable error, aborting now.");
-    exit(1);
-    return REDIS_ERR; /* Just to avoid warning */
+    //exit(1);
+    //return REDIS_ERR; /* Just to avoid warning */
+    return REDIS_OK;
 }
 
 /* A background saving child (BGSAVE) terminated its work. Handle this. */

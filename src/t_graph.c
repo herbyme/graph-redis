@@ -1,56 +1,12 @@
 #include "redis.h"
+#include "t_graph.h"
 #include <math.h> /* isnan(), isinf() */
-
-#define RETURN_OK \
-  robj* value10 = createStringObject("OK", strlen("OK")); \
-  addReplyBulk(c, value10); \
-
-#define RETURN_REPLY \
-  addReplyBulk(c, reply); \
-  return REDIS_OK;
-
-#define RETURN_CANCEL \
-  robj* value20 = createStringObject("Cancel", strlen("Cancel")); \
-  addReplyBulk(c, value20); \
-  return REDIS_OK;
 
 robj *cloneStringObject(robj *obj) {
   char *str = zmalloc(sizeof(char) * strlen(obj->ptr));
   strcpy(str, obj->ptr);
   return createStringObject(str, strlen(str));
 }
-
-typedef struct ListNode {
-  void* value;
-  struct ListNode *next;
-
-} ListNode;
-
-typedef struct {
-  ListNode *root;
-  int size;
-} List;
-
-typedef struct {
-  float value;
-  robj *key;
-  robj *edges;
-  dict *edges_hash;
-  robj *incoming; // Only for directed graphs
-} GraphNode;
-
-typedef struct {
-  GraphNode *node1;
-  GraphNode *node2;
-  float value;
-  robj *key;
-} GraphEdge;
-
-typedef struct {
-  List *nodes; //TODO: Use redis lists like the GraphNode
-  List *edges; //TODO: Use redis lists like the GraphNode
-  char directed;
-} Graph;
 
 ListNode* ListNodeCreate(void* value) {
   ListNode* listNode = (ListNode *)zmalloc(sizeof(ListNode));
@@ -441,6 +397,7 @@ robj *createGraphObject() {
   Graph *ptr = GraphCreate();
   robj *obj = createObject(REDIS_GRAPH, ptr);
   obj->refcount = 100;
+  obj->encoding = REDIS_GRAPH;
   return obj;
 }
 
