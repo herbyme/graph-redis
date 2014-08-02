@@ -828,13 +828,7 @@ void gverticesCommand(redisClient *c) {
   List *graphNodes = graph_object->nodes;
   ListNode *current_node = graphNodes->root;
 
-
-  int count = 0;
-  while (current_node != NULL) {
-    count++;
-    current_node = current_node->next;
-  }
-
+  int count = graphNodes->size;
   addReplyMultiBulkLen(c, count);
 
   robj *reply = createStringObject("Done", strlen("Done"));
