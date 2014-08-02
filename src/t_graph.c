@@ -817,9 +817,8 @@ void gverticesCommand(redisClient *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
-  
-  robj *o;
-  if (graph == NULL || checkType(c, o, REDIS_GRAPH)) {
+
+  if (graph == NULL || checkType(c, graph, REDIS_GRAPH)) {
     addReply(c, shared.czero);
     return;
   }
@@ -828,6 +827,7 @@ void gverticesCommand(redisClient *c) {
 
   List *graphNodes = graph_object->nodes;
   ListNode *current_node = graphNodes->root;
+
 
   int count = 0;
   while (current_node != NULL) {

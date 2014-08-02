@@ -1,0 +1,5 @@
+gvertex graph1 a b c
+gvertex graph1 d
+gedge graph1 a b 1
+gedges graph1
+gvertices graph1

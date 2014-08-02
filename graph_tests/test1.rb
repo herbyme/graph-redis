@@ -2,6 +2,7 @@ require 'redis'
 
 redis = Redis.new
 
+redis.flushdb
 redis.gvertex 'graph1', 'a', 'b', 'c'
 redis.gedge 'graph1', 'a', 'b', 1
 redis.gedge 'graph1', 'a', 'b', 3
@@ -22,6 +23,11 @@ describe 'shortest path' do
     result[0].should eq 'a'
     result[1].should eq 'b'
     result[2].should eq 'c'
+  end
+
+  it 'should print the correct vertices' do
+    edges = redis.gvertices('graph1')
+    edges.should eq ['a', 'b', 'c']
   end
 
 end
