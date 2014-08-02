@@ -594,15 +594,34 @@ int rdbSaveObject(rio *rdb, robj *o) {
 
     } else if (o->type == REDIS_GRAPH) {
       Graph *graph_object = (Graph *)(o->ptr);
+      // Saving vertices
       n = rdbSaveLen(rdb, graph_object->nodes->size);
       nwritten += n;
-
       ListNode *current = graph_object->nodes->root;
       GraphNode *node;
       while (current != NULL) {
         node = (GraphNode *)(current->value);
         n = rdbSaveStringObject(rdb, node->key);
         nwritten += n;
+        current = current->next;
+      }
+
+      // Saving edges
+      n = rdbSaveLen(rdb, graph_object->edges->size);
+      nwritten += n;
+      current = graph_object->edges->root;
+      GraphEdge *edge;
+      while (current != NULL) {
+        edge = (GraphEdge *)(current->value);
+        n = rdbSaveStringObject(rdb, edge->node1->key);
+        nwritten += n;
+        n = rdbSaveStringObject(rdb, edge->node2->key);
+        nwritten += n;
+
+        // Saving value
+        n = rdbSaveDoubleValue(rdb, (double)(edge->value));
+        nwritten += n;
+
         current = current->next;
       }
 
@@ -1043,10 +1062,11 @@ robj *rdbLoadObject(int rdbtype, rio *rdb) {
                 break;
         }
     } else if (rdbtype == REDIS_RDB_TYPE_GRAPH) {
-      int vertices_count = rdbLoadLen(rdb,NULL);
       o = createGraphObject();
       Graph *graph_object = (Graph *)(o->ptr);
 
+      // Load nodes
+      int vertices_count = rdbLoadLen(rdb,NULL);
       robj *temp;
 
       while(vertices_count > 0) {
@@ -1057,6 +1077,25 @@ robj *rdbLoadObject(int rdbtype, rio *rdb) {
 
         vertices_count--;
       }
+
+      // Load edges
+      int edges_count = rdbLoadLen(rdb, NULL);
+      robj *temp1, *temp2;
+      while(edges_count > 0) {
+        GraphEdge *edge;
+        temp1 = rdbLoadEncodedStringObject(rdb);
+        temp2 = rdbLoadEncodedStringObject(rdb);
+        double value;
+        rdbLoadDoubleValue(rdb, &value);
+        GraphNode *node1, *node2;
+        node1 = GraphGetNode(graph_object, temp1);
+        node2 = GraphGetNode(graph_object, temp2);
+        edge = GraphEdgeCreate(node1, node2, value);
+        GraphAddEdge(graph_object, edge);
+
+        edges_count--;
+      }
+
     } else {
         redisPanic("Unknown object type");
     }

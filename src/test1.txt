@@ -1,8 +1,11 @@
 gvertices graph1
 gvertex graph1 a
 gvertex graph1 b
+gvertex graph1 c
 gvertices graph1
 gedges graph1
-gedge graph1 a b 1
+gedge graph1 a b 5
+gedge graph1 b c 5
 gedges graph1
+gedgerem graph1 b c
 save

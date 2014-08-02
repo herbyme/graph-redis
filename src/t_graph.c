@@ -464,7 +464,7 @@ void gmintreeCommand(redisClient *c) {
         GraphNode *temp = GraphGetNode(graph2_object, a ? node1->key: node2->key);
         GraphEdge *new_edge = GraphEdgeCreate(temp, node_to_add, edge->value);
         GraphAddEdge(graph2_object, new_edge);
-        
+
         // Adding the node edges to the queue, if they don't exist before
         list = (a ? node2 : node1)->edges;
         count = listTypeLength(list);

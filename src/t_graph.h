@@ -46,3 +46,6 @@ typedef struct {
 robj *createGraphObject();
 GraphNode* GraphNodeCreate(robj *key, float value);
 void GraphAddNode(Graph *graph, GraphNode *node);
+GraphNode* GraphGetNode(Graph *graph, robj *key);
+GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value);
+void GraphAddEdge(graph2_object, new_edge);
