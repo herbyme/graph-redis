@@ -95,6 +95,14 @@ start_server {
         assert_encoding ziplist sort-res
     }
 
+    test "SORT extracts STORE correctly" {
+        r command getkeys sort abc store def
+    } {abc def}
+
+    test "SORT extracts multiple STORE correctly" {
+        r command getkeys sort abc store invalid store stillbad store def
+    } {abc def}
+
     test "SORT DESC" {
         assert_equal [lsort -decreasing -integer $result] [r sort tosort DESC]
     }
@@ -179,7 +187,7 @@ start_server {
         assert_equal [lsort -real $floats] [r sort mylist]
     }
 
-    test "SORT with STORE returns zero if result is empty (github isse 224)" {
+    test "SORT with STORE returns zero if result is empty (github issue 224)" {
         r flushdb
         r sort foo store bar
     } {0}
