@@ -117,6 +117,8 @@ int anetKeepAlive(char *err, int fd, int interval)
         anetSetError(err, "setsockopt TCP_KEEPCNT: %s\n", strerror(errno));
         return ANET_ERR;
     }
+#else
+    ((void) interval); /* Avoid unused var warning for non Linux systems. */
 #endif
 
     return ANET_OK;
@@ -262,7 +264,8 @@ static int anetTcpGenericConnect(char *err, char *addr, int port,
         if (source_addr) {
             int bound = 0;
             /* Using getaddrinfo saves us from self-determining IPv4 vs IPv6 */
-            if ((rv = getaddrinfo(source_addr, NULL, &hints, &bservinfo)) != 0) {
+            if ((rv = getaddrinfo(source_addr, NULL, &hints, &bservinfo)) != 0)
+            {
                 anetSetError(err, "%s", gai_strerror(rv));
                 goto end;
             }
@@ -272,6 +275,7 @@ static int anetTcpGenericConnect(char *err, char *addr, int port,
                     break;
                 }
             }
+            freeaddrinfo(bservinfo);
             if (!bound) {
                 anetSetError(err, "bind: %s", strerror(errno));
                 goto end;
@@ -525,22 +529,36 @@ int anetPeerToString(int fd, char *ip, size_t ip_len, int *port) {
     struct sockaddr_storage sa;
     socklen_t salen = sizeof(sa);
 
-    if (getpeername(fd,(struct sockaddr*)&sa,&salen) == -1) {
-        if (port) *port = 0;
-        ip[0] = '?';
-        ip[1] = '\0';
-        return -1;
-    }
+    if (getpeername(fd,(struct sockaddr*)&sa,&salen) == -1) goto error;
+    if (ip_len == 0) goto error;
+
     if (sa.ss_family == AF_INET) {
         struct sockaddr_in *s = (struct sockaddr_in *)&sa;
         if (ip) inet_ntop(AF_INET,(void*)&(s->sin_addr),ip,ip_len);
         if (port) *port = ntohs(s->sin_port);
-    } else {
+    } else if (sa.ss_family == AF_INET6) {
         struct sockaddr_in6 *s = (struct sockaddr_in6 *)&sa;
         if (ip) inet_ntop(AF_INET6,(void*)&(s->sin6_addr),ip,ip_len);
         if (port) *port = ntohs(s->sin6_port);
+    } else if (sa.ss_family == AF_UNIX) {
+        if (ip) strncpy(ip,"/unixsocket",ip_len);
+        if (port) *port = 0;
+    } else {
+        goto error;
     }
     return 0;
+
+error:
+    if (ip) {
+        if (ip_len >= 2) {
+            ip[0] = '?';
+            ip[1] = '\0';
+        } else if (ip_len == 1) {
+            ip[0] = '\0';
+        }
+    }
+    if (port) *port = 0;
+    return -1;
 }
 
 int anetSockName(int fd, char *ip, size_t ip_len, int *port) {
