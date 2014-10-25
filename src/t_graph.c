@@ -152,7 +152,7 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
   ListNode* current = graph->edges->root;
-  // TODO: Still to finish !
+
   if (current == NULL)
     return NULL;
   while (current != NULL) {
@@ -584,19 +584,25 @@ void gneighboursCommand(redisClient *c) {
   return REDIS_OK;
 }
 
-robj *neighboursToSet(GraphNode *node) {
+robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
 
   // Creating neighbours set of the first node
 
   GraphEdge *edge;
+  robj *edge_key;
   robj *set = NULL;
+
+  set = setTypeCreate(node->key);
+  //return set;
+  //return set;
+
   long count;
   count = listTypeLength(node->edges);
+  robj *list = node->edges;
   int i;
   for (i = 0; i < count; i++) {
-    listNode *ln = listIndex(node->edges->ptr, i);
-    robj *edge_obj = listNodeValue(ln);
-    edge = edge_obj->ptr;
+    edge_key = listNodeValue(listIndex(list->ptr, i));
+    edge = GraphGetEdgeByKey(graph_object, edge_key);
     robj *neighbour_key;
     if (equalStringObjects(edge->node1->key, node->key)) {
       neighbour_key = edge->node2->key;
@@ -604,11 +610,11 @@ robj *neighboursToSet(GraphNode *node) {
       neighbour_key = edge->node1->key;
     }
     if (set == NULL) {
-      set = setTypeCreate(neighbour_key);
-      setTypeAdd(set, neighbour_key);
+      //set = setTypeCreate(neighbour_key);
+      //setTypeAdd(set, neighbour_key);
     } else {
-      setTypeAdd(set, neighbour_key);
     }
+    setTypeAdd(set, neighbour_key);
   }
 
   return set;
@@ -624,8 +630,8 @@ void gcommonCommand(redisClient *c) {
   robj *set1 = NULL;
   robj *set2 = NULL;
 
-  set1 = neighboursToSet(node1);
-  set2 = neighboursToSet(node2);
+  set1 = neighboursToSet(node1, graph_object);
+  set2 = neighboursToSet(node2, graph_object);
 
   if (set1 == NULL || set2 == NULL) {
     addReplyMultiBulkLen(c, 0);

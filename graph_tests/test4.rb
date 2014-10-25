@@ -4,7 +4,7 @@ require 'redis'
 
 redis = Redis.new
 
-describe 'Minimum spanning tree' do
+describe 'Removing edges' do
 
   it 'should correctly remove edges from undirected graphs' do
     redis.flushdb
@@ -22,7 +22,7 @@ describe 'Minimum spanning tree' do
     edges.length.should eq (3 * 3)
   end
 
-  it 'should correctly remove edges from undirected graphs' do
+  it 'should correctly remove edges from directed graphs' do
     redis.flushdb
     redis.gvertex 'graph1', 'a', 'b', 'c', 'd'
     redis.gsetdirected 'graph1'
