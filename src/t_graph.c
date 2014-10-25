@@ -705,6 +705,11 @@ void gedgeCommand(redisClient *c) {
 
   Graph *graph_object = (Graph *)(graph->ptr);
 
+  if (equalStringObjects(c->argv[2], c->argv[3])) {
+    addReply(c, shared.czero);
+    return REDIS_OK;
+  }
+
   GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
 
