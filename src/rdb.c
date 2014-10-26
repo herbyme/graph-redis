@@ -596,6 +596,8 @@ int rdbSaveObject(rio *rdb, robj *o) {
     } else if (o->type == REDIS_GRAPH) {
       Graph *graph_object = (Graph *)(o->ptr);
       // Saving vertices
+      n = rdbSaveLen(rdb, graph_object->directed ? 1 : 0);
+      nwritten += n;
       n = rdbSaveLen(rdb, graph_object->nodes->size);
       nwritten += n;
       ListNode *current = graph_object->nodes->root;
@@ -1068,14 +1070,24 @@ robj *rdbLoadObject(int rdbtype, rio *rdb) {
       o = createGraphObject();
       Graph *graph_object = (Graph *)(o->ptr);
 
+      // Load directed attribute
+      int directed = rdbLoadLen(rdb,NULL);
+      if (directed > 0) {
+        graph_object->directed = 1;
+      } else {
+        graph_object->directed = 0;
+      }
+
       // Load nodes
       int vertices_count = rdbLoadLen(rdb,NULL);
-      robj *temp;
+      robj *o;
 
       while(vertices_count > 0) {
-        temp = rdbLoadEncodedStringObject(rdb);
 
-        GraphNode *graph_node = GraphNodeCreate(temp, 0);
+        o = rdbLoadEncodedStringObject(rdb);
+        //o = tryObjectEncoding(o);
+
+        GraphNode *graph_node = GraphNodeCreate(o, 0);
         GraphAddNode(graph_object, graph_node);
 
         vertices_count--;

@@ -18,6 +18,7 @@ ListNode* ListNodeCreate(void* value) {
 List* ListCreate() {
   List* list = zmalloc(sizeof(List));
   list->root = NULL;
+  list->tail = NULL;
   list->size = 0;
   return list;
 }
@@ -128,6 +129,7 @@ GraphNode* GraphGetNode(Graph *graph, robj *key) {
   ListNode* current = graph->nodes->root;
   if (current == NULL)
     return NULL;
+
   while (current != NULL && ! equalStringObjects(key, ((GraphNode *)(current->value))->key ) ) {
     current = current->next;
   }
@@ -168,24 +170,18 @@ GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
   return NULL;
 }
 
-ListNode* ListTail(List *list) {
-  ListNode* current = list->root;
-  if (current == NULL) return current;
-  while(current->next != NULL) {
-    current = current->next;
-  }
-  return current;
-}
-
 void ListAddNode(List *list, ListNode *node) {
   if (list->root == NULL) {
     list->root = node;
+    list->tail = node;
   } else {
-    (ListTail(list))->next = node;
+    list->tail->next = node;
+    list->tail = node;
   }
   list->size++;
 }
 
+// TODO: Fix for the tail
 void ListDeleteNode(List *list, void *value) {
   ListNode* previous = NULL;
   ListNode* current = list->root;

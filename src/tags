@@ -7,11 +7,11 @@
 A0	rand.c	57;"	d	file:
 A1	rand.c	58;"	d	file:
 A2	rand.c	59;"	d	file:
-ACTIVE_EXPIRE_CYCLE_FAST	redis.h	132;"	d
-ACTIVE_EXPIRE_CYCLE_FAST_DURATION	redis.h	129;"	d
-ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP	redis.h	128;"	d
-ACTIVE_EXPIRE_CYCLE_SLOW	redis.h	131;"	d
-ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC	redis.h	130;"	d
+ACTIVE_EXPIRE_CYCLE_FAST	redis.h	138;"	d
+ACTIVE_EXPIRE_CYCLE_FAST_DURATION	redis.h	135;"	d
+ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP	redis.h	134;"	d
+ACTIVE_EXPIRE_CYCLE_SLOW	redis.h	137;"	d
+ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC	redis.h	136;"	d
 ADDEQU	rand.c	53;"	d	file:
 AE_ALL_EVENTS	ae.h	45;"	d
 AE_DONT_WAIT	ae.h	46;"	d
@@ -28,19 +28,19 @@ AF_LOCAL	anet.h	43;"	d
 ALLOC	Makefile	/^	echo MALLOC=$(MALLOC) >> .make-settings$/;"	m
 AL_START_HEAD	adlist.h	90;"	d
 AL_START_TAIL	adlist.h	91;"	d
-ANET_CONNECT_NONBLOCK	anet.c	236;"	d	file:
-ANET_CONNECT_NONE	anet.c	235;"	d	file:
+ANET_CONNECT_NONBLOCK	anet.c	238;"	d	file:
+ANET_CONNECT_NONE	anet.c	237;"	d	file:
 ANET_ERR	anet.h	35;"	d
 ANET_ERR_LEN	anet.h	36;"	d
 ANET_H	anet.h	32;"	d
 ANET_IP_ONLY	anet.h	40;"	d
 ANET_NONE	anet.h	39;"	d
 ANET_OK	anet.h	34;"	d
-AOF_FSYNC_ALWAYS	redis.h	302;"	d
-AOF_FSYNC_EVERYSEC	redis.h	303;"	d
-AOF_FSYNC_NO	redis.h	301;"	d
-AOF_RW_BUF_BLOCK_SIZE	aof.c	58;"	d	file:
-AOF_WRITE_LOG_ERROR_RATE	aof.c	229;"	d	file:
+AOF_FSYNC_ALWAYS	redis.h	311;"	d
+AOF_FSYNC_EVERYSEC	redis.h	312;"	d
+AOF_FSYNC_NO	redis.h	310;"	d
+AOF_RW_BUF_BLOCK_SIZE	aof.c	59;"	d	file:
+AOF_WRITE_LOG_ERROR_RATE	aof.c	272;"	d	file:
 ARN	Makefile	/^	echo WARN=$(WARN) >> .make-settings$/;"	m
 AVOID_ERRNO	lzfP.h	100;"	d
 BIG_ENDIAN	config.h	133;"	d
@@ -58,26 +58,26 @@ C	rand.c	60;"	d	file:
 CARRY	rand.c	52;"	d	file:
 CCCOLOR	Makefile	/^CCCOLOR="\\033[34m"$/;"	m
 CHECK_INPUT	lzfP.h	121;"	d
-CLI_HELP_COMMAND	redis-cli.c	144;"	d	file:
-CLI_HELP_GROUP	redis-cli.c	145;"	d	file:
-CLUSTERMSG_FLAG0_FORCEACK	cluster.h	231;"	d
-CLUSTERMSG_FLAG0_PAUSED	cluster.h	230;"	d
-CLUSTERMSG_MIN_LEN	cluster.h	226;"	d
-CLUSTERMSG_TYPE_FAIL	cluster.h	142;"	d
-CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK	cluster.h	145;"	d
-CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST	cluster.h	144;"	d
-CLUSTERMSG_TYPE_MEET	cluster.h	141;"	d
-CLUSTERMSG_TYPE_MFSTART	cluster.h	147;"	d
-CLUSTERMSG_TYPE_PING	cluster.h	139;"	d
-CLUSTERMSG_TYPE_PONG	cluster.h	140;"	d
-CLUSTERMSG_TYPE_PUBLISH	cluster.h	143;"	d
-CLUSTERMSG_TYPE_UPDATE	cluster.h	146;"	d
-CLUSTER_BROADCAST_ALL	cluster.c	2119;"	d	file:
-CLUSTER_BROADCAST_LOCAL_SLAVES	cluster.c	2120;"	d	file:
-CLUSTER_TODO_FSYNC_CONFIG	cluster.h	131;"	d
-CLUSTER_TODO_HANDLE_FAILOVER	cluster.h	128;"	d
-CLUSTER_TODO_SAVE_CONFIG	cluster.h	130;"	d
-CLUSTER_TODO_UPDATE_STATE	cluster.h	129;"	d
+CLI_HELP_COMMAND	redis-cli.c	145;"	d	file:
+CLI_HELP_GROUP	redis-cli.c	146;"	d	file:
+CLUSTERMSG_FLAG0_FORCEACK	cluster.h	241;"	d
+CLUSTERMSG_FLAG0_PAUSED	cluster.h	240;"	d
+CLUSTERMSG_MIN_LEN	cluster.h	236;"	d
+CLUSTERMSG_TYPE_FAIL	cluster.h	152;"	d
+CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK	cluster.h	155;"	d
+CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST	cluster.h	154;"	d
+CLUSTERMSG_TYPE_MEET	cluster.h	151;"	d
+CLUSTERMSG_TYPE_MFSTART	cluster.h	157;"	d
+CLUSTERMSG_TYPE_PING	cluster.h	149;"	d
+CLUSTERMSG_TYPE_PONG	cluster.h	150;"	d
+CLUSTERMSG_TYPE_PUBLISH	cluster.h	153;"	d
+CLUSTERMSG_TYPE_UPDATE	cluster.h	156;"	d
+CLUSTER_BROADCAST_ALL	cluster.c	2148;"	d	file:
+CLUSTER_BROADCAST_LOCAL_SLAVES	cluster.c	2149;"	d	file:
+CLUSTER_TODO_FSYNC_CONFIG	cluster.h	141;"	d
+CLUSTER_TODO_HANDLE_FAILOVER	cluster.h	138;"	d
+CLUSTER_TODO_SAVE_CONFIG	cluster.h	140;"	d
+CLUSTER_TODO_UPDATE_STATE	cluster.h	139;"	d
 CRC64_H	crc64.h	2;"	d
 CURR_OFFSET	redis-check-dump.c	113;"	d	file:
 ClusterNode	redis-trib.rb	/^class ClusterNode$/;"	c
@@ -85,7 +85,7 @@ DEBUG	Makefile	/^DEBUG=-g -ggdb$/;"	m
 DEPENDENCY_TARGETS	Makefile	/^DEPENDENCY_TARGETS=hiredis linenoise lua$/;"	m
 DFLAGS	Makefile	/^	echo LDFLAGS=$(LDFLAGS) >> .make-settings$/;"	m
 DICT_ERR	dict.h	42;"	d
-DICT_HT_INITIAL_SIZE	dict.h	97;"	d
+DICT_HT_INITIAL_SIZE	dict.h	100;"	d
 DICT_NOTUSED	dict.h	45;"	d
 DICT_OK	dict.h	41;"	d
 EDIS_CFLAGS	Makefile	/^	echo REDIS_CFLAGS=$(REDIS_CFLAGS) >> .make-settings$/;"	m
@@ -93,14 +93,28 @@ EDIS_LDFLAGS	Makefile	/^	echo REDIS_LDFLAGS=$(REDIS_LDFLAGS) >> .make-settings$/
 ENDCOLOR	Makefile	/^ENDCOLOR="\\033[0m"$/;"	m
 ERROR	redis-check-aof.c	39;"	d	file:
 ERROR	redis-check-dump.c	98;"	d	file:
-EVICTION_SAMPLES_ARRAY_SIZE	redis.c	2942;"	d	file:
+EVICTION_SAMPLES_ARRAY_SIZE	redis.c	3100;"	d	file:
 FINAL_CFLAGS	Makefile	/^FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)$/;"	m
 FINAL_LDFLAGS	Makefile	/^FINAL_LDFLAGS=$(LDFLAGS) $(REDIS_LDFLAGS) $(DEBUG)$/;"	m
 FINAL_LIBS	Makefile	/^FINAL_LIBS=-lm$/;"	m
 FLAGS	Makefile	/^	echo CFLAGS=$(CFLAGS) >> .make-settings$/;"	m
 FRST	lzf_c.c	48;"	d	file:
 GNUC_VERSION	config.h	189;"	d
+Graph	t_graph.h	/^} Graph;$/;"	t	typeref:struct:__anon14
+GraphAddEdge	t_graph.c	/^void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {$/;"	f
+GraphAddNode	t_graph.c	/^void GraphAddNode(Graph *graph, GraphNode *node) {$/;"	f
+GraphCreate	t_graph.c	/^Graph* GraphCreate() {$/;"	f
+GraphDeleteEdge	t_graph.c	/^void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {$/;"	f
+GraphEdge	t_graph.h	/^} GraphEdge;$/;"	t	typeref:struct:__anon13
+GraphEdgeCreate	t_graph.c	/^GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {$/;"	f
+GraphGetEdge	t_graph.c	/^GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {$/;"	f
+GraphGetEdgeByKey	t_graph.c	/^GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {$/;"	f
+GraphGetNode	t_graph.c	/^GraphNode* GraphGetNode(Graph *graph, robj *key) {$/;"	f
+GraphNode	t_graph.h	/^} GraphNode;$/;"	t	typeref:struct:__anon12
+GraphNodeCreate	t_graph.c	/^GraphNode* GraphNodeCreate(robj *key, float value) {$/;"	f
+GraphNodeExists	t_graph.c	/^int GraphNodeExists(Graph *graph, robj *key) {$/;"	f
 HAVE_ATOMIC	config.h	191;"	d
+HAVE_ATOMIC	config.h	195;"	d
 HAVE_BACKTRACE	config.h	60;"	d
 HAVE_EPOLL	config.h	65;"	d
 HAVE_EVPORT	config.h	75;"	d
@@ -164,22 +178,30 @@ INT24_MIN	ziplist.c	136;"	d	file:
 INTSET_ENC_INT16	intset.c	40;"	d	file:
 INTSET_ENC_INT32	intset.c	41;"	d	file:
 INTSET_ENC_INT64	intset.c	42;"	d	file:
-LATENCY_HISTORY_DEFAULT_INTERVAL	redis-cli.c	1014;"	d	file:
-LATENCY_SAMPLE_RATE	redis-cli.c	1013;"	d	file:
-LINE_BUFLEN	redis-cli.c	862;"	d	file:
+LATENCY_GRAPH_COLS	latency.c	468;"	d	file:
+LATENCY_HISTORY_DEFAULT_INTERVAL	redis-cli.c	1030;"	d	file:
+LATENCY_SAMPLE_RATE	redis-cli.c	1029;"	d	file:
+LATENCY_TS_LEN	latency.h	37;"	d
 LINKCOLOR	Makefile	/^LINKCOLOR="\\033[34;1m"$/;"	m
 LITTLE_ENDIAN	config.h	132;"	d
 LITTLE_ENDIAN	config.h	164;"	d
 LOW	rand.c	48;"	d	file:
-LRU_CLOCK	redis.h	407;"	d
+LRU_CLOCK	redis.h	414;"	d
 LUA_CMD_OBJCACHE_MAX_LEN	scripting.c	204;"	d	file:
 LUA_CMD_OBJCACHE_SIZE	scripting.c	203;"	d	file:
-LUA_GC_CYCLE_PERIOD	scripting.c	1004;"	d	file:
+LUA_GC_CYCLE_PERIOD	scripting.c	1006;"	d	file:
 LZFP_h	lzfP.h	38;"	d
 LZF_H	lzf.h	38;"	d
 LZF_STATE	lzfP.h	/^typedef const u8 *LZF_STATE[1 << (HLOG)];$/;"	t
 LZF_STATE_ARG	lzfP.h	109;"	d
 LZF_VERSION	lzf.h	49;"	d
+List	t_graph.h	/^} List;$/;"	t	typeref:struct:__anon11
+ListAddNode	t_graph.c	/^void ListAddNode(List *list, ListNode *node) {$/;"	f
+ListCreate	t_graph.c	/^List* ListCreate() {$/;"	f
+ListDeleteNode	t_graph.c	/^void ListDeleteNode(List *list, void *value) {$/;"	f
+ListNode	t_graph.h	/^typedef struct ListNode {$/;"	s
+ListNode	t_graph.h	/^} ListNode;$/;"	t	typeref:struct:ListNode
+ListNodeCreate	t_graph.c	/^ListNode* ListNodeCreate(void* value) {$/;"	f
 MAKECOLOR	Makefile	/^MAKECOLOR="\\033[32;1m"$/;"	m
 MALLOC	Makefile	/^	MALLOC=jemalloc$/;"	m
 MALLOC	Makefile	/^	MALLOC=libc$/;"	m
@@ -187,25 +209,27 @@ MALLOC	Makefile	/^	MALLOC=tcmalloc$/;"	m
 MALLOC	Makefile	/^	MALLOC=tcmalloc_minimal$/;"	m
 MASK	rand.c	47;"	d	file:
 MAX_ACCEPTS_PER_CALL	networking.c	556;"	d	file:
-MAX_CLUSTER_ACCEPTS_PER_CALL	cluster.c	562;"	d	file:
+MAX_CLUSTER_ACCEPTS_PER_CALL	cluster.c	577;"	d	file:
 MAX_EVENT_BATCHSZ	ae_evport.c	66;"	d	file:
 MAX_LIT	lzf_c.c	74;"	d	file:
 MAX_OFF	lzf_c.c	75;"	d	file:
 MAX_REF	lzf_c.c	76;"	d	file:
+MAX_TYPES_NUM	redis-check-dump.c	141;"	d	file:
+MAX_TYPE_NAME_LEN	redis-check-dump.c	142;"	d	file:
 MEMTEST_32BIT	memtest.c	41;"	d	file:
 MEMTEST_64BIT	memtest.c	43;"	d	file:
-MEMTEST_MAX_REGIONS	debug.c	741;"	d	file:
-MIGRATE_SOCKET_CACHE_ITEMS	cluster.c	4042;"	d	file:
-MIGRATE_SOCKET_CACHE_TTL	cluster.c	4043;"	d	file:
+MEMTEST_MAX_REGIONS	debug.c	725;"	d	file:
+MIGRATE_SOCKET_CACHE_ITEMS	cluster.c	4264;"	d	file:
+MIGRATE_SOCKET_CACHE_TTL	cluster.c	4265;"	d	file:
 MUL	rand.c	50;"	d	file:
 MurmurHash64A	hyperloglog.c	/^uint64_t MurmurHash64A (const void * key, int len, unsigned int seed) {$/;"	f
 N	rand.c	46;"	d	file:
 NEXT	lzf_c.c	49;"	d	file:
 OPT	Makefile	/^OPT=$(OPTIMIZATION)$/;"	m
 OPTIMIZATION	Makefile	/^OPTIMIZATION?=-O2$/;"	m
-OPVAL_DIRTY_LL	t_zset.c	1537;"	d	file:
-OPVAL_DIRTY_ROBJ	t_zset.c	1536;"	d	file:
-OPVAL_VALID_LL	t_zset.c	1538;"	d	file:
+OPVAL_DIRTY_LL	t_zset.c	1535;"	d	file:
+OPVAL_DIRTY_ROBJ	t_zset.c	1534;"	d	file:
+OPVAL_VALID_LL	t_zset.c	1536;"	d	file:
 OUTPUT_CSV	redis-cli.c	60;"	d	file:
 OUTPUT_RAW	redis-cli.c	59;"	d	file:
 OUTPUT_STANDARD	redis-cli.c	58;"	d	file:
@@ -227,341 +251,357 @@ R2	sha1.c	51;"	d	file:
 R3	sha1.c	52;"	d	file:
 R4	sha1.c	53;"	d	file:
 RANDPTR_INITIAL_SIZE	redis-benchmark.c	50;"	d	file:
-REDIS_AGGR_MAX	t_zset.c	1825;"	d	file:
-REDIS_AGGR_MIN	t_zset.c	1824;"	d	file:
-REDIS_AGGR_SUM	t_zset.c	1823;"	d	file:
-REDIS_AOF_AUTOSYNC_BYTES	redis.h	141;"	d
-REDIS_AOF_OFF	redis.h	214;"	d
-REDIS_AOF_ON	redis.h	215;"	d
-REDIS_AOF_REWRITE_ITEMS_PER_CMD	redis.h	86;"	d
-REDIS_AOF_REWRITE_MIN_SIZE	redis.h	85;"	d
-REDIS_AOF_REWRITE_PERC	redis.h	84;"	d
-REDIS_AOF_WAIT_REWRITE	redis.h	216;"	d
-REDIS_ASKING	redis.h	229;"	d
-REDIS_AUTHPASS_MAX_LEN	redis.h	90;"	d
+REDIS_AGGR_MAX	t_zset.c	1823;"	d	file:
+REDIS_AGGR_MIN	t_zset.c	1822;"	d	file:
+REDIS_AGGR_SUM	t_zset.c	1821;"	d	file:
+REDIS_AOF_AUTOSYNC_BYTES	redis.h	147;"	d
+REDIS_AOF_OFF	redis.h	222;"	d
+REDIS_AOF_ON	redis.h	223;"	d
+REDIS_AOF_REWRITE_ITEMS_PER_CMD	redis.h	90;"	d
+REDIS_AOF_REWRITE_MIN_SIZE	redis.h	89;"	d
+REDIS_AOF_REWRITE_PERC	redis.h	88;"	d
+REDIS_AOF_WAIT_REWRITE	redis.h	224;"	d
+REDIS_ASKING	redis.h	237;"	d
+REDIS_AUTHPASS_MAX_LEN	redis.h	94;"	d
 REDIS_BENCHMARK_NAME	Makefile	/^REDIS_BENCHMARK_NAME=redis-benchmark$/;"	m
 REDIS_BENCHMARK_OBJ	Makefile	/^REDIS_BENCHMARK_OBJ=ae.o anet.o redis-benchmark.o sds.o adlist.o zmalloc.o redis-benchmark.o$/;"	m
-REDIS_BGSAVE_RETRY_DELAY	redis.h	99;"	d
-REDIS_BINDADDR_MAX	redis.h	125;"	d
-REDIS_BIND_ADDR	redis.h	371;"	d
+REDIS_BGSAVE_RETRY_DELAY	redis.h	103;"	d
+REDIS_BINDADDR_MAX	redis.h	130;"	d
+REDIS_BIND_ADDR	redis.h	380;"	d
 REDIS_BIO_AOF_FSYNC	bio.h	40;"	d
 REDIS_BIO_CLOSE_FILE	bio.h	39;"	d
 REDIS_BIO_NUM_OPS	bio.h	41;"	d
-REDIS_BLOCKED	redis.h	223;"	d
-REDIS_BLOCKED_LIST	redis.h	242;"	d
-REDIS_BLOCKED_NONE	redis.h	241;"	d
-REDIS_BLOCKED_WAIT	redis.h	243;"	d
+REDIS_BLOCKED	redis.h	231;"	d
+REDIS_BLOCKED_LIST	redis.h	251;"	d
+REDIS_BLOCKED_NONE	redis.h	250;"	d
+REDIS_BLOCKED_WAIT	redis.h	252;"	d
 REDIS_BUILD_ID	release.h	3;"	d
-REDIS_CALL_FULL	redis.h	349;"	d
-REDIS_CALL_NONE	redis.h	345;"	d
-REDIS_CALL_PROPAGATE	redis.h	348;"	d
-REDIS_CALL_SLOWLOG	redis.h	346;"	d
-REDIS_CALL_STATS	redis.h	347;"	d
+REDIS_CALL_FULL	redis.h	358;"	d
+REDIS_CALL_NONE	redis.h	354;"	d
+REDIS_CALL_PROPAGATE	redis.h	357;"	d
+REDIS_CALL_SLOWLOG	redis.h	355;"	d
+REDIS_CALL_STATS	redis.h	356;"	d
 REDIS_CC	Makefile	/^REDIS_CC=$(QUIET_CC)$(CC) $(FINAL_CFLAGS)$/;"	m
 REDIS_CHECK_AOF_NAME	Makefile	/^REDIS_CHECK_AOF_NAME=redis-check-aof$/;"	m
 REDIS_CHECK_AOF_OBJ	Makefile	/^REDIS_CHECK_AOF_OBJ=redis-check-aof.o$/;"	m
 REDIS_CHECK_DUMP_NAME	Makefile	/^REDIS_CHECK_DUMP_NAME=redis-check-dump$/;"	m
 REDIS_CHECK_DUMP_OBJ	Makefile	/^REDIS_CHECK_DUMP_OBJ=redis-check-dump.o lzf_c.o lzf_d.o crc64.o$/;"	m
-REDIS_CLIENT_TYPE_COUNT	redis.h	254;"	d
-REDIS_CLIENT_TYPE_NORMAL	redis.h	251;"	d
-REDIS_CLIENT_TYPE_PUBSUB	redis.h	253;"	d
-REDIS_CLIENT_TYPE_SLAVE	redis.h	252;"	d
+REDIS_CLIENT_TYPE_COUNT	redis.h	263;"	d
+REDIS_CLIENT_TYPE_NORMAL	redis.h	260;"	d
+REDIS_CLIENT_TYPE_PUBSUB	redis.h	262;"	d
+REDIS_CLIENT_TYPE_SLAVE	redis.h	261;"	d
 REDIS_CLI_DEFAULT_PIPE_TIMEOUT	redis-cli.c	62;"	d	file:
 REDIS_CLI_KEEPALIVE_INTERVAL	redis-cli.c	61;"	d	file:
 REDIS_CLI_NAME	Makefile	/^REDIS_CLI_NAME=redis-cli$/;"	m
 REDIS_CLI_OBJ	Makefile	/^REDIS_CLI_OBJ=anet.o sds.o adlist.o redis-cli.o zmalloc.o release.o anet.o ae.o crc64.o$/;"	m
-REDIS_CLOSE_AFTER_REPLY	redis.h	225;"	d
-REDIS_CLOSE_ASAP	redis.h	230;"	d
-REDIS_CLUSTER_BLACKLIST_TTL	cluster.c	916;"	d	file:
-REDIS_CLUSTER_DEFAULT_MIGRATION_BARRIER	cluster.h	22;"	d
+REDIS_CLOSE_AFTER_REPLY	redis.h	233;"	d
+REDIS_CLOSE_ASAP	redis.h	238;"	d
+REDIS_CLUSTER_BLACKLIST_TTL	cluster.c	931;"	d	file:
+REDIS_CLUSTER_CANT_FAILOVER_DATA_AGE	cluster.h	67;"	d
+REDIS_CLUSTER_CANT_FAILOVER_EXPIRED	cluster.h	69;"	d
+REDIS_CLUSTER_CANT_FAILOVER_NONE	cluster.h	66;"	d
+REDIS_CLUSTER_CANT_FAILOVER_RELOG_PERIOD	cluster.h	71;"	d
+REDIS_CLUSTER_CANT_FAILOVER_WAITING_DELAY	cluster.h	68;"	d
+REDIS_CLUSTER_CANT_FAILOVER_WAITING_VOTES	cluster.h	70;"	d
+REDIS_CLUSTER_DEFAULT_MIGRATION_BARRIER	cluster.h	23;"	d
 REDIS_CLUSTER_DEFAULT_NODE_TIMEOUT	cluster.h	16;"	d
+REDIS_CLUSTER_DEFAULT_REQUIRE_FULL_COVERAGE	cluster.h	18;"	d
 REDIS_CLUSTER_DEFAULT_SLAVE_VALIDITY	cluster.h	17;"	d
 REDIS_CLUSTER_FAIL	cluster.h	10;"	d
-REDIS_CLUSTER_FAILOVER_DELAY	cluster.h	21;"	d
-REDIS_CLUSTER_FAIL_REPORT_VALIDITY_MULT	cluster.h	18;"	d
-REDIS_CLUSTER_FAIL_UNDO_TIME_ADD	cluster.h	20;"	d
-REDIS_CLUSTER_FAIL_UNDO_TIME_MULT	cluster.h	19;"	d
-REDIS_CLUSTER_MAX_REJOIN_DELAY	cluster.c	3113;"	d	file:
-REDIS_CLUSTER_MF_PAUSE_MULT	cluster.h	24;"	d
-REDIS_CLUSTER_MF_TIMEOUT	cluster.h	23;"	d
-REDIS_CLUSTER_MIN_REJOIN_DELAY	cluster.c	3114;"	d	file:
+REDIS_CLUSTER_FAILOVER_DELAY	cluster.h	22;"	d
+REDIS_CLUSTER_FAIL_REPORT_VALIDITY_MULT	cluster.h	19;"	d
+REDIS_CLUSTER_FAIL_UNDO_TIME_ADD	cluster.h	21;"	d
+REDIS_CLUSTER_FAIL_UNDO_TIME_MULT	cluster.h	20;"	d
+REDIS_CLUSTER_MAX_REJOIN_DELAY	cluster.c	3235;"	d	file:
+REDIS_CLUSTER_MF_PAUSE_MULT	cluster.h	25;"	d
+REDIS_CLUSTER_MF_TIMEOUT	cluster.h	24;"	d
+REDIS_CLUSTER_MIN_REJOIN_DELAY	cluster.c	3236;"	d	file:
 REDIS_CLUSTER_NAMELEN	cluster.h	11;"	d
 REDIS_CLUSTER_OK	cluster.h	9;"	d
 REDIS_CLUSTER_PORT_INCR	cluster.h	12;"	d
-REDIS_CLUSTER_REDIR_ASK	cluster.h	30;"	d
-REDIS_CLUSTER_REDIR_CROSS_SLOT	cluster.h	28;"	d
-REDIS_CLUSTER_REDIR_MOVED	cluster.h	31;"	d
-REDIS_CLUSTER_REDIR_NONE	cluster.h	27;"	d
-REDIS_CLUSTER_REDIR_UNSTABLE	cluster.h	29;"	d
+REDIS_CLUSTER_REDIR_ASK	cluster.h	31;"	d
+REDIS_CLUSTER_REDIR_CROSS_SLOT	cluster.h	29;"	d
+REDIS_CLUSTER_REDIR_MOVED	cluster.h	32;"	d
+REDIS_CLUSTER_REDIR_NONE	cluster.h	28;"	d
+REDIS_CLUSTER_REDIR_UNSTABLE	cluster.h	30;"	d
 REDIS_CLUSTER_SLOTS	cluster.h	8;"	d
-REDIS_CLUSTER_WRITABLE_DELAY	cluster.c	3115;"	d	file:
-REDIS_CMD_ADMIN	redis.h	156;"	d
-REDIS_CMD_ASKING	redis.h	164;"	d
-REDIS_CMD_DENYOOM	redis.h	154;"	d
-REDIS_CMD_LOADING	redis.h	161;"	d
-REDIS_CMD_NOSCRIPT	redis.h	158;"	d
-REDIS_CMD_NOT_USED_1	redis.h	155;"	d
-REDIS_CMD_PUBSUB	redis.h	157;"	d
-REDIS_CMD_RANDOM	redis.h	159;"	d
-REDIS_CMD_READONLY	redis.h	153;"	d
-REDIS_CMD_SKIP_MONITOR	redis.h	163;"	d
-REDIS_CMD_SORT_FOR_SCRIPT	redis.h	160;"	d
-REDIS_CMD_STALE	redis.h	162;"	d
-REDIS_CMD_WRITE	redis.h	152;"	d
-REDIS_COMPARE_BINARY	object.c	451;"	d	file:
-REDIS_COMPARE_COLL	object.c	452;"	d	file:
-REDIS_CONFIGLINE_MAX	redis.h	77;"	d
-REDIS_CONFIG_REWRITE_SIGNATURE	config.c	1173;"	d	file:
-REDIS_DBCRON_DBS_PER_CALL	redis.h	78;"	d
-REDIS_DEBUG	redis.h	287;"	d
-REDIS_DEFAULT_ACTIVE_REHASHING	redis.h	119;"	d
-REDIS_DEFAULT_AOF_FILENAME	redis.h	117;"	d
-REDIS_DEFAULT_AOF_FSYNC	redis.h	304;"	d
-REDIS_DEFAULT_AOF_NO_FSYNC_ON_REWRITE	redis.h	118;"	d
-REDIS_DEFAULT_AOF_REWRITE_INCREMENTAL_FSYNC	redis.h	120;"	d
-REDIS_DEFAULT_CLUSTER_CONFIG_FILE	redis.h	102;"	d
-REDIS_DEFAULT_DAEMONIZE	redis.h	103;"	d
-REDIS_DEFAULT_DBNUM	redis.h	76;"	d
-REDIS_DEFAULT_HLL_SPARSE_MAX_BYTES	redis.h	316;"	d
-REDIS_DEFAULT_HZ	redis.h	70;"	d
-REDIS_DEFAULT_LOGFILE	redis.h	106;"	d
-REDIS_DEFAULT_MAXMEMORY	redis.h	115;"	d
-REDIS_DEFAULT_MAXMEMORY_POLICY	redis.h	330;"	d
-REDIS_DEFAULT_MAXMEMORY_SAMPLES	redis.h	116;"	d
-REDIS_DEFAULT_MIN_SLAVES_MAX_LAG	redis.h	122;"	d
-REDIS_DEFAULT_MIN_SLAVES_TO_WRITE	redis.h	121;"	d
-REDIS_DEFAULT_PID_FILE	redis.h	100;"	d
-REDIS_DEFAULT_RDB_CHECKSUM	redis.h	110;"	d
-REDIS_DEFAULT_RDB_COMPRESSION	redis.h	109;"	d
-REDIS_DEFAULT_RDB_FILENAME	redis.h	111;"	d
-REDIS_DEFAULT_REPL_BACKLOG_SIZE	redis.h	96;"	d
-REDIS_DEFAULT_REPL_BACKLOG_TIME_LIMIT	redis.h	97;"	d
-REDIS_DEFAULT_REPL_DISABLE_TCP_NODELAY	redis.h	114;"	d
-REDIS_DEFAULT_SLAVE_PRIORITY	redis.h	91;"	d
-REDIS_DEFAULT_SLAVE_READ_ONLY	redis.h	113;"	d
-REDIS_DEFAULT_SLAVE_SERVE_STALE_DATA	redis.h	112;"	d
-REDIS_DEFAULT_STOP_WRITES_ON_BGSAVE_ERROR	redis.h	108;"	d
-REDIS_DEFAULT_SYSLOG_ENABLED	redis.h	107;"	d
-REDIS_DEFAULT_SYSLOG_IDENT	redis.h	101;"	d
-REDIS_DEFAULT_TCP_KEEPALIVE	redis.h	105;"	d
-REDIS_DEFAULT_UNIX_SOCKET_PERM	redis.h	104;"	d
-REDIS_DEFAULT_VERBOSITY	redis.h	292;"	d
-REDIS_DIRTY_CAS	redis.h	224;"	d
-REDIS_DIRTY_EXEC	redis.h	232;"	d
-REDIS_ENCODING_EMBSTR	redis.h	184;"	d
+REDIS_CLUSTER_WRITABLE_DELAY	cluster.c	3237;"	d	file:
+REDIS_CMD_ADMIN	redis.h	162;"	d
+REDIS_CMD_ASKING	redis.h	170;"	d
+REDIS_CMD_DENYOOM	redis.h	160;"	d
+REDIS_CMD_FAST	redis.h	171;"	d
+REDIS_CMD_LOADING	redis.h	167;"	d
+REDIS_CMD_NOSCRIPT	redis.h	164;"	d
+REDIS_CMD_NOT_USED_1	redis.h	161;"	d
+REDIS_CMD_PUBSUB	redis.h	163;"	d
+REDIS_CMD_RANDOM	redis.h	165;"	d
+REDIS_CMD_READONLY	redis.h	159;"	d
+REDIS_CMD_SKIP_MONITOR	redis.h	169;"	d
+REDIS_CMD_SORT_FOR_SCRIPT	redis.h	166;"	d
+REDIS_CMD_STALE	redis.h	168;"	d
+REDIS_CMD_WRITE	redis.h	158;"	d
+REDIS_COMPARE_BINARY	object.c	453;"	d	file:
+REDIS_COMPARE_COLL	object.c	454;"	d	file:
+REDIS_CONFIGLINE_MAX	redis.h	81;"	d
+REDIS_CONFIG_REWRITE_SIGNATURE	config.c	1212;"	d	file:
+REDIS_DBCRON_DBS_PER_CALL	redis.h	82;"	d
+REDIS_DEBUG	redis.h	296;"	d
+REDIS_DEFAULT_ACTIVE_REHASHING	redis.h	124;"	d
+REDIS_DEFAULT_AOF_FILENAME	redis.h	121;"	d
+REDIS_DEFAULT_AOF_FSYNC	redis.h	313;"	d
+REDIS_DEFAULT_AOF_LOAD_TRUNCATED	redis.h	123;"	d
+REDIS_DEFAULT_AOF_NO_FSYNC_ON_REWRITE	redis.h	122;"	d
+REDIS_DEFAULT_AOF_REWRITE_INCREMENTAL_FSYNC	redis.h	125;"	d
+REDIS_DEFAULT_CLUSTER_CONFIG_FILE	redis.h	106;"	d
+REDIS_DEFAULT_DAEMONIZE	redis.h	107;"	d
+REDIS_DEFAULT_DBNUM	redis.h	80;"	d
+REDIS_DEFAULT_HLL_SPARSE_MAX_BYTES	redis.h	325;"	d
+REDIS_DEFAULT_HZ	redis.h	74;"	d
+REDIS_DEFAULT_LATENCY_MONITOR_THRESHOLD	redis.h	132;"	d
+REDIS_DEFAULT_LOGFILE	redis.h	110;"	d
+REDIS_DEFAULT_MAXMEMORY	redis.h	119;"	d
+REDIS_DEFAULT_MAXMEMORY_POLICY	redis.h	339;"	d
+REDIS_DEFAULT_MAXMEMORY_SAMPLES	redis.h	120;"	d
+REDIS_DEFAULT_MIN_SLAVES_MAX_LAG	redis.h	127;"	d
+REDIS_DEFAULT_MIN_SLAVES_TO_WRITE	redis.h	126;"	d
+REDIS_DEFAULT_PID_FILE	redis.h	104;"	d
+REDIS_DEFAULT_RDB_CHECKSUM	redis.h	114;"	d
+REDIS_DEFAULT_RDB_COMPRESSION	redis.h	113;"	d
+REDIS_DEFAULT_RDB_FILENAME	redis.h	115;"	d
+REDIS_DEFAULT_REPL_BACKLOG_SIZE	redis.h	100;"	d
+REDIS_DEFAULT_REPL_BACKLOG_TIME_LIMIT	redis.h	101;"	d
+REDIS_DEFAULT_REPL_DISABLE_TCP_NODELAY	redis.h	118;"	d
+REDIS_DEFAULT_SLAVE_PRIORITY	redis.h	95;"	d
+REDIS_DEFAULT_SLAVE_READ_ONLY	redis.h	117;"	d
+REDIS_DEFAULT_SLAVE_SERVE_STALE_DATA	redis.h	116;"	d
+REDIS_DEFAULT_STOP_WRITES_ON_BGSAVE_ERROR	redis.h	112;"	d
+REDIS_DEFAULT_SYSLOG_ENABLED	redis.h	111;"	d
+REDIS_DEFAULT_SYSLOG_IDENT	redis.h	105;"	d
+REDIS_DEFAULT_TCP_KEEPALIVE	redis.h	109;"	d
+REDIS_DEFAULT_UNIX_SOCKET_PERM	redis.h	108;"	d
+REDIS_DEFAULT_VERBOSITY	redis.h	301;"	d
+REDIS_DIRTY_CAS	redis.h	232;"	d
+REDIS_DIRTY_EXEC	redis.h	240;"	d
+REDIS_ENCODING_EMBSTR	redis.h	192;"	d
 REDIS_ENCODING_EMBSTR_SIZE_LIMIT	object.c	87;"	d	file:
 REDIS_ENCODING_HT	redis-check-dump.c	63;"	d	file:
-REDIS_ENCODING_HT	redis.h	178;"	d
+REDIS_ENCODING_HT	redis.h	186;"	d
 REDIS_ENCODING_INT	redis-check-dump.c	61;"	d	file:
-REDIS_ENCODING_INT	redis.h	177;"	d
-REDIS_ENCODING_INTSET	redis.h	182;"	d
-REDIS_ENCODING_LINKEDLIST	redis.h	180;"	d
+REDIS_ENCODING_INT	redis.h	185;"	d
+REDIS_ENCODING_INTSET	redis.h	190;"	d
+REDIS_ENCODING_LINKEDLIST	redis.h	188;"	d
 REDIS_ENCODING_RAW	redis-check-dump.c	60;"	d	file:
-REDIS_ENCODING_RAW	redis.h	176;"	d
-REDIS_ENCODING_SKIPLIST	redis.h	183;"	d
-REDIS_ENCODING_ZIPLIST	redis.h	181;"	d
+REDIS_ENCODING_RAW	redis.h	184;"	d
+REDIS_ENCODING_SKIPLIST	redis.h	191;"	d
+REDIS_ENCODING_ZIPLIST	redis.h	189;"	d
 REDIS_ENCODING_ZIPMAP	redis-check-dump.c	62;"	d	file:
-REDIS_ENCODING_ZIPMAP	redis.h	179;"	d
+REDIS_ENCODING_ZIPMAP	redis.h	187;"	d
 REDIS_EOF	redis-check-dump.c	69;"	d	file:
-REDIS_ERR	redis.h	67;"	d
-REDIS_EVENTLOOP_FDSET_INCR	redis.h	145;"	d
-REDIS_EVICTION_POOL_SIZE	redis.h	427;"	d
+REDIS_ERR	redis.h	71;"	d
+REDIS_EVENTLOOP_FDSET_INCR	redis.h	151;"	d
+REDIS_EVICTION_POOL_SIZE	redis.h	434;"	d
 REDIS_EXPIRETIME	redis-check-dump.c	67;"	d	file:
 REDIS_EXPIRETIME_MS	redis-check-dump.c	66;"	d	file:
-REDIS_FORCE_AOF	redis.h	234;"	d
-REDIS_FORCE_REPL	redis.h	235;"	d
+REDIS_FORCE_AOF	redis.h	242;"	d
+REDIS_FORCE_REPL	redis.h	243;"	d
 REDIS_GIT_DIRTY	release.h	2;"	d
 REDIS_GIT_SHA1	release.h	1;"	d
+REDIS_GRAPH	redis.h	179;"	d
 REDIS_HASH	redis-check-dump.c	50;"	d	file:
-REDIS_HASH	redis.h	171;"	d
-REDIS_HASH_KEY	redis.h	938;"	d
-REDIS_HASH_MAX_ZIPLIST_ENTRIES	redis.h	307;"	d
-REDIS_HASH_MAX_ZIPLIST_VALUE	redis.h	308;"	d
-REDIS_HASH_VALUE	redis.h	939;"	d
+REDIS_HASH	redis.h	178;"	d
+REDIS_HASH_KEY	redis.h	968;"	d
+REDIS_HASH_MAX_ZIPLIST_ENTRIES	redis.h	316;"	d
+REDIS_HASH_MAX_ZIPLIST_VALUE	redis.h	317;"	d
+REDIS_HASH_VALUE	redis.h	969;"	d
 REDIS_HASH_ZIPLIST	redis-check-dump.c	55;"	d	file:
 REDIS_HASH_ZIPMAP	redis-check-dump.c	51;"	d	file:
-REDIS_HEAD	redis.h	277;"	d
-REDIS_HT_MINFILL	redis.h	148;"	d
-REDIS_INLINE_MAX_SIZE	redis.h	138;"	d
+REDIS_HEAD	redis.h	286;"	d
+REDIS_HT_MINFILL	redis.h	154;"	d
+REDIS_INLINE_MAX_SIZE	redis.h	144;"	d
 REDIS_INSTALL	Makefile	/^REDIS_INSTALL=$(QUIET_INSTALL)$(INSTALL)$/;"	m
-REDIS_IOBUF_LEN	redis.h	136;"	d
-REDIS_IP_STR_LEN	redis.h	123;"	d
+REDIS_IOBUF_LEN	redis.h	142;"	d
+REDIS_IP_STR_LEN	redis.h	128;"	d
 REDIS_LD	Makefile	/^REDIS_LD=$(QUIET_LINK)$(CC) $(FINAL_LDFLAGS)$/;"	m
 REDIS_LIST	redis-check-dump.c	47;"	d	file:
-REDIS_LIST	redis.h	168;"	d
-REDIS_LIST_MAX_ZIPLIST_ENTRIES	redis.h	309;"	d
-REDIS_LIST_MAX_ZIPLIST_VALUE	redis.h	310;"	d
+REDIS_LIST	redis.h	175;"	d
+REDIS_LIST_MAX_ZIPLIST_ENTRIES	redis.h	318;"	d
+REDIS_LIST_MAX_ZIPLIST_VALUE	redis.h	319;"	d
 REDIS_LIST_ZIPLIST	redis-check-dump.c	52;"	d	file:
-REDIS_LOG_RAW	redis.h	291;"	d
-REDIS_LONGSTR_SIZE	redis.h	140;"	d
+REDIS_LOG_RAW	redis.h	300;"	d
+REDIS_LONGSTR_SIZE	redis.h	146;"	d
 REDIS_LRAND48_MAX	rand.h	36;"	d
-REDIS_LRU_BITS	redis.h	392;"	d
-REDIS_LRU_CLOCK_MAX	redis.h	393;"	d
-REDIS_LRU_CLOCK_RESOLUTION	redis.h	394;"	d
-REDIS_LUA_CLIENT	redis.h	228;"	d
-REDIS_LUA_TIME_LIMIT	redis.h	333;"	d
-REDIS_MASTER	redis.h	220;"	d
-REDIS_MASTER_FORCE_REPLY	redis.h	233;"	d
-REDIS_MAXIDLETIME	redis.h	75;"	d
-REDIS_MAXMEMORY_ALLKEYS_LRU	redis.h	327;"	d
-REDIS_MAXMEMORY_ALLKEYS_RANDOM	redis.h	328;"	d
-REDIS_MAXMEMORY_NO_EVICTION	redis.h	329;"	d
-REDIS_MAXMEMORY_VOLATILE_LRU	redis.h	324;"	d
-REDIS_MAXMEMORY_VOLATILE_RANDOM	redis.h	326;"	d
-REDIS_MAXMEMORY_VOLATILE_TTL	redis.h	325;"	d
-REDIS_MAX_CLIENTS	redis.h	89;"	d
-REDIS_MAX_HZ	redis.h	72;"	d
-REDIS_MAX_LOGMSG_LEN	redis.h	83;"	d
-REDIS_MAX_QUERYBUF_LEN	redis.h	135;"	d
-REDIS_MAX_WRITE_PER_EVENT	redis.h	79;"	d
-REDIS_MBULK_BIG_ARG	redis.h	139;"	d
-REDIS_MIN_HZ	redis.h	71;"	d
-REDIS_MIN_RESERVED_FDS	redis.h	126;"	d
-REDIS_MONITOR	redis.h	221;"	d
-REDIS_MULTI	redis.h	222;"	d
-REDIS_NODE_FAIL	cluster.h	48;"	d
-REDIS_NODE_HANDSHAKE	cluster.h	50;"	d
-REDIS_NODE_MASTER	cluster.h	45;"	d
-REDIS_NODE_MEET	cluster.h	52;"	d
-REDIS_NODE_MYSELF	cluster.h	49;"	d
-REDIS_NODE_NOADDR	cluster.h	51;"	d
-REDIS_NODE_NULL_NAME	cluster.h	54;"	d
-REDIS_NODE_PFAIL	cluster.h	47;"	d
-REDIS_NODE_PROMOTED	cluster.h	53;"	d
-REDIS_NODE_SLAVE	cluster.h	46;"	d
-REDIS_NOTICE	redis.h	289;"	d
-REDIS_NOTIFY_ALL	redis.h	368;"	d
-REDIS_NOTIFY_EVICTED	redis.h	367;"	d
-REDIS_NOTIFY_EXPIRED	redis.h	366;"	d
-REDIS_NOTIFY_GENERIC	redis.h	360;"	d
-REDIS_NOTIFY_HASH	redis.h	364;"	d
-REDIS_NOTIFY_KEYEVENT	redis.h	359;"	d
-REDIS_NOTIFY_KEYSPACE	redis.h	358;"	d
-REDIS_NOTIFY_LIST	redis.h	362;"	d
-REDIS_NOTIFY_SET	redis.h	363;"	d
-REDIS_NOTIFY_STRING	redis.h	361;"	d
-REDIS_NOTIFY_ZSET	redis.h	365;"	d
+REDIS_LRU_BITS	redis.h	399;"	d
+REDIS_LRU_CLOCK_MAX	redis.h	400;"	d
+REDIS_LRU_CLOCK_RESOLUTION	redis.h	401;"	d
+REDIS_LUA_CLIENT	redis.h	236;"	d
+REDIS_LUA_TIME_LIMIT	redis.h	342;"	d
+REDIS_MASTER	redis.h	228;"	d
+REDIS_MASTER_FORCE_REPLY	redis.h	241;"	d
+REDIS_MAXIDLETIME	redis.h	79;"	d
+REDIS_MAXMEMORY_ALLKEYS_LRU	redis.h	336;"	d
+REDIS_MAXMEMORY_ALLKEYS_RANDOM	redis.h	337;"	d
+REDIS_MAXMEMORY_NO_EVICTION	redis.h	338;"	d
+REDIS_MAXMEMORY_VOLATILE_LRU	redis.h	333;"	d
+REDIS_MAXMEMORY_VOLATILE_RANDOM	redis.h	335;"	d
+REDIS_MAXMEMORY_VOLATILE_TTL	redis.h	334;"	d
+REDIS_MAX_CLIENTS	redis.h	93;"	d
+REDIS_MAX_HZ	redis.h	76;"	d
+REDIS_MAX_LOGMSG_LEN	redis.h	87;"	d
+REDIS_MAX_QUERYBUF_LEN	redis.h	141;"	d
+REDIS_MAX_WRITE_PER_EVENT	redis.h	83;"	d
+REDIS_MBULK_BIG_ARG	redis.h	145;"	d
+REDIS_MIN_HZ	redis.h	75;"	d
+REDIS_MIN_RESERVED_FDS	redis.h	131;"	d
+REDIS_MONITOR	redis.h	229;"	d
+REDIS_MULTI	redis.h	230;"	d
+REDIS_NODE_FAIL	cluster.h	49;"	d
+REDIS_NODE_HANDSHAKE	cluster.h	51;"	d
+REDIS_NODE_MASTER	cluster.h	46;"	d
+REDIS_NODE_MEET	cluster.h	53;"	d
+REDIS_NODE_MYSELF	cluster.h	50;"	d
+REDIS_NODE_NOADDR	cluster.h	52;"	d
+REDIS_NODE_NULL_NAME	cluster.h	55;"	d
+REDIS_NODE_PFAIL	cluster.h	48;"	d
+REDIS_NODE_PROMOTED	cluster.h	54;"	d
+REDIS_NODE_SLAVE	cluster.h	47;"	d
+REDIS_NOTICE	redis.h	298;"	d
+REDIS_NOTIFY_ALL	redis.h	377;"	d
+REDIS_NOTIFY_EVICTED	redis.h	376;"	d
+REDIS_NOTIFY_EXPIRED	redis.h	375;"	d
+REDIS_NOTIFY_GENERIC	redis.h	369;"	d
+REDIS_NOTIFY_HASH	redis.h	373;"	d
+REDIS_NOTIFY_KEYEVENT	redis.h	368;"	d
+REDIS_NOTIFY_KEYSPACE	redis.h	367;"	d
+REDIS_NOTIFY_LIST	redis.h	371;"	d
+REDIS_NOTIFY_SET	redis.h	372;"	d
+REDIS_NOTIFY_STRING	redis.h	370;"	d
+REDIS_NOTIFY_ZSET	redis.h	374;"	d
 REDIS_NOTUSED	redis-benchmark.c	49;"	d	file:
 REDIS_NOTUSED	redis-cli.c	56;"	d	file:
-REDIS_NOTUSED	redis.h	295;"	d
-REDIS_OK	redis.h	66;"	d
-REDIS_OPS_SEC_SAMPLES	redis.h	95;"	d
-REDIS_OP_DIFF	redis.h	320;"	d
+REDIS_NOTUSED	redis.h	304;"	d
+REDIS_OK	redis.h	70;"	d
+REDIS_OPS_SEC_SAMPLES	redis.h	99;"	d
+REDIS_OP_DIFF	redis.h	329;"	d
 REDIS_OP_DIFF	t_set.c	734;"	d	file:
-REDIS_OP_INTER	redis.h	321;"	d
+REDIS_OP_INTER	redis.h	330;"	d
 REDIS_OP_INTER	t_set.c	735;"	d	file:
-REDIS_OP_UNION	redis.h	319;"	d
+REDIS_OP_UNION	redis.h	328;"	d
 REDIS_OP_UNION	t_set.c	733;"	d	file:
-REDIS_PEER_ID_LEN	redis.h	124;"	d
-REDIS_PRE_PSYNC	redis.h	236;"	d
-REDIS_PROPAGATE_AOF	redis.h	353;"	d
-REDIS_PROPAGATE_NONE	redis.h	352;"	d
-REDIS_PROPAGATE_REPL	redis.h	354;"	d
+REDIS_PEER_ID_LEN	redis.h	129;"	d
+REDIS_PRE_PSYNC	redis.h	244;"	d
+REDIS_PROPAGATE_AOF	redis.h	362;"	d
+REDIS_PROPAGATE_NONE	redis.h	361;"	d
+REDIS_PROPAGATE_REPL	redis.h	363;"	d
+REDIS_PUBSUB	redis.h	246;"	d
 REDIS_RANDOM_H	rand.h	31;"	d
 REDIS_RDB_14BITLEN	rdb.h	57;"	d
 REDIS_RDB_14BITLEN	redis-check-dump.c	85;"	d	file:
-REDIS_RDB_14BITLEN	redis.h	200;"	d
+REDIS_RDB_14BITLEN	redis.h	208;"	d
 REDIS_RDB_32BITLEN	rdb.h	58;"	d
 REDIS_RDB_32BITLEN	redis-check-dump.c	86;"	d	file:
-REDIS_RDB_32BITLEN	redis.h	201;"	d
+REDIS_RDB_32BITLEN	redis.h	209;"	d
 REDIS_RDB_6BITLEN	rdb.h	56;"	d
 REDIS_RDB_6BITLEN	redis-check-dump.c	84;"	d	file:
-REDIS_RDB_6BITLEN	redis.h	199;"	d
+REDIS_RDB_6BITLEN	redis.h	207;"	d
 REDIS_RDB_ENCVAL	rdb.h	59;"	d
 REDIS_RDB_ENCVAL	redis-check-dump.c	87;"	d	file:
-REDIS_RDB_ENCVAL	redis.h	202;"	d
+REDIS_RDB_ENCVAL	redis.h	210;"	d
 REDIS_RDB_ENC_INT16	rdb.h	66;"	d
 REDIS_RDB_ENC_INT16	redis-check-dump.c	94;"	d	file:
-REDIS_RDB_ENC_INT16	redis.h	209;"	d
+REDIS_RDB_ENC_INT16	redis.h	217;"	d
 REDIS_RDB_ENC_INT32	rdb.h	67;"	d
 REDIS_RDB_ENC_INT32	redis-check-dump.c	95;"	d	file:
-REDIS_RDB_ENC_INT32	redis.h	210;"	d
+REDIS_RDB_ENC_INT32	redis.h	218;"	d
 REDIS_RDB_ENC_INT8	rdb.h	65;"	d
 REDIS_RDB_ENC_INT8	redis-check-dump.c	93;"	d	file:
-REDIS_RDB_ENC_INT8	redis.h	208;"	d
+REDIS_RDB_ENC_INT8	redis.h	216;"	d
 REDIS_RDB_ENC_LZF	rdb.h	68;"	d
 REDIS_RDB_ENC_LZF	redis-check-dump.c	96;"	d	file:
-REDIS_RDB_ENC_LZF	redis.h	211;"	d
+REDIS_RDB_ENC_LZF	redis.h	219;"	d
 REDIS_RDB_LENERR	rdb.h	60;"	d
 REDIS_RDB_LENERR	redis-check-dump.c	88;"	d	file:
-REDIS_RDB_LENERR	redis.h	203;"	d
-REDIS_RDB_OPCODE_EOF	rdb.h	92;"	d
-REDIS_RDB_OPCODE_EXPIRETIME	rdb.h	90;"	d
-REDIS_RDB_OPCODE_EXPIRETIME_MS	rdb.h	89;"	d
-REDIS_RDB_OPCODE_SELECTDB	rdb.h	91;"	d
+REDIS_RDB_LENERR	redis.h	211;"	d
+REDIS_RDB_OPCODE_EOF	rdb.h	93;"	d
+REDIS_RDB_OPCODE_EXPIRETIME	rdb.h	91;"	d
+REDIS_RDB_OPCODE_EXPIRETIME_MS	rdb.h	90;"	d
+REDIS_RDB_OPCODE_SELECTDB	rdb.h	92;"	d
+REDIS_RDB_TYPE_GRAPH	rdb.h	77;"	d
 REDIS_RDB_TYPE_HASH	rdb.h	76;"	d
-REDIS_RDB_TYPE_HASH_ZIPLIST	rdb.h	83;"	d
-REDIS_RDB_TYPE_HASH_ZIPMAP	rdb.h	79;"	d
+REDIS_RDB_TYPE_HASH_ZIPLIST	rdb.h	84;"	d
+REDIS_RDB_TYPE_HASH_ZIPMAP	rdb.h	80;"	d
 REDIS_RDB_TYPE_LIST	rdb.h	73;"	d
-REDIS_RDB_TYPE_LIST_ZIPLIST	rdb.h	80;"	d
+REDIS_RDB_TYPE_LIST_ZIPLIST	rdb.h	81;"	d
 REDIS_RDB_TYPE_SET	rdb.h	74;"	d
-REDIS_RDB_TYPE_SET_INTSET	rdb.h	81;"	d
+REDIS_RDB_TYPE_SET_INTSET	rdb.h	82;"	d
 REDIS_RDB_TYPE_STRING	rdb.h	72;"	d
 REDIS_RDB_TYPE_ZSET	rdb.h	75;"	d
-REDIS_RDB_TYPE_ZSET_ZIPLIST	rdb.h	82;"	d
+REDIS_RDB_TYPE_ZSET_ZIPLIST	rdb.h	83;"	d
 REDIS_RDB_VERSION	rdb.h	41;"	d
-REDIS_READONLY	redis.h	237;"	d
-REDIS_REPLY_CHUNK_BYTES	redis.h	137;"	d
-REDIS_REPL_BACKLOG_MIN_SIZE	redis.h	98;"	d
-REDIS_REPL_CONNECT	redis.h	258;"	d
-REDIS_REPL_CONNECTED	redis.h	262;"	d
-REDIS_REPL_CONNECTING	redis.h	259;"	d
-REDIS_REPL_NONE	redis.h	257;"	d
-REDIS_REPL_ONLINE	redis.h	271;"	d
-REDIS_REPL_PING_SLAVE_PERIOD	redis.h	93;"	d
-REDIS_REPL_RECEIVE_PONG	redis.h	260;"	d
-REDIS_REPL_SEND_BULK	redis.h	270;"	d
-REDIS_REPL_SYNCIO_TIMEOUT	redis.h	274;"	d
-REDIS_REPL_TIMEOUT	redis.h	92;"	d
-REDIS_REPL_TRANSFER	redis.h	261;"	d
-REDIS_REPL_WAIT_BGSAVE_END	redis.h	269;"	d
-REDIS_REPL_WAIT_BGSAVE_START	redis.h	268;"	d
-REDIS_REQ_INLINE	redis.h	246;"	d
-REDIS_REQ_MULTIBULK	redis.h	247;"	d
-REDIS_RUN_ID_SIZE	redis.h	94;"	d
+REDIS_READONLY	redis.h	245;"	d
+REDIS_REPLY_CHUNK_BYTES	redis.h	143;"	d
+REDIS_REPL_BACKLOG_MIN_SIZE	redis.h	102;"	d
+REDIS_REPL_CONNECT	redis.h	267;"	d
+REDIS_REPL_CONNECTED	redis.h	271;"	d
+REDIS_REPL_CONNECTING	redis.h	268;"	d
+REDIS_REPL_NONE	redis.h	266;"	d
+REDIS_REPL_ONLINE	redis.h	280;"	d
+REDIS_REPL_PING_SLAVE_PERIOD	redis.h	97;"	d
+REDIS_REPL_RECEIVE_PONG	redis.h	269;"	d
+REDIS_REPL_SEND_BULK	redis.h	279;"	d
+REDIS_REPL_SYNCIO_TIMEOUT	redis.h	283;"	d
+REDIS_REPL_TIMEOUT	redis.h	96;"	d
+REDIS_REPL_TRANSFER	redis.h	270;"	d
+REDIS_REPL_WAIT_BGSAVE_END	redis.h	278;"	d
+REDIS_REPL_WAIT_BGSAVE_START	redis.h	277;"	d
+REDIS_REQ_INLINE	redis.h	255;"	d
+REDIS_REQ_MULTIBULK	redis.h	256;"	d
+REDIS_RUN_ID_SIZE	redis.h	98;"	d
 REDIS_SELECTDB	redis-check-dump.c	68;"	d	file:
 REDIS_SENTINEL_NAME	Makefile	/^REDIS_SENTINEL_NAME=redis-sentinel$/;"	m
 REDIS_SENTINEL_PORT	sentinel.c	43;"	d	file:
-REDIS_SERVERPORT	redis.h	73;"	d
+REDIS_SERVERPORT	redis.h	77;"	d
 REDIS_SERVER_NAME	Makefile	/^REDIS_SERVER_NAME=redis-server$/;"	m
-REDIS_SERVER_OBJ	Makefile	/^REDIS_SERVER_OBJ=adlist.o ae.o anet.o dict.o redis.o sds.o zmalloc.o lzf_c.o lzf_d.o pqsort.o zipmap.o sha1.o ziplist.o release.o networking.o util.o object.o db.o replication.o rdb.o t_string.o t_list.o t_set.o t_zset.o t_hash.o config.o aof.o pubsub.o multi.o debug.o sort.o intset.o syncio.o cluster.o crc16.o endianconv.o slowlog.o scripting.o bio.o rio.o rand.o memtest.o crc64.o bitops.o sentinel.o notify.o setproctitle.o blocked.o hyperloglog.o$/;"	m
+REDIS_SERVER_OBJ	Makefile	/^REDIS_SERVER_OBJ=adlist.o ae.o anet.o dict.o redis.o sds.o zmalloc.o lzf_c.o lzf_d.o pqsort.o zipmap.o sha1.o ziplist.o release.o networking.o util.o object.o db.o replication.o rdb.o t_string.o t_list.o t_set.o t_zset.o t_hash.o t_graph.o  config.o aof.o pubsub.o multi.o debug.o sort.o intset.o syncio.o cluster.o crc16.o endianconv.o slowlog.o scripting.o bio.o rio.o rand.o memtest.o crc64.o bitops.o sentinel.o notify.o setproctitle.o blocked.o hyperloglog.o latency.o sparkline.o$/;"	m
 REDIS_SET	redis-check-dump.c	48;"	d	file:
-REDIS_SET	redis.h	169;"	d
+REDIS_SET	redis.h	176;"	d
 REDIS_SET_INTSET	redis-check-dump.c	53;"	d	file:
-REDIS_SET_MAX_INTSET_ENTRIES	redis.h	311;"	d
+REDIS_SET_MAX_INTSET_ENTRIES	redis.h	320;"	d
 REDIS_SET_NO_FLAGS	t_string.c	61;"	d	file:
 REDIS_SET_NX	t_string.c	62;"	d	file:
 REDIS_SET_XX	t_string.c	63;"	d	file:
-REDIS_SHARED_BULKHDR_LEN	redis.h	82;"	d
-REDIS_SHARED_INTEGERS	redis.h	81;"	d
-REDIS_SHARED_SELECT_CMDS	redis.h	80;"	d
-REDIS_SHUTDOWN_NOSAVE	redis.h	342;"	d
-REDIS_SHUTDOWN_SAVE	redis.h	340;"	d
-REDIS_SLAVE	redis.h	219;"	d
-REDIS_SLOWLOG_LOG_SLOWER_THAN	redis.h	87;"	d
-REDIS_SLOWLOG_MAX_LEN	redis.h	88;"	d
-REDIS_SORTKEY_MAX	redis.h	284;"	d
-REDIS_SORT_ASC	redis.h	282;"	d
-REDIS_SORT_DESC	redis.h	283;"	d
-REDIS_SORT_GET	redis.h	281;"	d
+REDIS_SHARED_BULKHDR_LEN	redis.h	86;"	d
+REDIS_SHARED_INTEGERS	redis.h	85;"	d
+REDIS_SHARED_SELECT_CMDS	redis.h	84;"	d
+REDIS_SHUTDOWN_NOSAVE	redis.h	351;"	d
+REDIS_SHUTDOWN_SAVE	redis.h	349;"	d
+REDIS_SLAVE	redis.h	227;"	d
+REDIS_SLOWLOG_LOG_SLOWER_THAN	redis.h	91;"	d
+REDIS_SLOWLOG_MAX_LEN	redis.h	92;"	d
+REDIS_SORTKEY_MAX	redis.h	293;"	d
+REDIS_SORT_ASC	redis.h	291;"	d
+REDIS_SORT_DESC	redis.h	292;"	d
+REDIS_SORT_GET	redis.h	290;"	d
 REDIS_STRING	redis-check-dump.c	46;"	d	file:
-REDIS_STRING	redis.h	167;"	d
+REDIS_STRING	redis.h	174;"	d
 REDIS_SYNCIO_RESOLUTION	syncio.c	43;"	d	file:
-REDIS_TAIL	redis.h	278;"	d
-REDIS_TCP_BACKLOG	redis.h	74;"	d
+REDIS_TAIL	redis.h	287;"	d
+REDIS_TCP_BACKLOG	redis.h	78;"	d
 REDIS_THREAD_STACK_SIZE	bio.c	89;"	d	file:
-REDIS_UNBLOCKED	redis.h	226;"	d
-REDIS_UNIX_SOCKET	redis.h	231;"	d
-REDIS_VERBOSE	redis.h	288;"	d
+REDIS_UNBLOCKED	redis.h	234;"	d
+REDIS_UNIX_SOCKET	redis.h	239;"	d
+REDIS_VERBOSE	redis.h	297;"	d
 REDIS_VERSION	version.h	1;"	d
-REDIS_WARNING	redis.h	290;"	d
+REDIS_WARNING	redis.h	299;"	d
 REDIS_ZSET	redis-check-dump.c	49;"	d	file:
-REDIS_ZSET	redis.h	170;"	d
-REDIS_ZSET_MAX_ZIPLIST_ENTRIES	redis.h	312;"	d
-REDIS_ZSET_MAX_ZIPLIST_VALUE	redis.h	313;"	d
+REDIS_ZSET	redis.h	177;"	d
+REDIS_ZSET_MAX_ZIPLIST_ENTRIES	redis.h	321;"	d
+REDIS_ZSET_MAX_ZIPLIST_VALUE	redis.h	322;"	d
 REDIS_ZSET_ZIPLIST	redis-check-dump.c	54;"	d	file:
 REPL_MAX_WRITTEN_BEFORE_FSYNC	replication.c	745;"	d	file:
 REST	rand.c	64;"	d	file:
+RETURN_CANCEL	t_graph.h	9;"	d
+RETURN_OK	t_graph.h	1;"	d
+RETURN_REPLY	t_graph.h	5;"	d
 REV_FINAL_CFLAGS	Makefile	/^	echo PREV_FINAL_CFLAGS=$(FINAL_CFLAGS) >> .make-settings$/;"	m
 REV_FINAL_LDFLAGS	Makefile	/^	echo PREV_FINAL_LDFLAGS=$(FINAL_LDFLAGS) >> .make-settings$/;"	m
 R_Nan	redis-check-dump.c	/^static double R_Zero, R_PosInf, R_NegInf, R_Nan;$/;"	v	file:
@@ -575,10 +615,10 @@ R_Zero	redis.c	/^double R_Zero, R_PosInf, R_NegInf, R_Nan;$/;"	v
 RedisClusterCRC16	redis-trib.rb	/^module RedisClusterCRC16$/;"	m
 RedisTrib	redis-trib.rb	/^class RedisTrib$/;"	c
 SA_ONSTACK	debug.c	46;"	d	file:
-SDS_LLSTR_SIZE	sds.c	298;"	d	file:
+SDS_LLSTR_SIZE	sds.c	300;"	d	file:
 SDS_MAX_PREALLOC	sds.h	34;"	d
 SEED	rand.c	63;"	d	file:
-SENTINEL_ASK_FORCED	sentinel.c	3075;"	d	file:
+SENTINEL_ASK_FORCED	sentinel.c	3123;"	d	file:
 SENTINEL_ASK_PERIOD	sentinel.c	74;"	d	file:
 SENTINEL_DEFAULT_DOWN_AFTER	sentinel.c	76;"	d	file:
 SENTINEL_DEFAULT_FAILOVER_TIMEOUT	sentinel.c	84;"	d	file:
@@ -605,8 +645,8 @@ SENTINEL_NO_FLAGS	sentinel.c	104;"	d	file:
 SENTINEL_OBSERVER	sentinel.c	107;"	d	file:
 SENTINEL_PING_PERIOD	sentinel.c	73;"	d	file:
 SENTINEL_PUBLISH_PERIOD	sentinel.c	75;"	d	file:
-SENTINEL_RESET_NO_SENTINELS	sentinel.c	1156;"	d	file:
-SENTINEL_SCRIPT_MAX_ARGS	sentinel.c	606;"	d	file:
+SENTINEL_RESET_NO_SENTINELS	sentinel.c	1163;"	d	file:
+SENTINEL_SCRIPT_MAX_ARGS	sentinel.c	613;"	d	file:
 SENTINEL_SCRIPT_MAX_QUEUE	sentinel.c	112;"	d	file:
 SENTINEL_SCRIPT_MAX_RETRY	sentinel.c	115;"	d	file:
 SENTINEL_SCRIPT_MAX_RUNNING	sentinel.c	113;"	d	file:
@@ -626,11 +666,14 @@ SHA1HANDSOFF	sha1.c	22;"	d	file:
 SHA1Init	sha1.c	/^void SHA1Init(SHA1_CTX* context)$/;"	f
 SHA1Transform	sha1.c	/^void SHA1Transform(u_int32_t state[5], const unsigned char buffer[64])$/;"	f
 SHA1Update	sha1.c	/^void SHA1Update(SHA1_CTX* context, const unsigned char* data, u_int32_t len)$/;"	f
-SHA1_CTX	sha1.h	/^} SHA1_CTX;$/;"	t	typeref:struct:__anon15
+SHA1_CTX	sha1.h	/^} SHA1_CTX;$/;"	t	typeref:struct:__anon28
 SHIFT_ERROR	redis-check-dump.c	123;"	d	file:
 SLOWLOG_ENTRY_MAX_ARGC	slowlog.h	30;"	d
 SLOWLOG_ENTRY_MAX_STRING	slowlog.h	31;"	d
-SPT	setproctitle.c	/^} SPT;$/;"	v	typeref:struct:__anon29	file:
+SPARKLINE_FILL	sparkline.h	47;"	d
+SPARKLINE_LOG_SCALE	sparkline.h	48;"	d
+SPARKLINE_NO_FLAGS	sparkline.h	46;"	d
+SPT	setproctitle.c	/^} SPT;$/;"	v	typeref:struct:__anon10	file:
 SPT_MAXTITLE	setproctitle.c	213;"	d	file:
 SPT_MIN	setproctitle.c	67;"	d	file:
 SRANDMEMBER_SUB_STRATEGY_MUL	t_set.c	419;"	d	file:
@@ -656,24 +699,24 @@ STRICT_ALIGN	lzfP.h	140;"	d
 STRICT_ALIGN	lzfP.h	82;"	d
 SWAPINIT	pqsort.c	65;"	d	file:
 TD	Makefile	/^	echo STD=$(STD) >> .make-settings$/;"	m
-TYPE_HASH	redis-cli.c	1335;"	d	file:
-TYPE_LIST	redis-cli.c	1333;"	d	file:
-TYPE_NONE	redis-cli.c	1337;"	d	file:
-TYPE_SET	redis-cli.c	1334;"	d	file:
-TYPE_STRING	redis-cli.c	1332;"	d	file:
-TYPE_ZSET	redis-cli.c	1336;"	d	file:
+TYPE_HASH	redis-cli.c	1351;"	d	file:
+TYPE_LIST	redis-cli.c	1349;"	d	file:
+TYPE_NONE	redis-cli.c	1353;"	d	file:
+TYPE_SET	redis-cli.c	1350;"	d	file:
+TYPE_STRING	redis-cli.c	1348;"	d	file:
+TYPE_ZSET	redis-cli.c	1352;"	d	file:
 ULONG_ONEZERO	memtest.c	49;"	d	file:
 ULONG_ONEZERO	memtest.c	52;"	d	file:
 ULONG_ZEROONE	memtest.c	50;"	d	file:
 ULONG_ZEROONE	memtest.c	53;"	d	file:
 ULTRA_FAST	lzfP.h	75;"	d
-UNIT_MILLISECONDS	redis.h	337;"	d
-UNIT_SECONDS	redis.h	336;"	d
+UNIT_MILLISECONDS	redis.h	346;"	d
+UNIT_SECONDS	redis.h	345;"	d
 USE_SETPROCTITLE	config.h	112;"	d
 USE_SETPROCTITLE	config.h	116;"	d
 VERY_FAST	lzfP.h	146;"	d
 VERY_FAST	lzfP.h	64;"	d
-WARN	Makefile	/^WARN=-Wall$/;"	m
+WARN	Makefile	/^WARN=-Wall -W$/;"	m
 X0	rand.c	54;"	d	file:
 X1	rand.c	55;"	d	file:
 X2	rand.c	56;"	d	file:
@@ -715,19 +758,21 @@ ZIP_STR_MASK	ziplist.c	119;"	d	file:
 ZMALLOC_LIB	zmalloc.h	39;"	d
 ZMALLOC_LIB	zmalloc.h	49;"	d
 ZMALLOC_LIB	zmalloc.h	65;"	d
-ZRANGE_LEX	t_zset.c	1382;"	d	file:
-ZRANGE_RANK	t_zset.c	1380;"	d	file:
-ZRANGE_SCORE	t_zset.c	1381;"	d	file:
-ZSKIPLIST_MAXLEVEL	redis.h	297;"	d
-ZSKIPLIST_P	redis.h	298;"	d
+ZRANGE_LEX	t_zset.c	1380;"	d	file:
+ZRANGE_RANK	t_zset.c	1378;"	d	file:
+ZRANGE_SCORE	t_zset.c	1379;"	d	file:
+ZSKIPLIST_MAXLEVEL	redis.h	306;"	d
+ZSKIPLIST_P	redis.h	307;"	d
+_ALL_SOURCE	fmacros.h	40;"	d
 _BSD_SOURCE	fmacros.h	33;"	d
-_FILE_OFFSET_BITS	fmacros.h	50;"	d
+_FILE_OFFSET_BITS	fmacros.h	58;"	d
 _GNU_SOURCE	fmacros.h	36;"	d
 _GNU_SOURCE	setproctitle.c	29;"	d	file:
-_LARGEFILE_SOURCE	fmacros.h	49;"	d
+_LARGEFILE_SOURCE	fmacros.h	57;"	d
+_POSIX_C_SOURCE	fmacros.h	54;"	d
 _REDIS_FMACRO_H	fmacros.h	31;"	d
-_XOPEN_SOURCE	fmacros.h	40;"	d
-_XOPEN_SOURCE	fmacros.h	46;"	d
+_XOPEN_SOURCE	fmacros.h	44;"	d
+_XOPEN_SOURCE	fmacros.h	50;"	d
 _ZIPMAP_H	zipmap.h	36;"	d
 __ADLIST_H__	adlist.h	32;"	d
 __AE_H__	ae.h	34;"	d
@@ -735,6 +780,7 @@ __CONFIG_H	config.h	31;"	d
 __DICT_H	dict.h	39;"	d
 __ENDIANCONV_H	endianconv.h	34;"	d
 __INTSET_H	intset.h	32;"	d
+__LATENCY_H	latency.h	35;"	d
 __PQSORT_H	pqsort.h	34;"	d
 __REDIS_ASSERT_H__	redisassert.h	39;"	d
 __REDIS_CLUSTER_H	cluster.h	2;"	d
@@ -744,6 +790,7 @@ __REDIS_RDB_H	rdb.h	31;"	d
 __REDIS_RIO_H	rio.h	33;"	d
 __REDIS_UTIL_H	util.h	31;"	d
 __SDS_H	sds.h	32;"	d
+__SPARKLINE_H	sparkline.h	31;"	d
 __TESTHELP_H	testhelp.h	40;"	d
 __ZMALLOC_H	zmalloc.h	32;"	d
 __failed_tests	testhelp.h	/^int __failed_tests = 0;$/;"	v
@@ -759,7 +806,7 @@ _addReplyStringToList	networking.c	/^void _addReplyStringToList(redisClient *c, 
 _addReplyToBuffer	networking.c	/^int _addReplyToBuffer(redisClient *c, char *s, size_t len) {$/;"	f
 _anetTcpServer	anet.c	/^static int _anetTcpServer(char *err, int port, char *bindaddr, int af, int backlog)$/;"	f	file:
 _assert	intset.c	/^void _assert(char *estr, char *file, int line) {$/;"	f
-_buf	t_zset.c	/^    unsigned char _buf[32]; \/* Private buffer. *\/$/;"	m	struct:__anon7	file:
+_buf	t_zset.c	/^    unsigned char _buf[32]; \/* Private buffer. *\/$/;"	m	struct:__anon24	file:
 _client	redis-benchmark.c	/^typedef struct _client {$/;"	s	file:
 _dictClear	dict.c	/^int _dictClear(dict *d, dictht *ht, void(callback)(void *)) {$/;"	f
 _dictExpandIfNeeded	dict.c	/^static int _dictExpandIfNeeded(dict *d)$/;"	f	file:
@@ -772,8 +819,8 @@ _intsetGet	intset.c	/^static int64_t _intsetGet(intset *is, int pos) {$/;"	f	fil
 _intsetGetEncoded	intset.c	/^static int64_t _intsetGetEncoded(intset *is, int pos, uint8_t enc) {$/;"	f	file:
 _intsetSet	intset.c	/^static void _intsetSet(intset *is, int pos, int64_t value) {$/;"	f	file:
 _intsetValueEncoding	intset.c	/^static uint8_t _intsetValueEncoding(int64_t v) {$/;"	f	file:
-_iterset	t_zset.c	/^        union _iterset {$/;"	u	union:__anon1::__anon2	file:
-_iterzset	t_zset.c	/^        union _iterzset {$/;"	u	union:__anon1::__anon2	file:
+_iterset	t_zset.c	/^        union _iterset {$/;"	u	union:__anon18::__anon19	file:
+_iterzset	t_zset.c	/^        union _iterzset {$/;"	u	union:__anon18::__anon19	file:
 _pqsort	pqsort.c	/^_pqsort(void *a, size_t n, size_t es,$/;"	f	file:
 _redisAssert	debug.c	/^void _redisAssert(char *estr, char *file, int line) {$/;"	f
 _redisAssertPrintClientInfo	debug.c	/^void _redisAssertPrintClientInfo(redisClient *c) {$/;"	f
@@ -786,7 +833,7 @@ _rfds	ae_select.c	/^    fd_set _rfds, _wfds;$/;"	m	struct:aeApiState	file:
 _rio	rio.h	/^struct _rio {$/;"	s
 _wfds	ae_select.c	/^    fd_set _rfds, _wfds;$/;"	m	struct:aeApiState	file:
 a	rand.c	/^static uint32_t x[3] = { X0, X1, X2 }, a[3] = { A0, A1, A2 }, c = C;$/;"	v	file:
-about	cluster.h	/^        clusterMsgDataFail about;$/;"	m	struct:clusterMsgData::__anon25
+about	cluster.h	/^        clusterMsgDataFail about;$/;"	m	struct:clusterMsgData::__anon6
 acceptCommonHandler	networking.c	/^static void acceptCommonHandler(int fd, int flags) {$/;"	f	file:
 acceptTcpHandler	networking.c	/^void acceptTcpHandler(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
 acceptUnixHandler	networking.c	/^void acceptUnixHandler(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
@@ -803,6 +850,8 @@ addReplyBulkCBuffer	networking.c	/^void addReplyBulkCBuffer(redisClient *c, void
 addReplyBulkCString	networking.c	/^void addReplyBulkCString(redisClient *c, char *s) {$/;"	f
 addReplyBulkLen	networking.c	/^void addReplyBulkLen(redisClient *c, robj *obj) {$/;"	f
 addReplyBulkLongLong	networking.c	/^void addReplyBulkLongLong(redisClient *c, long long ll) {$/;"	f
+addReplyCommand	redis.c	/^void addReplyCommand(redisClient *c, struct redisCommand *cmd) {$/;"	f
+addReplyCommandFlag	redis.c	/^int addReplyCommandFlag(redisClient *c, struct redisCommand *cmd, int f, char *reply) {$/;"	f
 addReplyDictOfRedisInstances	sentinel.c	/^void addReplyDictOfRedisInstances(redisClient *c, dict *instances) {$/;"	f
 addReplyDouble	networking.c	/^void addReplyDouble(redisClient *c, double d) {$/;"	f
 addReplyError	networking.c	/^void addReplyError(redisClient *c, char *err) {$/;"	f
@@ -891,11 +940,13 @@ aeTimeEvent	ae.h	/^typedef struct aeTimeEvent {$/;"	s
 aeTimeEvent	ae.h	/^} aeTimeEvent;$/;"	t	typeref:struct:aeTimeEvent
 aeTimeProc	ae.h	/^typedef int aeTimeProc(struct aeEventLoop *eventLoop, long long id, void *clientData);$/;"	t
 aeWait	ae.c	/^int aeWait(int fd, int mask, long long milliseconds) {$/;"	f
+all_time_high	latency.h	/^    uint32_t all_time_high; \/* Absolute max observed since latest reset. *\/$/;"	m	struct:latencyStats
 alloc_slots	redis-trib.rb	/^    def alloc_slots$/;"	f	class:RedisTrib
 alsoPropagate	redis.c	/^void alsoPropagate(struct redisCommand *cmd, int dbid, robj **argv, int argc,$/;"	f
 also_propagate	redis.h	/^    redisOpArray also_propagate;    \/* Additional command to propagate. *\/$/;"	m	struct:redisServer
+analyzeLatencyForEvent	latency.c	/^void analyzeLatencyForEvent(char *event, struct latencyStats *ls) {$/;"	f
 anetCreateSocket	anet.c	/^static int anetCreateSocket(char *err, int domain) {$/;"	f	file:
-anetDisableTcpNoDelay	anet.c	/^int anetDisableTcpNoDelay(char *err, int fd) $/;"	f
+anetDisableTcpNoDelay	anet.c	/^int anetDisableTcpNoDelay(char *err, int fd)$/;"	f
 anetEnableTcpNoDelay	anet.c	/^int anetEnableTcpNoDelay(char *err, int fd)$/;"	f
 anetGenericAccept	anet.c	/^static int anetGenericAccept(char *err, int s, struct sockaddr *sa, socklen_t *len) {$/;"	f	file:
 anetGenericResolve	anet.c	/^int anetGenericResolve(char *err, char *host, char *ipbuf, size_t ipbuf_len,$/;"	f
@@ -926,6 +977,13 @@ anetUnixNonBlockConnect	anet.c	/^int anetUnixNonBlockConnect(char *err, char *pa
 anetUnixServer	anet.c	/^int anetUnixServer(char *err, char *path, mode_t perm, int backlog)$/;"	f
 anetV6Only	anet.c	/^static int anetV6Only(char *err, int s) {$/;"	f	file:
 anetWrite	anet.c	/^int anetWrite(int fd, char *buf, int count)$/;"	f
+announce_ip	sentinel.c	/^    char *announce_ip;      \/* IP addr that is gossiped to other sentinels if$/;"	m	struct:sentinelState	file:
+announce_port	sentinel.c	/^    int announce_port;      \/* Port that is gossiped to other sentinels if$/;"	m	struct:sentinelState	file:
+aofChildPipeReadable	aof.c	/^void aofChildPipeReadable(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
+aofChildWriteDiffData	aof.c	/^void aofChildWriteDiffData(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
+aofClosePipes	aof.c	/^void aofClosePipes(void) {$/;"	f
+aofCreatePipes	aof.c	/^int aofCreatePipes(void) {$/;"	f
+aofReadDiffFromParent	aof.c	/^ssize_t aofReadDiffFromParent(void) {$/;"	f
 aofRemoveTempFile	aof.c	/^void aofRemoveTempFile(pid_t childpid) {$/;"	f
 aofRewriteBufferAppend	aof.c	/^void aofRewriteBufferAppend(unsigned char *s, unsigned long len) {$/;"	f
 aofRewriteBufferReset	aof.c	/^void aofRewriteBufferReset(void) {$/;"	f
@@ -934,6 +992,7 @@ aofRewriteBufferWrite	aof.c	/^ssize_t aofRewriteBufferWrite(int fd) {$/;"	f
 aofUpdateCurrentSize	aof.c	/^void aofUpdateCurrentSize(void) {$/;"	f
 aof_background_fsync	aof.c	/^void aof_background_fsync(int fd) {$/;"	f
 aof_buf	redis.h	/^    sds aof_buf;      \/* AOF buffer, written before entering the event loop *\/$/;"	m	struct:redisServer
+aof_child_diff	redis.h	/^    sds aof_child_diff;             \/* AOF diff accumulator child side. *\/$/;"	m	struct:redisServer
 aof_child_pid	redis.h	/^    pid_t aof_child_pid;            \/* PID if rewriting process *\/$/;"	m	struct:redisServer
 aof_current_size	redis.h	/^    off_t aof_current_size;         \/* AOF current size. *\/$/;"	m	struct:redisServer
 aof_delayed_fsync	redis.h	/^    unsigned long aof_delayed_fsync;  \/* delayed AOF fsync() counter *\/$/;"	m	struct:redisServer
@@ -947,7 +1006,14 @@ aof_last_fsync	redis.h	/^    time_t aof_last_fsync;            \/* UNIX time of 
 aof_last_write_errno	redis.h	/^    int aof_last_write_errno;       \/* Valid if aof_last_write_status is ERR *\/$/;"	m	struct:redisServer
 aof_last_write_status	redis.h	/^    int aof_last_write_status;      \/* REDIS_OK or REDIS_ERR *\/$/;"	m	struct:redisServer
 aof_lastbgrewrite_status	redis.h	/^    int aof_lastbgrewrite_status;   \/* REDIS_OK or REDIS_ERR *\/$/;"	m	struct:redisServer
+aof_load_truncated	redis.h	/^    int aof_load_truncated;         \/* Don't stop on unexpected AOF EOF. *\/$/;"	m	struct:redisServer
 aof_no_fsync_on_rewrite	redis.h	/^    int aof_no_fsync_on_rewrite;    \/* Don't fsync if a rewrite is in prog. *\/$/;"	m	struct:redisServer
+aof_pipe_read_ack_from_child	redis.h	/^    int aof_pipe_read_ack_from_child;$/;"	m	struct:redisServer
+aof_pipe_read_ack_from_parent	redis.h	/^    int aof_pipe_read_ack_from_parent;$/;"	m	struct:redisServer
+aof_pipe_read_data_from_parent	redis.h	/^    int aof_pipe_read_data_from_parent;$/;"	m	struct:redisServer
+aof_pipe_write_ack_to_child	redis.h	/^    int aof_pipe_write_ack_to_child;$/;"	m	struct:redisServer
+aof_pipe_write_ack_to_parent	redis.h	/^    int aof_pipe_write_ack_to_parent;$/;"	m	struct:redisServer
+aof_pipe_write_data_to_child	redis.h	/^    int aof_pipe_write_data_to_child;$/;"	m	struct:redisServer
 aof_rewrite_base_size	redis.h	/^    off_t aof_rewrite_base_size;    \/* AOF size on latest startup or rewrite. *\/$/;"	m	struct:redisServer
 aof_rewrite_buf_blocks	redis.h	/^    list *aof_rewrite_buf_blocks;   \/* Hold changes during an AOF rewrite. *\/$/;"	m	struct:redisServer
 aof_rewrite_incremental_fsync	redis.h	/^    int aof_rewrite_incremental_fsync;\/* fsync incrementally while rewriting? *\/$/;"	m	struct:redisServer
@@ -958,22 +1024,23 @@ aof_rewrite_time_last	redis.h	/^    time_t aof_rewrite_time_last;   \/* Time use
 aof_rewrite_time_start	redis.h	/^    time_t aof_rewrite_time_start;  \/* Current AOF rewrite start time. *\/$/;"	m	struct:redisServer
 aof_selected_db	redis.h	/^    int aof_selected_db; \/* Currently selected DB in AOF *\/$/;"	m	struct:redisServer
 aof_state	redis.h	/^    int aof_state;                  \/* REDIS_AOF_(ON|OFF|WAIT_REWRITE) *\/$/;"	m	struct:redisServer
+aof_stop_sending_diff	redis.h	/^    int aof_stop_sending_diff;     \/* If true stop sending accumulated diffs$/;"	m	struct:redisServer
 aofrwblock	aof.c	/^typedef struct aofrwblock {$/;"	s	file:
 aofrwblock	aof.c	/^} aofrwblock;$/;"	t	typeref:struct:aofrwblock	file:
 apidata	ae.h	/^    void *apidata; \/* This is used for polling API specific data *\/$/;"	m	struct:aeEventLoop
 appendCommand	t_string.c	/^void appendCommand(redisClient *c) {$/;"	f
 appendServerSaveParams	config.c	/^void appendServerSaveParams(time_t seconds, int changes) {$/;"	f
 arch_bits	redis.h	/^    int arch_bits;              \/* 32 or 64 depending on sizeof(long) *\/$/;"	m	struct:redisServer
-arg0	setproctitle.c	/^	const char *arg0;$/;"	m	struct:__anon29	file:
+arg0	setproctitle.c	/^	const char *arg0;$/;"	m	struct:__anon10	file:
 arg1	bio.c	/^    void *arg1, *arg2, *arg3;$/;"	m	struct:bio_job	file:
 arg2	bio.c	/^    void *arg1, *arg2, *arg3;$/;"	m	struct:bio_job	file:
 arg3	bio.c	/^    void *arg1, *arg2, *arg3;$/;"	m	struct:bio_job	file:
-argc	redis-cli.c	/^    int argc;$/;"	m	struct:__anon19	file:
+argc	redis-cli.c	/^    int argc;$/;"	m	struct:__anon30	file:
 argc	redis.h	/^    int argc, dbid, target;$/;"	m	struct:redisOp
 argc	redis.h	/^    int argc;$/;"	m	struct:multiCmd
 argc	redis.h	/^    int argc;$/;"	m	struct:redisClient
 argc	slowlog.h	/^    int argc;$/;"	m	struct:slowlogEntry
-argv	redis-cli.c	/^    sds *argv;$/;"	m	struct:__anon19	file:
+argv	redis-cli.c	/^    sds *argv;$/;"	m	struct:__anon30	file:
 argv	redis.h	/^    robj **argv;$/;"	m	struct:multiCmd
 argv	redis.h	/^    robj **argv;$/;"	m	struct:redisClient
 argv	redis.h	/^    robj **argv;$/;"	m	struct:redisOp
@@ -991,16 +1058,18 @@ assert_file	redis.h	/^    char *assert_file;$/;"	m	struct:redisServer
 assert_line	redis.h	/^    int assert_line;$/;"	m	struct:redisServer
 assign_config_epoch	redis-trib.rb	/^    def assign_config_epoch$/;"	f	class:RedisTrib
 asyncCloseClientOnOutputBufferLimitReached	networking.c	/^void asyncCloseClientOnOutputBufferLimitReached(redisClient *c) {$/;"	f
+auth	redis-benchmark.c	/^    char *auth;$/;"	m	struct:config	file:
 auth	redis-cli.c	/^    char *auth;$/;"	m	struct:config	file:
 authCommand	redis.c	/^void authCommand(redisClient *c) {$/;"	f
 auth_pass	sentinel.c	/^    char *auth_pass;    \/* Password to use for AUTH against master & slaves. *\/$/;"	m	struct:sentinelRedisInstance	file:
 authenticated	redis.h	/^    int authenticated;      \/* when requirepass is non-NULL *\/$/;"	m	struct:redisClient
-autosync	rio.h	/^            off_t autosync; \/* fsync after 'autosync' bytes written. *\/$/;"	m	struct:_rio::__anon16::__anon18
+autosync	rio.h	/^            off_t autosync; \/* fsync after 'autosync' bytes written. *\/$/;"	m	struct:_rio::__anon25::__anon27
+avg	latency.h	/^    uint32_t avg;           \/* Average of current samples. *\/$/;"	m	struct:latencyStats
 avg_ttl	redis.h	/^    long long avg_ttl;          \/* Average TTL, just for stats *\/$/;"	m	struct:redisDb
 backgroundRewriteDoneHandler	aof.c	/^void backgroundRewriteDoneHandler(int exitcode, int bysignal) {$/;"	f
 backgroundSaveDoneHandler	rdb.c	/^void backgroundSaveDoneHandler(int exitcode, int bysignal) {$/;"	f
 backward	redis.h	/^    struct zskiplistNode *backward;$/;"	m	struct:zskiplistNode	typeref:struct:zskiplistNode::zskiplistNode
-base	setproctitle.c	/^	char *base, *end;$/;"	m	struct:__anon29	file:
+base	setproctitle.c	/^	char *base, *end;$/;"	m	struct:__anon10	file:
 beforeSleep	redis.c	/^void beforeSleep(struct aeEventLoop *eventLoop) {$/;"	f
 beforesleep	ae.h	/^    aeBeforeSleepProc *beforesleep;$/;"	m	struct:aeEventLoop
 benchmark	redis-benchmark.c	/^static void benchmark(char *title, char *cmd, int len) {$/;"	f	file:
@@ -1045,13 +1114,13 @@ btype	redis.h	/^    int btype;              \/* Type of blocking op if REDIS_BLO
 buf	aof.c	/^    char buf[AOF_RW_BUF_BLOCK_SIZE];$/;"	m	struct:aofrwblock	file:
 buf	redis.h	/^    char buf[REDIS_REPLY_CHUNK_BYTES];$/;"	m	struct:redisClient
 buf	sds.h	/^    char buf[];$/;"	m	struct:sdshdr
-buffer	rio.h	/^        } buffer;$/;"	m	union:_rio::__anon16	typeref:struct:_rio::__anon16::__anon17
-buffer	sha1.h	/^    unsigned char buffer[64];$/;"	m	struct:__anon15
-buffered	rio.h	/^            off_t buffered; \/* Bytes written since last fsync. *\/$/;"	m	struct:_rio::__anon16::__anon18
+buffer	rio.h	/^        } buffer;$/;"	m	union:_rio::__anon25	typeref:struct:_rio::__anon25::__anon26
+buffer	sha1.h	/^    unsigned char buffer[64];$/;"	m	struct:__anon28
+buffered	rio.h	/^            off_t buffered; \/* Bytes written since last fsync. *\/$/;"	m	struct:_rio::__anon25::__anon27
 bufpos	redis.h	/^    int bufpos;$/;"	m	struct:redisClient
 bugReportStart	debug.c	/^void bugReportStart(void) {$/;"	f
 bug_report_start	redis.h	/^    int bug_report_start; \/* True if bug report header was already logged. *\/$/;"	m	struct:redisServer
-bulk_data	cluster.h	/^    unsigned char bulk_data[8]; \/* defined as 8 just for alignment concerns. *\/$/;"	m	struct:__anon22
+bulk_data	cluster.h	/^    unsigned char bulk_data[8]; \/* defined as 8 just for alignment concerns. *\/$/;"	m	struct:__anon3
 bulkhdr	redis.h	/^    *bulkhdr[REDIS_SHARED_BULKHDR_LEN];  \/* "$<value>\\r\\n" *\/$/;"	m	struct:sharedObjectsStruct
 bulklen	redis.h	/^    long bulklen;           \/* length of bulk argument in multi bulk request *\/$/;"	m	struct:redisClient
 busykeyerr	redis.h	/^    *busykeyerr, *oomerr, *plus, *messagebulk, *pmessagebulk, *subscribebulk,$/;"	m	struct:sharedObjectsStruct
@@ -1065,6 +1134,7 @@ calloc	zmalloc.c	60;"	d	file:
 calloc	zmalloc.c	65;"	d	file:
 calls	redis.h	/^    long long microseconds, calls;$/;"	m	struct:redisCommand
 cancelReplicationHandshake	replication.c	/^int cancelReplicationHandshake(void) {$/;"	f
+cant_failover_reason	cluster.h	/^    int cant_failover_reason;   \/* Why a slave is currently not able to$/;"	m	struct:clusterState
 card	hyperloglog.c	/^    uint8_t card[8];    \/* Cached cardinality, little endian. *\/$/;"	m	struct:hllhdr	file:
 catAppendOnlyExpireAtCommand	aof.c	/^sds catAppendOnlyExpireAtCommand(sds buf, struct redisCommand *cmd, robj *key, robj *seconds) {$/;"	f
 catAppendOnlyGenericCommand	aof.c	/^sds catAppendOnlyGenericCommand(sds dst, int argc, robj **argv) {$/;"	f
@@ -1074,7 +1144,10 @@ cc_conn_time	sentinel.c	/^    mstime_t cc_conn_time; \/* cc connection time. *\/
 cfd	redis.h	/^    int cfd[REDIS_BINDADDR_MAX];\/* Cluster bus listening socket *\/$/;"	m	struct:redisServer
 cfd_count	redis.h	/^    int cfd_count;              \/* Used slots in cfd[] *\/$/;"	m	struct:redisServer
 changes	redis.h	/^    int changes;$/;"	m	struct:saveparam
-channel_len	cluster.h	/^    uint32_t channel_len;$/;"	m	struct:__anon22
+channel_len	cluster.h	/^    uint32_t channel_len;$/;"	m	struct:__anon3
+charset	sparkline.c	/^static char charset[] = "_-`";$/;"	v	file:
+charset_fill	sparkline.c	/^static char charset_fill[] = "_o#";$/;"	v	file:
+charset_len	sparkline.c	/^static int charset_len = sizeof(charset)-1;$/;"	v	file:
 checkClientOutputBufferLimits	networking.c	/^int checkClientOutputBufferLimits(redisClient *c) {$/;"	f
 checkConsistency	intset.c	/^void checkConsistency(intset *is) {$/;"	f
 checkForSentinelMode	redis.c	/^int checkForSentinelMode(int argc, char **argv) {$/;"	f
@@ -1095,16 +1168,16 @@ cliConnect	redis-cli.c	/^static int cliConnect(int force) {$/;"	f	file:
 cliFormatReplyCSV	redis-cli.c	/^static sds cliFormatReplyCSV(redisReply *r) {$/;"	f	file:
 cliFormatReplyRaw	redis-cli.c	/^static sds cliFormatReplyRaw(redisReply *r) {$/;"	f	file:
 cliFormatReplyTTY	redis-cli.c	/^static sds cliFormatReplyTTY(redisReply *r, char *prefix) {$/;"	f	file:
-cliInitHelp	redis-cli.c	/^static void cliInitHelp() {$/;"	f	file:
+cliInitHelp	redis-cli.c	/^static void cliInitHelp(void) {$/;"	f	file:
 cliOutputCommandHelp	redis-cli.c	/^static void cliOutputCommandHelp(struct commandHelp *help, int group) {$/;"	f	file:
-cliOutputGenericHelp	redis-cli.c	/^static void cliOutputGenericHelp() {$/;"	f	file:
+cliOutputGenericHelp	redis-cli.c	/^static void cliOutputGenericHelp(void) {$/;"	f	file:
 cliOutputHelp	redis-cli.c	/^static void cliOutputHelp(int argc, char **argv) {$/;"	f	file:
-cliPrintContextError	redis-cli.c	/^static void cliPrintContextError() {$/;"	f	file:
+cliPrintContextError	redis-cli.c	/^static void cliPrintContextError(void) {$/;"	f	file:
 cliReadReply	redis-cli.c	/^static int cliReadReply(int output_raw_strings) {$/;"	f	file:
 cliRefreshPrompt	redis-cli.c	/^static void cliRefreshPrompt(void) {$/;"	f	file:
 cliSelect	redis-cli.c	/^static int cliSelect() {$/;"	f	file:
 cliSendCommand	redis-cli.c	/^static int cliSendCommand(int argc, char **argv, int repeat) {$/;"	f	file:
-cliVersion	redis-cli.c	/^static sds cliVersion() {$/;"	f	file:
+cliVersion	redis-cli.c	/^static sds cliVersion(void) {$/;"	f	file:
 client	redis-benchmark.c	/^} *client;$/;"	t	typeref:struct:_client	file:
 client	redis.h	/^    redisClient *client;$/;"	m	struct:pubsubPattern
 clientBufferLimitsConfig	redis.h	/^typedef struct clientBufferLimitsConfig {$/;"	s
@@ -1114,6 +1187,7 @@ clientCommand	networking.c	/^void clientCommand(redisClient *c) {$/;"	f
 clientData	ae.h	/^    void *clientData;$/;"	m	struct:aeFileEvent
 clientData	ae.h	/^    void *clientData;$/;"	m	struct:aeTimeEvent
 clientDone	redis-benchmark.c	/^static void clientDone(client c) {$/;"	f	file:
+clientSubscriptionsCount	pubsub.c	/^int clientSubscriptionsCount(redisClient *c) {$/;"	f
 client_max_querybuf_len	redis.h	/^    size_t client_max_querybuf_len; \/* Limit for client query buffer length *\/$/;"	m	struct:redisServer
 client_obuf_limits	redis.h	/^    clientBufferLimitsConfig client_obuf_limits[REDIS_CLIENT_TYPE_COUNT];$/;"	m	struct:redisServer
 client_reconfig_script	sentinel.c	/^    char *client_reconfig_script;$/;"	m	struct:sentinelRedisInstance	file:
@@ -1127,6 +1201,7 @@ clients_pause_end_time	redis.h	/^    mstime_t clients_pause_end_time; \/* Time w
 clients_paused	redis.h	/^    int clients_paused;         \/* True if clients are currently paused *\/$/;"	m	struct:redisServer
 clients_to_close	redis.h	/^    list *clients_to_close;     \/* Clients to close asynchronously *\/$/;"	m	struct:redisServer
 clients_waiting_acks	redis.h	/^    list *clients_waiting_acks;         \/* Clients waiting in WAIT command. *\/$/;"	m	struct:redisServer
+cloneStringObject	t_graph.c	/^robj *cloneStringObject(robj *obj) {$/;"	f
 closeListeningSockets	redis.c	/^void closeListeningSockets(int unlink_unix_socket) {$/;"	f
 cluster	redis.h	/^    struct clusterState *cluster;  \/* State of the cluster *\/$/;"	m	struct:redisServer	typeref:struct:redisServer::clusterState
 clusterAcceptHandler	cluster.c	/^void clusterAcceptHandler(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
@@ -1161,22 +1236,23 @@ clusterLink	cluster.h	/^typedef struct clusterLink {$/;"	s
 clusterLink	cluster.h	/^} clusterLink;$/;"	t	typeref:struct:clusterLink
 clusterLoadConfig	cluster.c	/^int clusterLoadConfig(char *filename) {$/;"	f
 clusterLockConfig	cluster.c	/^int clusterLockConfig(char *filename) {$/;"	f
+clusterLogCantFailover	cluster.c	/^void clusterLogCantFailover(int reason) {$/;"	f
 clusterLookupNode	cluster.c	/^clusterNode *clusterLookupNode(char *name) {$/;"	f
-clusterMsg	cluster.h	/^} clusterMsg;$/;"	t	typeref:struct:__anon28
+clusterMsg	cluster.h	/^} clusterMsg;$/;"	t	typeref:struct:__anon9
 clusterMsgData	cluster.h	/^union clusterMsgData {$/;"	u
-clusterMsgDataFail	cluster.h	/^} clusterMsgDataFail;$/;"	t	typeref:struct:__anon21
-clusterMsgDataGossip	cluster.h	/^} clusterMsgDataGossip;$/;"	t	typeref:struct:__anon20
-clusterMsgDataPublish	cluster.h	/^} clusterMsgDataPublish;$/;"	t	typeref:struct:__anon22
-clusterMsgDataUpdate	cluster.h	/^} clusterMsgDataUpdate;$/;"	t	typeref:struct:__anon23
-clusterNode	cluster.h	/^struct clusterNode {$/;"	s
-clusterNode	cluster.h	/^typedef struct clusterNode clusterNode;$/;"	t	typeref:struct:clusterNode
+clusterMsgDataFail	cluster.h	/^} clusterMsgDataFail;$/;"	t	typeref:struct:__anon2
+clusterMsgDataGossip	cluster.h	/^} clusterMsgDataGossip;$/;"	t	typeref:struct:__anon1
+clusterMsgDataPublish	cluster.h	/^} clusterMsgDataPublish;$/;"	t	typeref:struct:__anon3
+clusterMsgDataUpdate	cluster.h	/^} clusterMsgDataUpdate;$/;"	t	typeref:struct:__anon4
+clusterNode	cluster.h	/^typedef struct clusterNode {$/;"	s
+clusterNode	cluster.h	/^} clusterNode;$/;"	t	typeref:struct:clusterNode
 clusterNodeAddFailureReport	cluster.c	/^int clusterNodeAddFailureReport(clusterNode *failing, clusterNode *sender) {$/;"	f
 clusterNodeAddSlave	cluster.c	/^int clusterNodeAddSlave(clusterNode *master, clusterNode *slave) {$/;"	f
 clusterNodeCleanupFailureReports	cluster.c	/^void clusterNodeCleanupFailureReports(clusterNode *node) {$/;"	f
 clusterNodeClearSlotBit	cluster.c	/^int clusterNodeClearSlotBit(clusterNode *n, int slot) {$/;"	f
 clusterNodeDelFailureReport	cluster.c	/^int clusterNodeDelFailureReport(clusterNode *node, clusterNode *sender) {$/;"	f
-clusterNodeFailReport	cluster.h	/^struct clusterNodeFailReport {$/;"	s
-clusterNodeFailReport	cluster.h	/^} typedef clusterNodeFailReport;$/;"	t
+clusterNodeFailReport	cluster.h	/^typedef struct clusterNodeFailReport {$/;"	s
+clusterNodeFailReport	cluster.h	/^} clusterNodeFailReport;$/;"	t	typeref:struct:clusterNodeFailReport
 clusterNodeFailureReportsCount	cluster.c	/^int clusterNodeFailureReportsCount(clusterNode *node) {$/;"	f
 clusterNodeGetSlotBit	cluster.c	/^int clusterNodeGetSlotBit(clusterNode *n, int slot) {$/;"	f
 clusterNodeRemoveSlave	cluster.c	/^int clusterNodeRemoveSlave(clusterNode *master, clusterNode *slave) {$/;"	f
@@ -1189,6 +1265,7 @@ clusterProcessPacket	cluster.c	/^int clusterProcessPacket(clusterLink *link) {$/
 clusterPropagatePublish	cluster.c	/^void clusterPropagatePublish(robj *channel, robj *message) {$/;"	f
 clusterReadHandler	cluster.c	/^void clusterReadHandler(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f
 clusterRenameNode	cluster.c	/^void clusterRenameNode(clusterNode *node, char *newname) {$/;"	f
+clusterReplyMultiBulkSlots	cluster.c	/^void clusterReplyMultiBulkSlots(redisClient *c) {$/;"	f
 clusterRequestFailoverAuth	cluster.c	/^void clusterRequestFailoverAuth(void) {$/;"	f
 clusterReset	cluster.c	/^void clusterReset(int hard) {$/;"	f
 clusterSaveConfig	cluster.c	/^int clusterSaveConfig(int do_fsync) {$/;"	f
@@ -1216,18 +1293,19 @@ cluster_migration_barrier	redis.h	/^    int cluster_migration_barrier; \/* Clust
 cluster_mode	redis-cli.c	/^    int cluster_mode;$/;"	m	struct:config	file:
 cluster_node_timeout	redis.h	/^    mstime_t cluster_node_timeout; \/* Cluster node timeout. *\/$/;"	m	struct:redisServer
 cluster_reissue_command	redis-cli.c	/^    int cluster_reissue_command;$/;"	m	struct:config	file:
+cluster_require_full_coverage	redis.h	/^    int cluster_require_full_coverage; \/* If true, put the cluster down if$/;"	m	struct:redisServer
 cluster_slave_validity_factor	redis.h	/^    int cluster_slave_validity_factor; \/* Slave max data age for failover. *\/$/;"	m	struct:redisServer
 cmd	redis.h	/^    struct redisCommand *cmd, *lastcmd;$/;"	m	struct:redisClient	typeref:struct:redisClient::redisCommand
 cmd	redis.h	/^    struct redisCommand *cmd;$/;"	m	struct:multiCmd	typeref:struct:multiCmd::redisCommand
 cmd	redis.h	/^    struct redisCommand *cmd;$/;"	m	struct:redisOp	typeref:struct:redisOp::redisCommand
-cmpobj	redis.h	/^        robj *cmpobj;$/;"	m	union:_redisSortObject::__anon8
+cmpobj	redis.h	/^        robj *cmpobj;$/;"	m	union:_redisSortObject::__anon31
 cnegone	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 collateStringObjects	object.c	/^int collateStringObjects(robj *a, robj *b) {$/;"	f
 colon	redis.h	/^    *colon, *nullbulk, *nullmultibulk, *queued,$/;"	m	struct:sharedObjectsStruct
+commandCommand	redis.c	/^void commandCommand(redisClient *c) {$/;"	f
 commandGroups	help.h	/^static char *commandGroups[] = {$/;"	v
 commandHelp	help.h	/^struct commandHelp {$/;"	s
 commandHelp	help.h	/^} commandHelp[] = {$/;"	v	typeref:struct:commandHelp
-commandTable	redis.c	/^struct redisCommand *commandTable;$/;"	v	typeref:struct:redisCommand
 commandTableDictType	redis.c	/^dictType commandTableDictType = {$/;"	v
 commands	redis.h	/^    dict *commands;             \/* Command table *\/$/;"	m	struct:redisServer
 commands	redis.h	/^    multiCmd *commands;     \/* Array of MULTI commands *\/$/;"	m	struct:multiState
@@ -1246,15 +1324,15 @@ config	redis-benchmark.c	/^} config;$/;"	v	typeref:struct:config	file:
 config	redis-cli.c	/^static struct config {$/;"	s	file:
 config	redis-cli.c	/^} config;$/;"	v	typeref:struct:config	file:
 configCommand	config.c	/^void configCommand(redisClient *c) {$/;"	f
-configEpoch	cluster.h	/^    uint64_t configEpoch;   \/* The config epoch if it's a master, or the last$/;"	m	struct:__anon28
-configEpoch	cluster.h	/^    uint64_t configEpoch; \/* Config epoch of the specified instance. *\/$/;"	m	struct:__anon23
+configEpoch	cluster.h	/^    uint64_t configEpoch;   \/* The config epoch if it's a master, or the last$/;"	m	struct:__anon9
+configEpoch	cluster.h	/^    uint64_t configEpoch; \/* Config epoch of the specified instance. *\/$/;"	m	struct:__anon4
 configEpoch	cluster.h	/^    uint64_t configEpoch; \/* Last configEpoch observed for this node *\/$/;"	m	struct:clusterNode
 configGetCommand	config.c	/^void configGetCommand(redisClient *c) {$/;"	f
 configSetCommand	config.c	/^void configSetCommand(redisClient *c) {$/;"	f
 config_epoch	sentinel.c	/^    uint64_t config_epoch;  \/* Configuration epoch. *\/$/;"	m	struct:sentinelRedisInstance	file:
-config_get_bool_field	config.c	938;"	d	file:
-config_get_numerical_field	config.c	946;"	d	file:
-config_get_string_field	config.c	930;"	d	file:
+config_get_bool_field	config.c	971;"	d	file:
+config_get_numerical_field	config.c	979;"	d	file:
+config_get_string_field	config.c	963;"	d	file:
 configfile	redis.h	/^    char *configfile;           \/* Absolute config file path, or NULL *\/$/;"	m	struct:redisServer
 connect	redis-trib.rb	/^    def connect(o={})$/;"	f	class:ClusterNode
 connectWithMaster	replication.c	/^int connectWithMaster(void) {$/;"	f
@@ -1265,9 +1343,9 @@ context	redis-cli.c	/^static redisContext *context;$/;"	v	file:
 context	sentinel.c	/^    redisAsyncContext *context;$/;"	m	struct:redisAeEvents	file:
 convertToSds	redis-cli.c	/^static char **convertToSds(int count, char** args) {$/;"	f	file:
 copyClientOutputBuffer	networking.c	/^void copyClientOutputBuffer(redisClient *dst, redisClient *src) {$/;"	f
-count	cluster.h	/^    uint16_t count;     \/* Only used for some kind of messages. *\/$/;"	m	struct:__anon28
+count	cluster.h	/^    uint16_t count;     \/* Only used for some kind of messages. *\/$/;"	m	struct:__anon9
 count	redis.h	/^    int count;              \/* Total number of MULTI commands *\/$/;"	m	struct:multiState
-count	sha1.h	/^    u_int32_t count[2];$/;"	m	struct:__anon15
+count	sha1.h	/^    u_int32_t count[2];$/;"	m	struct:__anon28
 countKeysInSlot	db.c	/^unsigned int countKeysInSlot(unsigned int hashslot) {$/;"	f
 covered_slots	redis-trib.rb	/^    def covered_slots$/;"	f	class:RedisTrib
 crc16	crc16.c	/^uint16_t crc16(const char *buf, int len) {$/;"	f
@@ -1282,10 +1360,12 @@ createClusterNode	cluster.c	/^clusterNode *createClusterNode(char *nodename, int
 createDumpPayload	cluster.c	/^void createDumpPayload(rio *payload, robj *o) {$/;"	f
 createEmbeddedStringObject	object.c	/^robj *createEmbeddedStringObject(char *ptr, size_t len) {$/;"	f
 createFakeClient	aof.c	/^struct redisClient *createFakeClient(void) {$/;"	f
+createGraphObject	t_graph.c	/^robj *createGraphObject() {$/;"	f
 createHLLObject	hyperloglog.c	/^robj *createHLLObject(void) {$/;"	f
 createHashObject	object.c	/^robj *createHashObject(void) {$/;"	f
 createIntList	ziplist.c	/^unsigned char *createIntList() {$/;"	f
 createIntsetObject	object.c	/^robj *createIntsetObject(void) {$/;"	f
+createLatencyReport	latency.c	/^sds createLatencyReport(void) {$/;"	f
 createList	ziplist.c	/^unsigned char *createList() {$/;"	f
 createListObject	object.c	/^robj *createListObject(void) {$/;"	f
 createMissingClients	redis-benchmark.c	/^static void createMissingClients(client c) {$/;"	f	file:
@@ -1299,6 +1379,7 @@ createSet	intset.c	/^intset *createSet(int bits, int size) {$/;"	f
 createSetObject	object.c	/^robj *createSetObject(void) {$/;"	f
 createSharedObjects	redis.c	/^void createSharedObjects(void) {$/;"	f
 createSortOperation	sort.c	/^redisSortOperation *createSortOperation(int type, robj *pattern) {$/;"	f
+createSparklineSequence	sparkline.c	/^struct sequence *createSparklineSequence(void) {$/;"	f
 createStringObject	object.c	/^robj *createStringObject(char *ptr, size_t len) {$/;"	f
 createStringObjectFromLongDouble	object.c	/^robj *createStringObjectFromLongDouble(long double value) {$/;"	f
 createStringObjectFromLongLong	object.c	/^robj *createStringObjectFromLongLong(long long value) {$/;"	f
@@ -1312,17 +1393,18 @@ csv	redis-benchmark.c	/^    int csv;$/;"	m	struct:config	file:
 ctime	cluster.h	/^    mstime_t ctime;             \/* Link creation time *\/$/;"	m	struct:clusterLink
 ctime	cluster.h	/^    mstime_t ctime; \/* Node object creation time. *\/$/;"	m	struct:clusterNode
 ctime	redis.h	/^    time_t ctime;           \/* Client creation time *\/$/;"	m	struct:redisClient
-currentEpoch	cluster.h	/^    uint64_t currentEpoch;  \/* The epoch accordingly to the sending node. *\/$/;"	m	struct:__anon28
+currentEpoch	cluster.h	/^    uint64_t currentEpoch;  \/* The epoch accordingly to the sending node. *\/$/;"	m	struct:__anon9
 currentEpoch	cluster.h	/^    uint64_t currentEpoch;$/;"	m	struct:clusterState
 current_client	redis.h	/^    redisClient *current_client; \/* Current client, only used on crash report *\/$/;"	m	struct:redisServer
 current_epoch	sentinel.c	/^    uint64_t current_epoch;     \/* Current epoch. *\/$/;"	m	struct:sentinelState	file:
 czero	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
+d	dict.h	/^        double d;$/;"	m	union:dictEntry::__anon29
 d	dict.h	/^    dict *d;$/;"	m	struct:dictIterator
 d2string	util.c	/^int d2string(char *buf, size_t len, double value) {$/;"	f
 daemonize	redis.c	/^void daemonize(void) {$/;"	f
 daemonize	redis.h	/^    int daemonize;                  \/* True if running as a daemon *\/$/;"	m	struct:redisServer
-data	cluster.h	/^    union clusterMsgData data;$/;"	m	struct:__anon28	typeref:union:__anon28::clusterMsgData
-data	redis-check-dump.c	/^    void *data;$/;"	m	struct:__anon32	file:
+data	cluster.h	/^    union clusterMsgData data;$/;"	m	struct:__anon9	typeref:union:__anon9::clusterMsgData
+data	redis-check-dump.c	/^    void *data;$/;"	m	struct:__anon15	file:
 databasesCron	redis.c	/^void databasesCron(void) {$/;"	f
 datasize	redis-benchmark.c	/^    int datasize;$/;"	m	struct:config	file:
 db	multi.c	/^    redisDb *db;$/;"	m	struct:watchedKey	file:
@@ -1342,9 +1424,9 @@ dbnum	redis-cli.c	/^    int dbnum;$/;"	m	struct:config	file:
 dbnum	redis.h	/^    int dbnum;                      \/* Total number of configured DBs *\/$/;"	m	struct:redisServer
 dbnumstr	redis-benchmark.c	/^    sds dbnumstr;$/;"	m	struct:config	file:
 dbsizeCommand	db.c	/^void dbsizeCommand(redisClient *c) {$/;"	f
-de	redis.h	/^    dictEntry *de;$/;"	m	struct:__anon12
-de	t_zset.c	/^                dictEntry *de;$/;"	m	struct:__anon1::__anon2::_iterset::__anon4	file:
-debug	ziplist.c	959;"	d	file:
+de	redis.h	/^    dictEntry *de;$/;"	m	struct:__anon35
+de	t_zset.c	/^                dictEntry *de;$/;"	m	struct:__anon18::__anon19::_iterset::__anon21	file:
+debug	ziplist.c	960;"	d	file:
 debugCommand	debug.c	/^void debugCommand(redisClient *c) {$/;"	f
 decrCommand	t_string.c	/^void decrCommand(redisClient *c) {$/;"	f
 decrRefCount	object.c	/^void decrRefCount(robj *o) {$/;"	f
@@ -1355,17 +1437,17 @@ delCommand	db.c	/^void delCommand(redisClient *c) {$/;"	f
 delCommand	redis.h	/^    struct redisCommand *delCommand, *multiCommand, *lpushCommand, *lpopCommand,$/;"	m	struct:redisServer	typeref:struct:redisServer::redisCommand
 delKeysInSlot	db.c	/^unsigned int delKeysInSlot(unsigned int hashslot) {$/;"	f
 delnode_cluster_cmd	redis-trib.rb	/^    def delnode_cluster_cmd(argv,opt)$/;"	f	class:RedisTrib
-di	redis.h	/^    dictIterator *di;$/;"	m	struct:__anon11
-di	redis.h	/^    dictIterator *di;$/;"	m	struct:__anon12
-di	t_zset.c	/^                dictIterator *di;$/;"	m	struct:__anon1::__anon2::_iterset::__anon4	file:
+di	redis.h	/^    dictIterator *di;$/;"	m	struct:__anon34
+di	redis.h	/^    dictIterator *di;$/;"	m	struct:__anon35
+di	t_zset.c	/^                dictIterator *di;$/;"	m	struct:__anon18::__anon19::_iterset::__anon21	file:
 dict	dict.h	/^typedef struct dict {$/;"	s
 dict	dict.h	/^} dict;$/;"	t	typeref:struct:dict
 dict	redis.h	/^    dict *dict;                 \/* The keyspace for this DB *\/$/;"	m	struct:redisDb
 dict	redis.h	/^    dict *dict;$/;"	m	struct:zset
-dict	t_zset.c	/^                dict *dict;$/;"	m	struct:__anon1::__anon2::_iterset::__anon4	file:
+dict	t_zset.c	/^                dict *dict;$/;"	m	struct:__anon18::__anon19::_iterset::__anon21	file:
 dictAdd	dict.c	/^int dictAdd(dict *d, void *key, void *val)$/;"	f
 dictAddRaw	dict.c	/^dictEntry *dictAddRaw(dict *d, void *key)$/;"	f
-dictCompareKeys	dict.h	128;"	d
+dictCompareKeys	dict.h	134;"	d
 dictCreate	dict.c	/^dict *dictCreate(dictType *type,$/;"	f
 dictDelete	dict.c	/^int dictDelete(dict *ht, const void *key) {$/;"	f
 dictDeleteNoFree	dict.c	/^int dictDeleteNoFree(dict *ht, const void *key) {$/;"	f
@@ -1380,25 +1462,25 @@ dictExpand	dict.c	/^int dictExpand(dict *d, unsigned long size)$/;"	f
 dictFetchValue	dict.c	/^void *dictFetchValue(dict *d, const void *key) {$/;"	f
 dictFind	dict.c	/^dictEntry *dictFind(dict *d, const void *key)$/;"	f
 dictFingerprint	dict.c	/^long long dictFingerprint(dict *d) {$/;"	f
-dictFreeKey	dict.h	117;"	d
-dictFreeVal	dict.h	100;"	d
+dictFreeKey	dict.h	123;"	d
+dictFreeVal	dict.h	103;"	d
 dictGenCaseHashFunction	dict.c	/^unsigned int dictGenCaseHashFunction(const unsigned char *buf, int len) {$/;"	f
 dictGenHashFunction	dict.c	/^unsigned int dictGenHashFunction(const void *key, int len) {$/;"	f
 dictGenericDelete	dict.c	/^static int dictGenericDelete(dict *d, const void *key, int nofree)$/;"	f	file:
+dictGetDoubleVal	dict.h	144;"	d
 dictGetHashFunctionSeed	dict.c	/^uint32_t dictGetHashFunctionSeed(void) {$/;"	f
 dictGetIterator	dict.c	/^dictIterator *dictGetIterator(dict *d)$/;"	f
-dictGetKey	dict.h	134;"	d
+dictGetKey	dict.h	140;"	d
 dictGetRandomKey	dict.c	/^dictEntry *dictGetRandomKey(dict *d)$/;"	f
-dictGetRandomKeys	dict.c	/^int dictGetRandomKeys(dict *d, dictEntry **des, int count) {$/;"	f
+dictGetRandomKeys	dict.c	/^unsigned int dictGetRandomKeys(dict *d, dictEntry **des, unsigned int count) {$/;"	f
 dictGetSafeIterator	dict.c	/^dictIterator *dictGetSafeIterator(dict *d) {$/;"	f
-dictGetSignedIntegerVal	dict.h	136;"	d
-dictGetUnsignedIntegerVal	dict.h	137;"	d
-dictGetVal	dict.h	135;"	d
-dictHashKey	dict.h	133;"	d
-dictIdentityHashFunction	dict.c	/^unsigned int dictIdentityHashFunction(unsigned int key)$/;"	f
+dictGetSignedIntegerVal	dict.h	142;"	d
+dictGetUnsignedIntegerVal	dict.h	143;"	d
+dictGetVal	dict.h	141;"	d
+dictHashKey	dict.h	139;"	d
 dictInstancesValDestructor	sentinel.c	/^void dictInstancesValDestructor (void *privdata, void *obj) {$/;"	f
 dictIntHashFunction	dict.c	/^unsigned int dictIntHashFunction(unsigned int key)$/;"	f
-dictIsRehashing	dict.h	140;"	d
+dictIsRehashing	dict.h	147;"	d
 dictIterator	dict.h	/^typedef struct dictIterator {$/;"	s
 dictIterator	dict.h	/^} dictIterator;$/;"	t	typeref:struct:dictIterator
 dictListDestructor	redis.c	/^void dictListDestructor(void *privdata, void *val)$/;"	f
@@ -1420,13 +1502,16 @@ dictSdsDestructor	redis.c	/^void dictSdsDestructor(void *privdata, void *val)$/;
 dictSdsHash	redis.c	/^unsigned int dictSdsHash(const void *key) {$/;"	f
 dictSdsKeyCaseCompare	redis.c	/^int dictSdsKeyCaseCompare(void *privdata, const void *key1,$/;"	f
 dictSdsKeyCompare	redis.c	/^int dictSdsKeyCompare(void *privdata, const void *key1,$/;"	f
+dictSetDoubleVal	dict.h	120;"	d
 dictSetHashFunctionSeed	dict.c	/^void dictSetHashFunctionSeed(uint32_t seed) {$/;"	f
-dictSetKey	dict.h	121;"	d
-dictSetSignedIntegerVal	dict.h	111;"	d
-dictSetUnsignedIntegerVal	dict.h	114;"	d
-dictSetVal	dict.h	104;"	d
-dictSize	dict.h	139;"	d
-dictSlots	dict.h	138;"	d
+dictSetKey	dict.h	127;"	d
+dictSetSignedIntegerVal	dict.h	114;"	d
+dictSetUnsignedIntegerVal	dict.h	117;"	d
+dictSetVal	dict.h	107;"	d
+dictSize	dict.h	146;"	d
+dictSlots	dict.h	145;"	d
+dictStringHash	latency.c	/^unsigned int dictStringHash(const void *key) {$/;"	f
+dictStringKeyCompare	latency.c	/^int dictStringKeyCompare(void *privdata, const void *key1, const void *key2) {$/;"	f
 dictType	dict.h	/^typedef struct dictType {$/;"	s
 dictType	dict.h	/^} dictType;$/;"	t	typeref:struct:dictType
 dictVanillaFree	redis.c	/^void dictVanillaFree(void *privdata, void *val)$/;"	f
@@ -1436,8 +1521,11 @@ dict_hash_function_seed	dict.c	/^static uint32_t dict_hash_function_seed = 5381;
 dictht	dict.h	/^typedef struct dictht {$/;"	s
 dictht	dict.h	/^} dictht;$/;"	t	typeref:struct:dictht
 dictid	redis.h	/^    int dictid;$/;"	m	struct:redisClient
+digits10	util.c	/^uint32_t digits10(uint64_t v) {$/;"	f
+dijkstra	t_graph.c	/^void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) {$/;"	f
+directed	t_graph.h	/^  char directed;$/;"	m	struct:__anon14
 direction	adlist.h	/^    int direction;$/;"	m	struct:listIter
-direction	redis.h	/^    unsigned char direction; \/* Iteration direction *\/$/;"	m	struct:__anon9
+direction	redis.h	/^    unsigned char direction; \/* Iteration direction *\/$/;"	m	struct:__anon32
 dirty	redis.h	/^    long long dirty;                \/* Changes to DB from the last save *\/$/;"	m	struct:redisServer
 dirty_before_bgsave	redis.h	/^    long long dirty_before_bgsave;  \/* Used to restore dirty on failed BGSAVE *\/$/;"	m	struct:redisServer
 disableWatchdog	debug.c	/^void disableWatchdog(void) {$/;"	f
@@ -1453,11 +1541,14 @@ dupSentinelAddr	sentinel.c	/^sentinelAddr *dupSentinelAddr(sentinelAddr *src) {$
 dupStringObject	object.c	/^robj *dupStringObject(robj *o) {$/;"	f
 duration	slowlog.h	/^    long long duration; \/* Time spent by the query, in nanoseconds. *\/$/;"	m	struct:slowlogEntry
 echoCommand	redis.c	/^void echoCommand(redisClient *c) {$/;"	f
+edges	t_graph.h	/^  List *edges; \/\/TODO: Use redis lists like the GraphNode$/;"	m	struct:__anon14
+edges	t_graph.h	/^  robj *edges;$/;"	m	struct:__anon12
+edges_hash	t_graph.h	/^  dict *edges_hash;$/;"	m	struct:__anon12
 el	redis-benchmark.c	/^    aeEventLoop *el;$/;"	m	struct:config	file:
 el	redis.h	/^    aeEventLoop *el;$/;"	m	struct:redisServer
-ele	t_zset.c	/^    robj *ele;$/;"	m	struct:__anon7	file:
-elen	t_zset.c	/^    unsigned int elen;$/;"	m	struct:__anon7	file:
-ell	t_zset.c	/^    long long ell;$/;"	m	struct:__anon7	file:
+ele	t_zset.c	/^    robj *ele;$/;"	m	struct:__anon24	file:
+elen	t_zset.c	/^    unsigned int elen;$/;"	m	struct:__anon24	file:
+ell	t_zset.c	/^    long long ell;$/;"	m	struct:__anon24	file:
 emptyDb	db.c	/^long long emptyDb(void(callback)(void*)) {$/;"	f
 emptybulk	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 emptymultibulk	redis.h	/^    *emptymultibulk, *wrongtypeerr, *nokeyerr, *syntaxerr, *sameobjecterr,$/;"	m	struct:sharedObjectsStruct
@@ -1465,28 +1556,28 @@ emptyscan	redis.h	/^    *lpush, *emptyscan, *minstring, *maxstring,$/;"	m	struct
 enableWatchdog	debug.c	/^void enableWatchdog(int period) {$/;"	f
 encoding	hyperloglog.c	/^    uint8_t encoding;   \/* HLL_DENSE or HLL_SPARSE. *\/$/;"	m	struct:hllhdr	file:
 encoding	intset.h	/^    uint32_t encoding;$/;"	m	struct:intset
-encoding	redis.h	/^    int encoding;$/;"	m	struct:__anon11
-encoding	redis.h	/^    int encoding;$/;"	m	struct:__anon12
-encoding	redis.h	/^    unsigned char encoding;$/;"	m	struct:__anon9
+encoding	redis.h	/^    int encoding;$/;"	m	struct:__anon34
+encoding	redis.h	/^    int encoding;$/;"	m	struct:__anon35
+encoding	redis.h	/^    unsigned char encoding;$/;"	m	struct:__anon32
 encoding	redis.h	/^    unsigned encoding:4;$/;"	m	struct:redisObject
-encoding	t_zset.c	/^    int encoding;$/;"	m	struct:__anon1	file:
+encoding	t_zset.c	/^    int encoding;$/;"	m	struct:__anon18	file:
 encoding	ziplist.c	/^    unsigned char encoding;$/;"	m	struct:zlentry	file:
-end	setproctitle.c	/^	char *base, *end;$/;"	m	struct:__anon29	file:
+end	setproctitle.c	/^	char *base, *end;$/;"	m	struct:__anon10	file:
 entry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator
-entry	redis-check-dump.c	/^} entry;$/;"	t	typeref:struct:__anon34	file:
+entry	redis-check-dump.c	/^} entry;$/;"	t	typeref:struct:__anon17	file:
 epfd	ae_epoll.c	/^    int epfd;$/;"	m	struct:aeApiState	file:
 epos	redis-check-aof.c	/^static off_t epos;$/;"	v	file:
-eptr	t_zset.c	/^                unsigned char *eptr, *sptr;$/;"	m	struct:__anon1::__anon2::_iterzset::__anon5	file:
+eptr	t_zset.c	/^                unsigned char *eptr, *sptr;$/;"	m	struct:__anon18::__anon19::_iterzset::__anon22	file:
 equalStringObjects	object.c	/^int equalStringObjects(robj *a, robj *b) {$/;"	f
 err	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 error	intset.c	/^void error(char *err) {$/;"	f
 error	redis-check-aof.c	/^static char error[1024];$/;"	v	file:
-error	redis-check-dump.c	/^    char error[16][1024];$/;"	m	struct:__anon33	file:
-error	setproctitle.c	/^	int error;$/;"	m	struct:__anon29	file:
+error	redis-check-dump.c	/^    char error[16][1024];$/;"	m	struct:__anon16	file:
+error	setproctitle.c	/^	int error;$/;"	m	struct:__anon10	file:
 errors	redis-check-dump.c	/^static errors_t errors;$/;"	v	file:
-errors_t	redis-check-dump.c	/^} errors_t;$/;"	t	typeref:struct:__anon33	file:
+errors_t	redis-check-dump.c	/^} errors_t;$/;"	t	typeref:struct:__anon16	file:
 estimateObjectIdleTime	object.c	/^unsigned long long estimateObjectIdleTime(robj *o) {$/;"	f
-estr	t_zset.c	/^    unsigned char *estr;$/;"	m	struct:__anon7	file:
+estr	t_zset.c	/^    unsigned char *estr;$/;"	m	struct:__anon24	file:
 eval	redis-cli.c	/^    char *eval;$/;"	m	struct:config	file:
 evalCommand	scripting.c	/^void evalCommand(redisClient *c) {$/;"	f
 evalGenericCommand	scripting.c	/^void evalGenericCommand(redisClient *c, int evalsha) {$/;"	f
@@ -1515,7 +1606,7 @@ expireGenericCommand	db.c	/^void expireGenericCommand(redisClient *c, long long 
 expireIfNeeded	db.c	/^int expireIfNeeded(redisDb *db, robj *key) {$/;"	f
 expireatCommand	db.c	/^void expireatCommand(redisClient *c) {$/;"	f
 expires	redis.h	/^    dict *expires;              \/* Timeout of keys with a timeout set *\/$/;"	m	struct:redisDb
-fail	cluster.h	/^    } fail;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon25
+fail	cluster.h	/^    } fail;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon6
 fail_reports	cluster.h	/^    list *fail_reports;         \/* List of nodes signaling this as failing *\/$/;"	m	struct:clusterNode
 fail_time	cluster.h	/^    mstime_t fail_time;      \/* Unix time when FAIL flag was set *\/$/;"	m	struct:clusterNode
 failover_auth_count	cluster.h	/^    int failover_auth_count;    \/* Number of votes received so far. *\/$/;"	m	struct:clusterState
@@ -1537,24 +1628,25 @@ fd	sentinel.c	/^    int fd;$/;"	m	struct:redisAeEvents	file:
 feedAppendOnlyFile	aof.c	/^void feedAppendOnlyFile(struct redisCommand *cmd, int dictid, robj **argv, int argc) {$/;"	f
 feedReplicationBacklog	replication.c	/^void feedReplicationBacklog(void *ptr, size_t len) {$/;"	f
 feedReplicationBacklogWithObject	replication.c	/^void feedReplicationBacklogWithObject(robj *o) {$/;"	f
-file	rio.h	/^        } file;$/;"	m	union:_rio::__anon16	typeref:struct:_rio::__anon16::__anon18
+file	rio.h	/^        } file;$/;"	m	union:_rio::__anon25	typeref:struct:_rio::__anon25::__anon27
 finalizerProc	ae.h	/^    aeEventFinalizerProc *finalizerProc;$/;"	m	struct:aeTimeEvent
 findBigKeys	redis-cli.c	/^static void findBigKeys(void) {$/;"	f	file:
-fingerprint	dict.h	/^    long long fingerprint; \/* unsafe iterator fingerprint for misuse detection *\/$/;"	m	struct:dictIterator
+fingerprint	dict.h	/^    long long fingerprint;$/;"	m	struct:dictIterator
 fired	ae.h	/^    aeFiredEvent *fired; \/* Fired events *\/$/;"	m	struct:aeEventLoop
 firstkey	redis.h	/^    int firstkey; \/* The first argument that's a key (0 = no keys) *\/$/;"	m	struct:redisCommand
 fix_cluster_cmd	redis-trib.rb	/^    def fix_cluster_cmd(argv,opt)$/;"	f	class:RedisTrib
 fix_open_slot	redis-trib.rb	/^    def fix_open_slot(slot)$/;"	f	class:RedisTrib
 fix_slots_coverage	redis-trib.rb	/^    def fix_slots_coverage$/;"	f	class:RedisTrib
+flag	cluster.c	/^    uint16_t flag;$/;"	m	struct:redisNodeFlags	file:
 flagTransaction	multi.c	/^void flagTransaction(redisClient *c) {$/;"	f
 flags	cluster.h	/^    int flags;      \/* REDIS_NODE_... *\/$/;"	m	struct:clusterNode
-flags	cluster.h	/^    uint16_t flags;     \/* Sender node flags *\/$/;"	m	struct:__anon28
-flags	cluster.h	/^    uint16_t flags;$/;"	m	struct:__anon20
+flags	cluster.h	/^    uint16_t flags;     \/* Sender node flags *\/$/;"	m	struct:__anon9
+flags	cluster.h	/^    uint16_t flags;$/;"	m	struct:__anon1
 flags	redis.h	/^    int flags;              \/* REDIS_SLAVE | REDIS_MONITOR | REDIS_MULTI ... *\/$/;"	m	struct:redisClient
 flags	redis.h	/^    int flags;    \/* The actual flags, obtained from the 'sflags' field. *\/$/;"	m	struct:redisCommand
 flags	sentinel.c	/^    int flags;              \/* Script job flags: SENTINEL_SCRIPT_* *\/$/;"	m	struct:sentinelScriptJob	file:
 flags	sentinel.c	/^    int flags;      \/* See SRI_... defines *\/$/;"	m	struct:sentinelRedisInstance	file:
-flags	t_zset.c	/^    int flags;$/;"	m	struct:__anon7	file:
+flags	t_zset.c	/^    int flags;$/;"	m	struct:__anon24	file:
 flushAppendOnlyFile	aof.c	/^void flushAppendOnlyFile(int force) {$/;"	f
 flushSlavesOutputBuffers	networking.c	/^void flushSlavesOutputBuffers(void) {$/;"	f
 flush_node_config	redis-trib.rb	/^    def flush_node_config$/;"	f	class:ClusterNode
@@ -1565,11 +1657,11 @@ forceCommandPropagation	redis.c	/^void forceCommandPropagation(redisClient *c, i
 force_cancel_loop	redis-cli.c	/^static volatile sig_atomic_t force_cancel_loop = 0;$/;"	v	file:
 formatPeerId	networking.c	/^void formatPeerId(char *peerid, size_t peerid_len, char *ip, int port) {$/;"	f
 forward	redis.h	/^        struct zskiplistNode *forward;$/;"	m	struct:zskiplistNode::zskiplistLevel	typeref:struct:zskiplistNode::zskiplistLevel::zskiplistNode
-fp	rio.h	/^            FILE *fp;$/;"	m	struct:_rio::__anon16::__anon18
-fptr	redis.h	/^    unsigned char *fptr, *vptr;$/;"	m	struct:__anon12
+fp	rio.h	/^            FILE *fp;$/;"	m	struct:_rio::__anon25::__anon27
+fptr	redis.h	/^    unsigned char *fptr, *vptr;$/;"	m	struct:__anon35
 free	adlist.h	/^    void (*free)(void *ptr);$/;"	m	struct:list
 free	aof.c	/^    unsigned long used, free;$/;"	m	struct:aofrwblock	file:
-free	sds.h	/^    int free;$/;"	m	struct:sdshdr
+free	sds.h	/^    unsigned int free;$/;"	m	struct:sdshdr
 free	zmalloc.c	62;"	d	file:
 free	zmalloc.c	67;"	d	file:
 freeAllClients	redis-benchmark.c	/^static void freeAllClients(void) {$/;"	f	file:
@@ -1582,16 +1674,24 @@ freeClientsInAsyncFreeQueue	networking.c	/^void freeClientsInAsyncFreeQueue(void
 freeClusterLink	cluster.c	/^void freeClusterLink(clusterLink *link) {$/;"	f
 freeClusterNode	cluster.c	/^void freeClusterNode(clusterNode *n) {$/;"	f
 freeFakeClient	aof.c	/^void freeFakeClient(struct redisClient *c) {$/;"	f
+freeFakeClientArgv	aof.c	/^void freeFakeClientArgv(struct redisClient *c) {$/;"	f
 freeHashObject	object.c	/^void freeHashObject(robj *o) {$/;"	f
 freeListObject	object.c	/^void freeListObject(robj *o) {$/;"	f
 freeMemoryIfNeeded	redis.c	/^int freeMemoryIfNeeded(void) {$/;"	f
 freePubsubPattern	pubsub.c	/^void freePubsubPattern(void *p) {$/;"	f
 freeReplicationBacklog	replication.c	/^void freeReplicationBacklog(void) {$/;"	f
 freeSetObject	object.c	/^void freeSetObject(robj *o) {$/;"	f
+freeSparklineSequence	sparkline.c	/^void freeSparklineSequence(struct sequence *seq) {$/;"	f
 freeStringObject	object.c	/^void freeStringObject(robj *o) {$/;"	f
 freeZsetObject	object.c	/^void freeZsetObject(robj *o) {$/;"	f
 friends	redis-trib.rb	/^    def friends$/;"	f	class:ClusterNode
-full	redis-cli.c	/^    sds full;$/;"	m	struct:__anon19	file:
+full	redis-cli.c	/^    sds full;$/;"	m	struct:__anon30	file:
+gcommonCommand	t_graph.c	/^void gcommonCommand(redisClient *c) {$/;"	f
+gedgeCommand	t_graph.c	/^void gedgeCommand(redisClient *c) {$/;"	f
+gedgeexistsCommand	t_graph.c	/^void gedgeexistsCommand(redisClient *c) {$/;"	f
+gedgeincrbyCommand	t_graph.c	/^void gedgeincrbyCommand(redisClient *c) {$/;"	f
+gedgeremCommand	t_graph.c	/^void gedgeremCommand(redisClient *c) {$/;"	f
+gedgesCommand	t_graph.c	/^void gedgesCommand(redisClient *c) {$/;"	f
 genClientPeerId	networking.c	/^int genClientPeerId(redisClient *client, char *peerid, size_t peerid_len) {$/;"	f
 genRedisInfoString	redis.c	/^sds genRedisInfoString(char *section) {$/;"	f
 genericHgetallCommand	t_hash.c	/^void genericHgetallCommand(redisClient *c, int flags) {$/;"	f
@@ -1614,7 +1714,7 @@ getDoubleFromObjectOrReply	object.c	/^int getDoubleFromObjectOrReply(redisClient
 getExpire	db.c	/^long long getExpire(redisDb *db, robj *key) {$/;"	f
 getGenericCommand	t_string.c	/^int getGenericCommand(redisClient *c) {$/;"	f
 getInfoField	redis-cli.c	/^static char *getInfoField(char *info, char *field) {$/;"	f	file:
-getKeySizes	redis-cli.c	/^static void getKeySizes(redisReply *keys, int *types, $/;"	f	file:
+getKeySizes	redis-cli.c	/^static void getKeySizes(redisReply *keys, int *types,$/;"	f	file:
 getKeyTypes	redis-cli.c	/^static void getKeyTypes(redisReply *keys, int *types) {$/;"	f	file:
 getKeysFreeResult	db.c	/^void getKeysFreeResult(int *result) {$/;"	f
 getKeysFromCommand	db.c	/^int *getKeysFromCommand(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {$/;"	f
@@ -1646,8 +1746,15 @@ getkeys_proc	redis.h	/^    redisGetKeysProc *getkeys_proc;$/;"	m	struct:redisCom
 getrangeCommand	t_string.c	/^void getrangeCommand(redisClient *c) {$/;"	f
 getrdb_mode	redis-cli.c	/^    int getrdb_mode;$/;"	m	struct:config	file:
 getsetCommand	t_string.c	/^void getsetCommand(redisClient *c) {$/;"	f
-gossip	cluster.h	/^        clusterMsgDataGossip gossip[1];$/;"	m	struct:clusterMsgData::__anon24
+gincomingCommand	t_graph.c	/^void gincomingCommand(redisClient *c) {$/;"	f
+gmintreeCommand	t_graph.c	/^void gmintreeCommand(redisClient *c) {$/;"	f
+gneighboursCommand	t_graph.c	/^void gneighboursCommand(redisClient *c) {$/;"	f
+gossip	cluster.h	/^        clusterMsgDataGossip gossip[1];$/;"	m	struct:clusterMsgData::__anon5
 group	help.h	/^  int group;$/;"	m	struct:commandHelp
+gsetdirectedCommand	t_graph.c	/^void gsetdirectedCommand(redisClient *c) {$/;"	f
+gshortestpathCommand	t_graph.c	/^void gshortestpathCommand(redisClient *c) {$/;"	f
+gvertexCommand	t_graph.c	/^void gvertexCommand(redisClient *c) {$/;"	f
+gverticesCommand	t_graph.c	/^void gverticesCommand(redisClient *c) {$/;"	f
 handleClientsBlockedOnLists	t_list.c	/^void handleClientsBlockedOnLists(void) {$/;"	f
 handleLinkIOError	cluster.c	/^void handleLinkIOError(clusterLink *link) {$/;"	f
 hard_limit_bytes	redis.h	/^    unsigned long long hard_limit_bytes;$/;"	m	struct:clientBufferLimitsConfig
@@ -1666,7 +1773,7 @@ hashTypeGetFromHashTable	t_hash.c	/^int hashTypeGetFromHashTable(robj *o, robj *
 hashTypeGetFromZiplist	t_hash.c	/^int hashTypeGetFromZiplist(robj *o, robj *field,$/;"	f
 hashTypeGetObject	t_hash.c	/^robj *hashTypeGetObject(robj *o, robj *field) {$/;"	f
 hashTypeInitIterator	t_hash.c	/^hashTypeIterator *hashTypeInitIterator(robj *subject) {$/;"	f
-hashTypeIterator	redis.h	/^} hashTypeIterator;$/;"	t	typeref:struct:__anon12
+hashTypeIterator	redis.h	/^} hashTypeIterator;$/;"	t	typeref:struct:__anon35
 hashTypeLength	t_hash.c	/^unsigned long hashTypeLength(robj *o) {$/;"	f
 hashTypeLookupWriteOrCreate	t_hash.c	/^robj *hashTypeLookupWriteOrCreate(redisClient *c, robj *key) {$/;"	f
 hashTypeNext	t_hash.c	/^int hashTypeNext(hashTypeIterator *hi) {$/;"	f
@@ -1682,7 +1789,7 @@ header	redis.h	/^    struct zskiplistNode *header, *tail;$/;"	m	struct:zskiplist
 headersize	ziplist.c	/^    unsigned int headersize;$/;"	m	struct:zlentry	file:
 helpEntries	redis-cli.c	/^static helpEntry *helpEntries;$/;"	v	file:
 helpEntriesLen	redis-cli.c	/^static int helpEntriesLen;$/;"	v	file:
-helpEntry	redis-cli.c	/^} helpEntry;$/;"	t	typeref:struct:__anon19	file:
+helpEntry	redis-cli.c	/^} helpEntry;$/;"	t	typeref:struct:__anon30	file:
 help_cluster_cmd	redis-trib.rb	/^    def help_cluster_cmd(argv,opt)$/;"	f	class:RedisTrib
 hex_digit_to_int	sds.c	/^int hex_digit_to_int(char c) {$/;"	f
 hexistsCommand	t_hash.c	/^void hexistsCommand(redisClient *c) {$/;"	f
@@ -1716,29 +1823,32 @@ hscanCommand	t_hash.c	/^void hscanCommand(redisClient *c) {$/;"	f
 hsetCommand	t_hash.c	/^void hsetCommand(redisClient *c) {$/;"	f
 hsetnxCommand	t_hash.c	/^void hsetnxCommand(redisClient *c) {$/;"	f
 ht	dict.h	/^    dictht ht[2];$/;"	m	struct:dict
-ht	t_zset.c	/^            } ht;$/;"	m	union:__anon1::__anon2::_iterset	typeref:struct:__anon1::__anon2::_iterset::__anon4	file:
+ht	t_zset.c	/^            } ht;$/;"	m	union:__anon18::__anon19::_iterset	typeref:struct:__anon18::__anon19::_iterset::__anon21	file:
 htNeedsResize	redis.c	/^int htNeedsResize(dict *dict) {$/;"	f
 htonu64	endianconv.h	67;"	d
 htonu64	endianconv.h	70;"	d
 hvalsCommand	t_hash.c	/^void hvalsCommand(redisClient *c) {$/;"	f
 hz	redis.h	/^    int hz;                     \/* serverCron() calls frequency in hertz *\/$/;"	m	struct:redisServer
+hz	redis.h	634;"	d
 id	ae.h	/^    long long id; \/* time event identifier. *\/$/;"	m	struct:aeTimeEvent
 id	redis.h	/^    int id;                     \/* Database ID *\/$/;"	m	struct:redisDb
 id	redis.h	/^    uint64_t id;            \/* Client incremental unique ID. *\/$/;"	m	struct:redisClient
 id	slowlog.h	/^    long long id;       \/* Unique entry identifier. *\/$/;"	m	struct:slowlogEntry
 idle	redis.h	/^    unsigned long long idle;    \/* Object idle time. *\/$/;"	m	struct:evictionPoolEntry
 idlemode	redis-benchmark.c	/^    int idlemode;$/;"	m	struct:config	file:
-ii	redis.h	/^    int ii; \/* intset iterator *\/$/;"	m	struct:__anon11
-ii	t_zset.c	/^                int ii;$/;"	m	struct:__anon1::__anon2::_iterset::__anon3	file:
+idx	latency.h	/^    int idx; \/* Index of the next sample to store. *\/$/;"	m	struct:latencyTimeSeries
+ii	redis.h	/^    int ii; \/* intset iterator *\/$/;"	m	struct:__anon34
+ii	t_zset.c	/^                int ii;$/;"	m	struct:__anon18::__anon19::_iterset::__anon20	file:
 import_cluster_cmd	redis-trib.rb	/^    def import_cluster_cmd(argv,opt)$/;"	f	class:RedisTrib
 importing_slots_from	cluster.h	/^    clusterNode *importing_slots_from[REDIS_CLUSTER_SLOTS];$/;"	m	struct:clusterState
+incoming	t_graph.h	/^  robj *incoming; \/\/ Only for directed graphs$/;"	m	struct:__anon12
 incrCommand	t_string.c	/^void incrCommand(redisClient *c) {$/;"	f
 incrDecrCommand	t_string.c	/^void incrDecrCommand(redisClient *c, long long incr) {$/;"	f
 incrRefCount	object.c	/^void incrRefCount(robj *o) {$/;"	f
 incrbyCommand	t_string.c	/^void incrbyCommand(redisClient *c) {$/;"	f
 incrbyfloatCommand	t_string.c	/^void incrbyfloatCommand(redisClient *c) {$/;"	f
 incrementallyRehash	redis.c	/^int incrementallyRehash(int dbid) {$/;"	f
-index	dict.h	/^    int table, index, safe;$/;"	m	struct:dictIterator
+index	dict.h	/^    long index;$/;"	m	struct:dictIterator
 info	redis-trib.rb	/^    def info$/;"	f	class:ClusterNode
 infoCommand	redis.c	/^void infoCommand(redisClient *c) {$/;"	f
 info_refresh	sentinel.c	/^    mstime_t info_refresh;  \/* Time at which we received INFO output from it. *\/$/;"	m	struct:sentinelRedisInstance	file:
@@ -1746,9 +1856,9 @@ info_string	redis-trib.rb	/^    def info_string$/;"	f	class:ClusterNode
 initClientMultiState	multi.c	/^void initClientMultiState(redisClient *c) {$/;"	f
 initSentinel	sentinel.c	/^void initSentinel(void) {$/;"	f
 initSentinelConfig	sentinel.c	/^void initSentinelConfig(void) {$/;"	f
-initServer	redis.c	/^void initServer() {$/;"	f
-initServerConfig	redis.c	/^void initServerConfig() {$/;"	f
-initStaticStringObject	redis.h	413;"	d
+initServer	redis.c	/^void initServer(void) {$/;"	f
+initServerConfig	redis.c	/^void initServerConfig(void) {$/;"	f
+initStaticStringObject	redis.h	420;"	d
 initialize	redis-trib.rb	/^    def initialize$/;"	f	class:RedisTrib
 initialize	redis-trib.rb	/^    def initialize(addr)$/;"	f	class:ClusterNode
 inline	lzf_c.c	80;"	d	file:
@@ -1786,14 +1896,15 @@ intsetResize	intset.c	/^static intset *intsetResize(intset *is, uint32_t len) {$
 intsetSearch	intset.c	/^static uint8_t intsetSearch(intset *is, int64_t value, uint32_t *pos) {$/;"	f	file:
 intsetUpgradeAndAdd	intset.c	/^static intset *intsetUpgradeAndAdd(intset *is, int64_t value) {$/;"	f	file:
 invalid_hll_err	hyperloglog.c	/^static char *invalid_hll_err = "-INVALIDOBJ Corrupted HLL object detected\\r\\n";$/;"	v	file:
-io	rio.h	/^    } io;$/;"	m	struct:_rio	typeref:union:_rio::__anon16
-ip	cluster.h	/^    char ip[REDIS_IP_STR_LEN];    \/* IP address last time it was seen *\/$/;"	m	struct:__anon20
+io	rio.h	/^    } io;$/;"	m	struct:_rio	typeref:union:_rio::__anon25
+ip	cluster.h	/^    char ip[REDIS_IP_STR_LEN];    \/* IP address last time it was seen *\/$/;"	m	struct:__anon1
 ip	cluster.h	/^    char ip[REDIS_IP_STR_LEN];  \/* Latest known IP address of this node *\/$/;"	m	struct:clusterNode
 ip	sentinel.c	/^    char *ip;$/;"	m	struct:sentinelAddr	file:
+ip_len	anet.h	47;"	d
 ipfd	redis.h	/^    int ipfd[REDIS_BINDADDR_MAX]; \/* TCP socket file descriptors *\/$/;"	m	struct:redisServer
 ipfd_count	redis.h	/^    int ipfd_count;             \/* Used slots in ipfd[] *\/$/;"	m	struct:redisServer
-is	t_zset.c	/^                intset *is;$/;"	m	struct:__anon1::__anon2::_iterset::__anon3	file:
-is	t_zset.c	/^            } is;$/;"	m	union:__anon1::__anon2::_iterset	typeref:struct:__anon1::__anon2::_iterset::__anon3	file:
+is	t_zset.c	/^                intset *is;$/;"	m	struct:__anon18::__anon19::_iterset::__anon20	file:
+is	t_zset.c	/^            } is;$/;"	m	union:__anon18::__anon19::_iterset	typeref:struct:__anon18::__anon19::_iterset::__anon20	file:
 isHLLObjectOrReply	hyperloglog.c	/^int isHLLObjectOrReply(redisClient *c, robj *o) {$/;"	f
 isObjectRepresentableAsLongLong	object.c	/^int isObjectRepresentableAsLongLong(robj *o, long long *llval) {$/;"	f
 is_config_consistent?	redis-trib.rb	/^    def is_config_consistent?$/;"	f	class:RedisTrib
@@ -1805,7 +1916,7 @@ isinf	solarisfixes.h	43;"	d
 isinf	solarisfixes.h	44;"	d
 isnan	solarisfixes.h	33;"	d
 isnan	solarisfixes.h	34;"	d
-iter	t_zset.c	/^    } iter;$/;"	m	struct:__anon1	typeref:union:__anon1::__anon2	file:
+iter	t_zset.c	/^    } iter;$/;"	m	struct:__anon18	typeref:union:__anon18::__anon19	file:
 iterators	dict.h	/^    int iterators; \/* number of iterators currently running *\/$/;"	m	struct:dict
 iterset	t_zset.c	/^typedef union _iterset iterset;$/;"	t	typeref:union:_iterset	file:
 iterzset	t_zset.c	/^typedef union _iterzset iterzset;$/;"	t	typeref:union:_iterzset	file:
@@ -1813,9 +1924,11 @@ join_cluster	redis-trib.rb	/^    def join_cluster$/;"	f	class:RedisTrib
 keepalive	redis-benchmark.c	/^    int keepalive;$/;"	m	struct:config	file:
 key	dict.h	/^    void *key;$/;"	m	struct:dictEntry
 key	multi.c	/^    robj *key;$/;"	m	struct:watchedKey	file:
-key	redis-check-dump.c	/^    char* key;$/;"	m	struct:__anon34	file:
+key	redis-check-dump.c	/^    char* key;$/;"	m	struct:__anon17	file:
 key	redis.h	/^    robj *key;$/;"	m	struct:readyList
 key	redis.h	/^    sds key;                    \/* Key name. *\/$/;"	m	struct:evictionPoolEntry
+key	t_graph.h	/^  robj *key;$/;"	m	struct:__anon12
+key	t_graph.h	/^  robj *key;$/;"	m	struct:__anon13
 keyCompare	dict.h	/^    int (*keyCompare)(void *privdata, const void *key1, const void *key2);$/;"	m	struct:dictType
 keyDestructor	dict.h	/^    void (*keyDestructor)(void *privdata, void *key);$/;"	m	struct:dictType
 keyDup	dict.h	/^    void *(*keyDup)(void *privdata, const void *key);$/;"	m	struct:dictType
@@ -1830,9 +1943,13 @@ keyspaceEventsFlagsToString	notify.c	/^sds keyspaceEventsFlagsToString(int flags
 keyspaceEventsStringToFlags	notify.c	/^int keyspaceEventsStringToFlags(char *classes) {$/;"	f
 keystep	redis.h	/^    int keystep;  \/* The step between first and last key *\/$/;"	m	struct:redisCommand
 kqfd	ae_kqueue.c	/^    int kqfd;$/;"	m	struct:aeApiState	file:
+label	sparkline.h	/^    char *label;$/;"	m	struct:sample
+label_margin_top	sparkline.c	/^static int label_margin_top = 1;$/;"	v	file:
+labels	sparkline.h	/^    int labels;$/;"	m	struct:sequence
 lastTime	ae.h	/^    time_t lastTime;     \/* Used to detect system clock skew *\/$/;"	m	struct:aeEventLoop
 lastVoteEpoch	cluster.h	/^    uint64_t lastVoteEpoch;     \/* Epoch of the last vote granted. *\/$/;"	m	struct:clusterState
 last_avail_time	sentinel.c	/^    mstime_t last_avail_time; \/* Last time the instance replied to ping with$/;"	m	struct:sentinelRedisInstance	file:
+last_cmd_type	redis-cli.c	/^    int last_cmd_type;$/;"	m	struct:config	file:
 last_hello_time	sentinel.c	/^    mstime_t last_hello_time; \/* Only used if SRI_SENTINEL is set. Last time$/;"	m	struct:sentinelRedisInstance	file:
 last_master_down_reply_time	sentinel.c	/^    mstime_t last_master_down_reply_time; \/* Time of last reply to$/;"	m	struct:sentinelRedisInstance	file:
 last_ping_time	sentinel.c	/^    mstime_t last_ping_time;  \/* Last time a pending ping was sent in the$/;"	m	struct:sentinelRedisInstance	file:
@@ -1846,25 +1963,43 @@ lastinteraction	redis.h	/^    time_t lastinteraction; \/* time of the last inter
 lastkey	redis.h	/^    int lastkey;  \/* The last argument that's a key *\/$/;"	m	struct:redisCommand
 lastsave	redis.h	/^    time_t lastsave;                \/* Unix time of last successful save *\/$/;"	m	struct:redisServer
 lastsaveCommand	db.c	/^void lastsaveCommand(redisClient *c) {$/;"	f
+latency	latency.h	/^    uint32_t latency; \/* Latency in milliseconds. *\/$/;"	m	struct:latencySample
 latency	redis-benchmark.c	/^    long long *latency;$/;"	m	struct:config	file:
 latency	redis-benchmark.c	/^    long long latency;      \/* Request latency *\/$/;"	m	struct:_client	file:
+latencyAddSample	latency.c	/^void latencyAddSample(char *event, mstime_t latency) {$/;"	f
+latencyAddSampleIfNeeded	latency.h	83;"	d
+latencyCommand	latency.c	/^void latencyCommand(redisClient *c) {$/;"	f
+latencyCommandGenSparkeline	latency.c	/^sds latencyCommandGenSparkeline(char *event, struct latencyTimeSeries *ts) {$/;"	f
+latencyCommandReplyWithLatestEvents	latency.c	/^void latencyCommandReplyWithLatestEvents(redisClient *c) {$/;"	f
+latencyCommandReplyWithSamples	latency.c	/^void latencyCommandReplyWithSamples(redisClient *c, struct latencyTimeSeries *ts) {$/;"	f
+latencyEndMonitor	latency.h	78;"	d
 latencyMode	redis-cli.c	/^static void latencyMode(void) {$/;"	f	file:
+latencyMonitorInit	latency.c	/^void latencyMonitorInit(void) {$/;"	f
+latencyResetEvent	latency.c	/^int latencyResetEvent(char *event_to_reset) {$/;"	f
+latencySample	latency.h	/^struct latencySample {$/;"	s
+latencyStartMonitor	latency.h	70;"	d
+latencyStats	latency.h	/^struct latencyStats {$/;"	s
+latencyTimeSeries	latency.h	/^struct latencyTimeSeries {$/;"	s
+latencyTimeSeriesDictType	latency.c	/^dictType latencyTimeSeriesDictType = {$/;"	v
+latency_events	redis.h	/^    dict *latency_events;$/;"	m	struct:redisServer
 latency_history	redis-cli.c	/^    int latency_history;$/;"	m	struct:config	file:
 latency_mode	redis-cli.c	/^    int latency_mode;$/;"	m	struct:config	file:
+latency_monitor_threshold	redis.h	/^    long long latency_monitor_threshold;$/;"	m	struct:redisServer
 leader	sentinel.c	/^    char *leader;       \/* If this is a master instance, this is the runid of$/;"	m	struct:sentinelRedisInstance	file:
 leaderVotesDictType	sentinel.c	/^dictType leaderVotesDictType = {$/;"	v
 leader_epoch	sentinel.c	/^    uint64_t leader_epoch; \/* Epoch of the 'leader' field. *\/$/;"	m	struct:sentinelRedisInstance	file:
 len	adlist.h	/^    unsigned long len;$/;"	m	struct:list
-len	sds.h	/^    int len;$/;"	m	struct:sdshdr
+len	sds.h	/^    unsigned int len;$/;"	m	struct:sdshdr
 len	ziplist.c	/^    unsigned int lensize, len;$/;"	m	struct:zlentry	file:
 length	intset.h	/^    uint32_t length;$/;"	m	struct:intset
 length	redis.h	/^    unsigned long length;$/;"	m	struct:zskiplist
+length	sparkline.h	/^    int length;$/;"	m	struct:sequence
 lensize	ziplist.c	/^    unsigned int lensize, len;$/;"	m	struct:zlentry	file:
-level	redis-check-dump.c	/^    size_t level;$/;"	m	struct:__anon33	file:
+level	redis-check-dump.c	/^    size_t level;$/;"	m	struct:__anon16	file:
 level	redis-check-dump.c	/^static unsigned char level = 0;$/;"	v	file:
 level	redis.h	/^    int level;$/;"	m	struct:zskiplist
 level	redis.h	/^    } level[];$/;"	m	struct:zskiplistNode	typeref:struct:zskiplistNode::zskiplistLevel
-li	redis.h	/^    listTypeIterator *li;$/;"	m	struct:__anon10
+li	redis.h	/^    listTypeIterator *li;$/;"	m	struct:__anon33
 lindexCommand	t_list.c	/^void lindexCommand(redisClient *c) {$/;"	f
 lines	config.c	/^    sds *lines;           \/* Current lines as an array of sds strings *\/$/;"	m	struct:rewriteConfigState	file:
 link	cluster.h	/^    clusterLink *link;          \/* TCP\/IP link with this node *\/$/;"	m	struct:clusterNode
@@ -1908,12 +2043,12 @@ listSetFreeMethod	adlist.h	65;"	d
 listSetMatchMethod	adlist.h	66;"	d
 listTypeConvert	t_list.c	/^void listTypeConvert(robj *subject, int enc) {$/;"	f
 listTypeDelete	t_list.c	/^void listTypeDelete(listTypeEntry *entry) {$/;"	f
-listTypeEntry	redis.h	/^} listTypeEntry;$/;"	t	typeref:struct:__anon10
+listTypeEntry	redis.h	/^} listTypeEntry;$/;"	t	typeref:struct:__anon33
 listTypeEqual	t_list.c	/^int listTypeEqual(listTypeEntry *entry, robj *o) {$/;"	f
 listTypeGet	t_list.c	/^robj *listTypeGet(listTypeEntry *entry) {$/;"	f
 listTypeInitIterator	t_list.c	/^listTypeIterator *listTypeInitIterator(robj *subject, long index, unsigned char direction) {$/;"	f
 listTypeInsert	t_list.c	/^void listTypeInsert(listTypeEntry *entry, robj *value, int where) {$/;"	f
-listTypeIterator	redis.h	/^} listTypeIterator;$/;"	t	typeref:struct:__anon9
+listTypeIterator	redis.h	/^} listTypeIterator;$/;"	t	typeref:struct:__anon32
 listTypeLength	t_list.c	/^unsigned long listTypeLength(robj *subject) {$/;"	f
 listTypeNext	t_list.c	/^int listTypeNext(listTypeIterator *li, listTypeEntry *entry) {$/;"	f
 listTypePop	t_list.c	/^robj *listTypePop(robj *subject, int where) {$/;"	f
@@ -1924,10 +2059,10 @@ list_max_ziplist_entries	redis.h	/^    size_t list_max_ziplist_entries;$/;"	m	st
 list_max_ziplist_value	redis.h	/^    size_t list_max_ziplist_value;$/;"	m	struct:redisServer
 listenToPort	redis.c	/^int listenToPort(int port, int *fds, int *count) {$/;"	f
 liveclients	redis-benchmark.c	/^    int liveclients;$/;"	m	struct:config	file:
-ll2string	util.c	/^int ll2string(char *s, size_t len, long long value) {$/;"	f
+ll2string	util.c	/^int ll2string(char* dst, size_t dstlen, long long svalue) {$/;"	f
 llenCommand	t_list.c	/^void llenCommand(redisClient *c) {$/;"	f
-ln	redis.h	/^    listNode *ln;       \/* Entry in linked list *\/$/;"	m	struct:__anon10
-ln	redis.h	/^    listNode *ln;$/;"	m	struct:__anon9
+ln	redis.h	/^    listNode *ln;       \/* Entry in linked list *\/$/;"	m	struct:__anon33
+ln	redis.h	/^    listNode *ln;$/;"	m	struct:__anon32
 loadAppendOnlyFile	aof.c	/^int loadAppendOnlyFile(char *filename) {$/;"	f
 loadDataFromDisk	redis.c	/^void loadDataFromDisk(void) {$/;"	f
 loadDoubleValue	redis-check-dump.c	/^double* loadDoubleValue() {$/;"	f
@@ -2007,6 +2142,7 @@ lua_timedout	redis.h	/^    int lua_timedout;     \/* True if we reached the time
 lua_write_dirty	redis.h	/^    int lua_write_dirty;  \/* True if a write command was called during the$/;"	m	struct:redisServer
 lzf_compress	lzf_c.c	/^lzf_compress (const void *const in_data, unsigned int in_len,$/;"	f
 lzf_decompress	lzf_d.c	/^lzf_decompress (const void *const in_data,  unsigned int in_len,$/;"	f
+mad	latency.h	/^    uint32_t mad;           \/* Mean absolute deviation. *\/$/;"	m	struct:latencyStats
 magic	hyperloglog.c	/^    char magic[4];      \/* "HYLL" *\/$/;"	m	struct:hllhdr	file:
 main	crc64.c	/^int main(void) {$/;"	f
 main	endianconv.c	/^int main(void) {$/;"	f
@@ -2037,12 +2173,15 @@ masterhost	redis.h	/^    char *masterhost;               \/* Hostname of master 
 masterport	redis.h	/^    int masterport;                 \/* Port of master *\/$/;"	m	struct:redisServer
 masters	sentinel.c	/^    dict *masters;      \/* Dictionary of master sentinelRedisInstances.$/;"	m	struct:sentinelState	file:
 match	adlist.h	/^    int (*match)(void *ptr, void *key);$/;"	m	struct:list
-max	redis.h	/^    double min, max;$/;"	m	struct:__anon13
-max	redis.h	/^    robj *min, *max;  \/* May be set to shared.(minstring|maxstring) *\/$/;"	m	struct:__anon14
+max	latency.h	/^    uint32_t max;           \/* Max of current samples. *\/$/;"	m	struct:latencyStats
+max	latency.h	/^    uint32_t max; \/* Max latency observed for this event. *\/$/;"	m	struct:latencyTimeSeries
+max	redis.h	/^    double min, max;$/;"	m	struct:__anon36
+max	redis.h	/^    robj *min, *max;  \/* May be set to shared.(minstring|maxstring) *\/$/;"	m	struct:__anon37
+max	sparkline.h	/^    double min, max;$/;"	m	struct:sequence
 max_processing_chunk	rio.h	/^    size_t max_processing_chunk;$/;"	m	struct:_rio
-maxclients	redis.h	/^    int maxclients;                 \/* Max number of simultaneous clients *\/$/;"	m	struct:redisServer
-maxex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon13
-maxex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon14
+maxclients	redis.h	/^    unsigned int maxclients;            \/* Max number of simultaneous clients *\/$/;"	m	struct:redisServer
+maxex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon36
+maxex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon37
 maxfd	ae.h	/^    int maxfd;   \/* highest file descriptor currently registered *\/$/;"	m	struct:aeEventLoop
 maxidletime	redis.h	/^    int maxidletime;                \/* Client timeout in seconds *\/$/;"	m	struct:redisServer
 maxmemory	redis.h	/^    unsigned long long maxmemory;   \/* Max number of memory bytes to use *\/$/;"	m	struct:redisServer
@@ -2075,13 +2214,13 @@ memtest_progress_step	memtest.c	/^void memtest_progress_step(size_t curr, size_t
 memtest_test	memtest.c	/^void memtest_test(size_t megabytes, int passes) {$/;"	f
 memtest_test_linux_anonymous_maps	debug.c	/^int memtest_test_linux_anonymous_maps(void) {$/;"	f
 memtoll	util.c	/^long long memtoll(const char *p, int *err) {$/;"	f
-message_len	cluster.h	/^    uint32_t message_len;$/;"	m	struct:__anon22
+message_len	cluster.h	/^    uint32_t message_len;$/;"	m	struct:__anon3
 messagebulk	redis.h	/^    *busykeyerr, *oomerr, *plus, *messagebulk, *pmessagebulk, *subscribebulk,$/;"	m	struct:sharedObjectsStruct
 mf_can_start	cluster.h	/^    int mf_can_start;           \/* If non-zero signal that the manual failover$/;"	m	struct:clusterState
 mf_end	cluster.h	/^    mstime_t mf_end;            \/* Manual failover time limit (ms unixtime).$/;"	m	struct:clusterState
 mf_master_offset	cluster.h	/^    long long mf_master_offset; \/* Master offset the slave needs to start MF$/;"	m	struct:clusterState
 mf_slave	cluster.h	/^    clusterNode *mf_slave;      \/* Slave performing the manual failover. *\/$/;"	m	struct:clusterState
-mflags	cluster.h	/^    unsigned char mflags[3]; \/* Message flags: CLUSTERMSG_FLAG[012]_... *\/$/;"	m	struct:__anon28
+mflags	cluster.h	/^    unsigned char mflags[3]; \/* Message flags: CLUSTERMSG_FLAG[012]_... *\/$/;"	m	struct:__anon9
 mgetCommand	t_string.c	/^void mgetCommand(redisClient *c) {$/;"	f
 microseconds	redis.h	/^    long long microseconds, calls;$/;"	m	struct:redisCommand
 migrateCacheDictType	redis.c	/^dictType migrateCacheDictType = {$/;"	v
@@ -2093,11 +2232,13 @@ migrateCommand	cluster.c	/^void migrateCommand(redisClient *c) {$/;"	f
 migrateGetSocket	cluster.c	/^int migrateGetSocket(redisClient *c, robj *host, robj *port, long timeout) {$/;"	f
 migrate_cached_sockets	redis.h	/^    dict *migrate_cached_sockets;\/* MIGRATE cached sockets *\/$/;"	m	struct:redisServer
 migrating_slots_to	cluster.h	/^    clusterNode *migrating_slots_to[REDIS_CLUSTER_SLOTS];$/;"	m	struct:clusterState
+min	latency.h	/^    uint32_t min;           \/* Min of current samples. *\/$/;"	m	struct:latencyStats
 min	pqsort.c	49;"	d	file:
-min	redis.h	/^    double min, max;$/;"	m	struct:__anon13
-min	redis.h	/^    robj *min, *max;  \/* May be set to shared.(minstring|maxstring) *\/$/;"	m	struct:__anon14
-minex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon13
-minex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon14
+min	redis.h	/^    double min, max;$/;"	m	struct:__anon36
+min	redis.h	/^    robj *min, *max;  \/* May be set to shared.(minstring|maxstring) *\/$/;"	m	struct:__anon37
+min	sparkline.h	/^    double min, max;$/;"	m	struct:sequence
+minex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon36
+minex	redis.h	/^    int minex, maxex; \/* are min or max exclusive? *\/$/;"	m	struct:__anon37
 minreplicas	redis.h	/^    int minreplicas;        \/* MINREPLICAS for synchronous replication *\/$/;"	m	struct:multiState
 minreplicas_timeout	redis.h	/^    time_t minreplicas_timeout; \/* MINREPLICAS timeout as unixtime. *\/$/;"	m	struct:multiState
 minstring	redis.h	/^    *lpush, *emptyscan, *minstring, *maxstring,$/;"	m	struct:sharedObjectsStruct
@@ -2111,7 +2252,7 @@ move_slot	redis-trib.rb	/^    def move_slot(source,target,slot,o={})$/;"	f	class
 msetCommand	t_string.c	/^void msetCommand(redisClient *c) {$/;"	f
 msetGenericCommand	t_string.c	/^void msetGenericCommand(redisClient *c, int nx) {$/;"	f
 msetnxCommand	t_string.c	/^void msetnxCommand(redisClient *c) {$/;"	f
-msg	cluster.h	/^        clusterMsgDataPublish msg;$/;"	m	struct:clusterMsgData::__anon26
+msg	cluster.h	/^        clusterMsgDataPublish msg;$/;"	m	struct:clusterMsgData::__anon7
 mstate	redis.h	/^    multiState mstate;      \/* MULTI\/EXEC state *\/$/;"	m	struct:redisClient
 mstime	redis-benchmark.c	/^static long long mstime(void) {$/;"	f	file:
 mstime	redis-cli.c	/^static long long mstime(void) {$/;"	f	file:
@@ -2127,40 +2268,46 @@ multiState	redis.h	/^} multiState;$/;"	t	typeref:struct:multiState
 multibulklen	redis.h	/^    int multibulklen;       \/* number of multi bulk arguments left to read *\/$/;"	m	struct:redisClient
 myself	cluster.c	/^clusterNode *myself = NULL;$/;"	v
 myself	cluster.h	/^    clusterNode *myself;  \/* This node *\/$/;"	m	struct:clusterState
-myslots	cluster.h	/^    unsigned char myslots[REDIS_CLUSTER_SLOTS\/8];$/;"	m	struct:__anon28
+myslots	cluster.h	/^    unsigned char myslots[REDIS_CLUSTER_SLOTS\/8];$/;"	m	struct:__anon9
+name	cluster.c	/^    char *name;$/;"	m	struct:redisNodeFlags	file:
 name	cluster.h	/^    char name[REDIS_CLUSTER_NAMELEN]; \/* Node name, hex string, sha1-size *\/$/;"	m	struct:clusterNode
-name	config.c	/^    const char     *name;$/;"	m	struct:__anon30	file:
+name	config.c	/^    const char     *name;$/;"	m	struct:__anon38	file:
 name	help.h	/^  char *name;$/;"	m	struct:commandHelp
 name	redis.h	/^    char *name;$/;"	m	struct:redisCommand
 name	redis.h	/^    char *name;$/;"	m	struct:redisFunctionSym
 name	redis.h	/^    robj *name;             \/* As set by CLIENT SETNAME *\/$/;"	m	struct:redisClient
 name	sentinel.c	/^    char *name;     \/* Master name from the point of view of this sentinel. *\/$/;"	m	struct:sentinelRedisInstance	file:
+neighboursToSet	t_graph.c	/^robj *neighboursToSet(GraphNode *node, Graph *graph_object) {$/;"	f
 neterr	redis.h	/^    char neterr[ANET_ERR_LEN];   \/* Error buffer for anet.c *\/$/;"	m	struct:redisServer
 next	adlist.h	/^    listNode *next;$/;"	m	struct:listIter
 next	adlist.h	/^    struct listNode *next;$/;"	m	struct:listNode	typeref:struct:listNode::listNode
 next	ae.h	/^    struct aeTimeEvent *next;$/;"	m	struct:aeTimeEvent	typeref:struct:aeTimeEvent::aeTimeEvent
 next	dict.h	/^    struct dictEntry *next;$/;"	m	struct:dictEntry	typeref:struct:dictEntry::dictEntry
-next	rand.c	/^static void next() {$/;"	f	file:
+next	rand.c	/^static void next(void) {$/;"	f	file:
+next	t_graph.h	/^  struct ListNode *next;$/;"	m	struct:ListNode	typeref:struct:ListNode::ListNode
 nextEntry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator
 next_client_id	redis.h	/^    uint64_t next_client_id;    \/* Next client unique ID. Incremental. *\/$/;"	m	struct:redisServer
 noautherr	redis.h	/^    *masterdownerr, *roslaveerr, *execaborterr, *noautherr, *noreplicaserr,$/;"	m	struct:sharedObjectsStruct
 node	cluster.h	/^    struct clusterNode *node;   \/* Node related to this link if any, or NULL *\/$/;"	m	struct:clusterLink	typeref:struct:clusterLink::clusterNode
 node	cluster.h	/^    struct clusterNode *node;  \/* Node reporting the failure condition. *\/$/;"	m	struct:clusterNodeFailReport	typeref:struct:clusterNodeFailReport::clusterNode
-node	t_zset.c	/^                zskiplistNode *node;$/;"	m	struct:__anon1::__anon2::_iterzset::__anon6	file:
-nodeFailed	cluster.h	62;"	d
-nodeHasAddr	cluster.h	59;"	d
-nodeInHandshake	cluster.h	58;"	d
+node	t_zset.c	/^                zskiplistNode *node;$/;"	m	struct:__anon18::__anon19::_iterzset::__anon23	file:
+node1	t_graph.h	/^  GraphNode *node1;$/;"	m	struct:__anon13
+node2	t_graph.h	/^  GraphNode *node2;$/;"	m	struct:__anon13
+nodeFailed	cluster.h	63;"	d
+nodeHasAddr	cluster.h	60;"	d
+nodeInHandshake	cluster.h	59;"	d
 nodeIp2String	cluster.c	/^void nodeIp2String(char *buf, clusterLink *link) {$/;"	f
-nodeIsMaster	cluster.h	56;"	d
-nodeIsSlave	cluster.h	57;"	d
-nodeTimedOut	cluster.h	61;"	d
+nodeIsMaster	cluster.h	57;"	d
+nodeIsSlave	cluster.h	58;"	d
+nodeTimedOut	cluster.h	62;"	d
 nodeUpdateAddressIfNeeded	cluster.c	/^int nodeUpdateAddressIfNeeded(clusterNode *node, clusterLink *link, int port) {$/;"	f
-nodeWithoutAddr	cluster.h	60;"	d
-nodecfg	cluster.h	/^        clusterMsgDataUpdate nodecfg;$/;"	m	struct:clusterMsgData::__anon27
-nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN]; \/* Name of the slots owner. *\/$/;"	m	struct:__anon23
-nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon20
-nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon21
+nodeWithoutAddr	cluster.h	61;"	d
+nodecfg	cluster.h	/^        clusterMsgDataUpdate nodecfg;$/;"	m	struct:clusterMsgData::__anon8
+nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN]; \/* Name of the slots owner. *\/$/;"	m	struct:__anon4
+nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon1
+nodename	cluster.h	/^    char nodename[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon2
 nodes	cluster.h	/^    dict *nodes;          \/* Hash table of name -> clusterNode structures *\/$/;"	m	struct:clusterState
+nodes	t_graph.h	/^  List *nodes; \/\/TODO: Use redis lists like the GraphNode$/;"	m	struct:__anon14
 nodes_black_list	cluster.h	/^    dict *nodes_black_list; \/* Nodes we don't re-add for a few seconds. *\/$/;"	m	struct:clusterState
 nodes_with_keys_in_slot	redis-trib.rb	/^    def nodes_with_keys_in_slot(slot)$/;"	f	class:RedisTrib
 nokeyerr	redis.h	/^    *emptymultibulk, *wrongtypeerr, *nokeyerr, *syntaxerr, *sameobjecterr,$/;"	m	struct:sharedObjectsStruct
@@ -2170,14 +2317,14 @@ noscripterr	redis.h	/^    *outofrangeerr, *noscripterr, *loadingerr, *slowscript
 notification_script	sentinel.c	/^    char *notification_script;$/;"	m	struct:sentinelRedisInstance	file:
 notifyKeyspaceEvent	notify.c	/^void notifyKeyspaceEvent(int type, char *event, robj *key, int dbid) {$/;"	f
 notify_keyspace_events	redis.h	/^    int notify_keyspace_events; \/* Events to propagate via Pub\/Sub. This is an$/;"	m	struct:redisServer
-notused	cluster.h	/^    uint32_t notused; \/* for 64 bit alignment *\/$/;"	m	struct:__anon20
+notused	cluster.h	/^    uint32_t notused; \/* for 64 bit alignment *\/$/;"	m	struct:__anon1
 notused	hyperloglog.c	/^    uint8_t notused[3]; \/* Reserved for future use, must be zero. *\/$/;"	m	struct:hllhdr	file:
-notused0	cluster.h	/^    uint16_t notused0;  \/* 2 bytes not used. *\/$/;"	m	struct:__anon28
-notused1	cluster.h	/^    char notused1[32];  \/* 32 bytes reserved for future usage. *\/$/;"	m	struct:__anon28
+notused0	cluster.h	/^    uint16_t notused0;  \/* 2 bytes not used. *\/$/;"	m	struct:__anon9
+notused1	cluster.h	/^    char notused1[32];  \/* 32 bytes reserved for future usage. *\/$/;"	m	struct:__anon9
 npending	ae_evport.c	/^    int     npending;                           \/* # of pending fds *\/$/;"	m	struct:aeApiState	file:
 ntohu64	endianconv.h	68;"	d
 ntohu64	endianconv.h	71;"	d
-nul	setproctitle.c	/^	char *nul;$/;"	m	struct:__anon29	file:
+nul	setproctitle.c	/^	char *nul;$/;"	m	struct:__anon10	file:
 nullbulk	redis.h	/^    *colon, *nullbulk, *nullmultibulk, *queued,$/;"	m	struct:sharedObjectsStruct
 nullmultibulk	redis.h	/^    *colon, *nullbulk, *nullmultibulk, *queued,$/;"	m	struct:sharedObjectsStruct
 numclients	redis-benchmark.c	/^    int numclients;$/;"	m	struct:config	file:
@@ -2194,9 +2341,9 @@ objectCommandLookup	object.c	/^robj *objectCommandLookup(redisClient *c, robj *k
 objectCommandLookupOrReply	object.c	/^robj *objectCommandLookupOrReply(redisClient *c, robj *key, robj *reply) {$/;"	f
 obuf	redis-benchmark.c	/^    sds obuf;$/;"	m	struct:_client	file:
 obuf_soft_limit_reached_time	redis.h	/^    time_t obuf_soft_limit_reached_time;$/;"	m	struct:redisClient
-offset	cluster.h	/^    uint64_t offset;    \/* Master replication offset if node is a master or$/;"	m	struct:__anon28
-offset	redis-check-dump.c	/^    size_t offset;$/;"	m	struct:__anon32	file:
-offset	redis-check-dump.c	/^    size_t offset[16];$/;"	m	struct:__anon33	file:
+offset	cluster.h	/^    uint64_t offset;    \/* Master replication offset if node is a master or$/;"	m	struct:__anon9
+offset	redis-check-dump.c	/^    size_t offset;$/;"	m	struct:__anon15	file:
+offset	redis-check-dump.c	/^    size_t offset[16];$/;"	m	struct:__anon16	file:
 ok	intset.c	/^void ok(void) {$/;"	f
 ok	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 oomerr	redis.h	/^    *busykeyerr, *oomerr, *plus, *messagebulk, *pmessagebulk, *subscribebulk,$/;"	m	struct:sharedObjectsStruct
@@ -2208,7 +2355,7 @@ ops_sec_samples	redis.h	/^    long long ops_sec_samples[REDIS_OPS_SEC_SAMPLES];$
 optionSetDictType	config.c	/^dictType optionSetDictType = {$/;"	v
 optionToLineDictType	config.c	/^dictType optionToLineDictType = {$/;"	v
 option_to_line	config.c	/^    dict *option_to_line; \/* Option -> list of config file lines map *\/$/;"	m	struct:rewriteConfigState	file:
-org	redis-cli.c	/^    struct commandHelp *org;$/;"	m	struct:__anon19	typeref:struct:__anon19::commandHelp	file:
+org	redis-cli.c	/^    struct commandHelp *org;$/;"	m	struct:__anon30	typeref:struct:__anon30::commandHelp	file:
 orig_commands	redis.h	/^    dict *orig_commands;        \/* Command table before command renaming. *\/$/;"	m	struct:redisServer
 outofrangeerr	redis.h	/^    *outofrangeerr, *noscripterr, *loadingerr, *slowscripterr, *bgsaveerr,$/;"	m	struct:sharedObjectsStruct
 output	redis-cli.c	/^    int output; \/* output mode, see OUTPUT_* defines *\/$/;"	m	struct:config	file:
@@ -2233,6 +2380,7 @@ pending	redis-benchmark.c	/^    int pending;            \/* Number of pending re
 pending_commands	sentinel.c	/^    int pending_commands;   \/* Number of commands sent waiting for a reply. *\/$/;"	m	struct:sentinelRedisInstance	file:
 pending_fds	ae_evport.c	/^    int     pending_fds[MAX_EVENT_BATCHSZ];     \/* pending fds *\/$/;"	m	struct:aeApiState	file:
 pending_masks	ae_evport.c	/^    int     pending_masks[MAX_EVENT_BATCHSZ];   \/* pending fds' masks *\/$/;"	m	struct:aeApiState	file:
+period	latency.h	/^    time_t period;          \/* Number of seconds since first event and now. *\/$/;"	m	struct:latencyStats
 persistCommand	db.c	/^void persistCommand(redisClient *c) {$/;"	f
 pexpireCommand	db.c	/^void pexpireCommand(redisClient *c) {$/;"	f
 pexpireatCommand	db.c	/^void pexpireatCommand(redisClient *c) {$/;"	f
@@ -2244,10 +2392,10 @@ pfselftestCommand	hyperloglog.c	/^void pfselftestCommand(redisClient *c) {$/;"	f
 pid	redis.h	/^    pid_t pid;                  \/* Main process pid. *\/$/;"	m	struct:redisServer
 pid	sentinel.c	/^    pid_t pid;              \/* Script execution pid. *\/$/;"	m	struct:sentinelScriptJob	file:
 pidfile	redis.h	/^    char *pidfile;              \/* PID file path *\/$/;"	m	struct:redisServer
-ping	cluster.h	/^    } ping;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon24
+ping	cluster.h	/^    } ping;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon5
 pingCommand	redis.c	/^void pingCommand(redisClient *c) {$/;"	f
 ping_sent	cluster.h	/^    mstime_t ping_sent;      \/* Unix time we sent latest ping *\/$/;"	m	struct:clusterNode
-ping_sent	cluster.h	/^    uint32_t ping_sent;$/;"	m	struct:__anon20
+ping_sent	cluster.h	/^    uint32_t ping_sent;$/;"	m	struct:__anon1
 pipeMode	redis-cli.c	/^static void pipeMode(void) {$/;"	f	file:
 pipe_mode	redis-cli.c	/^    int pipe_mode;$/;"	m	struct:config	file:
 pipe_timeout	redis-cli.c	/^    int pipe_timeout;$/;"	m	struct:config	file:
@@ -2257,19 +2405,19 @@ pmessagebulk	redis.h	/^    *busykeyerr, *oomerr, *plus, *messagebulk, *pmessageb
 pointer	redis.h	/^    unsigned long pointer;$/;"	m	struct:redisFunctionSym
 pong	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 pong_received	cluster.h	/^    mstime_t pong_received;  \/* Unix time we received the pong *\/$/;"	m	struct:clusterNode
-pong_received	cluster.h	/^    uint32_t pong_received;$/;"	m	struct:__anon20
+pong_received	cluster.h	/^    uint32_t pong_received;$/;"	m	struct:__anon1
 pop	ziplist.c	/^void pop(unsigned char *zl, int where) {$/;"	f
 popGenericCommand	t_list.c	/^void popGenericCommand(redisClient *c, int where) {$/;"	f
 populateCommandTable	redis.c	/^void populateCommandTable(void) {$/;"	f
 populate_nodes_replicas_info	redis-trib.rb	/^    def populate_nodes_replicas_info$/;"	f	class:RedisTrib
 port	cluster.h	/^    int port;                   \/* Latest known port of this node *\/$/;"	m	struct:clusterNode
-port	cluster.h	/^    uint16_t port;      \/* Sender TCP base port *\/$/;"	m	struct:__anon28
-port	cluster.h	/^    uint16_t port;  \/* port last time it was seen *\/$/;"	m	struct:__anon20
+port	cluster.h	/^    uint16_t port;      \/* Sender TCP base port *\/$/;"	m	struct:__anon9
+port	cluster.h	/^    uint16_t port;  \/* port last time it was seen *\/$/;"	m	struct:__anon1
 port	redis.h	/^    int port;                   \/* TCP listening port *\/$/;"	m	struct:redisServer
 port	sentinel.c	/^    int port;$/;"	m	struct:sentinelAddr	file:
 portfd	ae_evport.c	/^    int     portfd;                             \/* event port *\/$/;"	m	struct:aeApiState	file:
-pos	redis-check-dump.c	/^} pos;$/;"	t	typeref:struct:__anon32	file:
-pos	rio.h	/^            off_t pos;$/;"	m	struct:_rio::__anon16::__anon17
+pos	redis-check-dump.c	/^} pos;$/;"	t	typeref:struct:__anon15	file:
+pos	rio.h	/^            off_t pos;$/;"	m	struct:_rio::__anon25::__anon26
 positions	redis-check-dump.c	/^static pos positions[16];$/;"	v	file:
 pqsort	pqsort.c	/^pqsort(void *a, size_t n, size_t es,$/;"	f
 prepareClientToWrite	networking.c	/^int prepareClientToWrite(redisClient *c) {$/;"	f
@@ -2285,12 +2433,12 @@ printValid	redis-check-dump.c	/^void printValid(uint64_t ops, uint64_t bytes) {$
 privdata	dict.h	/^    void *privdata;$/;"	m	struct:dict
 proc	redis.h	/^    redisCommandProc *proc;$/;"	m	struct:redisCommand
 process	redis-check-aof.c	/^off_t process(FILE *fp) {$/;"	f
-process	redis-check-dump.c	/^void process() {$/;"	f
+process	redis-check-dump.c	/^void process(void) {$/;"	f
 processClientsWaitingReplicas	replication.c	/^void processClientsWaitingReplicas(void) {$/;"	f
 processCommand	redis.c	/^int processCommand(redisClient *c) {$/;"	f
 processDoubleValue	redis-check-dump.c	/^int processDoubleValue(double** store) {$/;"	f
 processEventsWhileBlocked	networking.c	/^int processEventsWhileBlocked(void) {$/;"	f
-processHeader	redis-check-dump.c	/^int processHeader() {$/;"	f
+processHeader	redis-check-dump.c	/^int processHeader(void) {$/;"	f
 processInlineBuffer	networking.c	/^int processInlineBuffer(redisClient *c) {$/;"	f
 processInputBuffer	networking.c	/^void processInputBuffer(redisClient *c) {$/;"	f
 processMultibulkBuffer	networking.c	/^int processMultibulkBuffer(redisClient *c) {$/;"	f
@@ -2309,9 +2457,9 @@ psetexCommand	t_string.c	/^void psetexCommand(redisClient *c) {$/;"	f
 psubscribeCommand	pubsub.c	/^void psubscribeCommand(redisClient *c) {$/;"	f
 psubscribebulk	redis.h	/^    *unsubscribebulk, *psubscribebulk, *punsubscribebulk, *del, *rpop, *lpop,$/;"	m	struct:sharedObjectsStruct
 ptr	redis.h	/^    void *ptr;$/;"	m	struct:redisObject
-ptr	rio.h	/^            sds ptr;$/;"	m	struct:_rio::__anon16::__anon17
+ptr	rio.h	/^            sds ptr;$/;"	m	struct:_rio::__anon25::__anon26
 pttlCommand	db.c	/^void pttlCommand(redisClient *c) {$/;"	f
-publish	cluster.h	/^    } publish;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon26
+publish	cluster.h	/^    } publish;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon7
 publishCommand	pubsub.c	/^void publishCommand(redisClient *c) {$/;"	f
 pubsubCommand	pubsub.c	/^void pubsubCommand(redisClient *c) {$/;"	f
 pubsubPattern	redis.h	/^typedef struct pubsubPattern {$/;"	s
@@ -2339,7 +2487,7 @@ querybuf_peak	redis.h	/^    size_t querybuf_peak;   \/* Recent (100ms or more) p
 queueMultiCommand	multi.c	/^void queueMultiCommand(redisClient *c) {$/;"	f
 queued	redis.h	/^    *colon, *nullbulk, *nullmultibulk, *queued,$/;"	m	struct:sharedObjectsStruct
 quiet	redis-benchmark.c	/^    int quiet;$/;"	m	struct:config	file:
-quorum	sentinel.c	/^    int quorum;         \/* Number of sentinels that need to agree on failure. *\/$/;"	m	struct:sentinelRedisInstance	file:
+quorum	sentinel.c	/^    unsigned int quorum;\/* Number of sentinels that need to agree on failure. *\/$/;"	m	struct:sentinelRedisInstance	file:
 r	redis-trib.rb	/^    def r$/;"	f	class:ClusterNode
 randfree	redis-benchmark.c	/^    size_t randfree;        \/* Number of unused pointers in client->randptr *\/$/;"	m	struct:_client	file:
 randlen	redis-benchmark.c	/^    size_t randlen;         \/* Number of pointers in client->randptr *\/$/;"	m	struct:_client	file:
@@ -2352,7 +2500,7 @@ randstring	ziplist.c	/^int randstring(char *target, unsigned int min, unsigned i
 rcvbuf	cluster.h	/^    sds rcvbuf;                 \/* Packet reception buffer *\/$/;"	m	struct:clusterLink
 rdbEncodeInteger	rdb.c	/^int rdbEncodeInteger(long long value, unsigned char *enc) {$/;"	f
 rdbGenericLoadStringObject	rdb.c	/^robj *rdbGenericLoadStringObject(rio *rdb, int encode) {$/;"	f
-rdbIsObjectType	rdb.h	86;"	d
+rdbIsObjectType	rdb.h	87;"	d
 rdbLoad	rdb.c	/^int rdbLoad(char *filename) {$/;"	f
 rdbLoadDoubleValue	rdb.c	/^int rdbLoadDoubleValue(rio *rdb, double *val) {$/;"	f
 rdbLoadEncodedStringObject	rdb.c	/^robj *rdbLoadEncodedStringObject(rio *rdb) {$/;"	f
@@ -2423,9 +2571,9 @@ redisAeEvents	sentinel.c	/^} redisAeEvents;$/;"	t	typeref:struct:redisAeEvents	f
 redisAeReadEvent	sentinel.c	/^static void redisAeReadEvent(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f	file:
 redisAeWriteEvent	sentinel.c	/^static void redisAeWriteEvent(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f	file:
 redisAsciiArt	redis.c	/^void redisAsciiArt(void) {$/;"	f
-redisAssert	redis.h	380;"	d
-redisAssertWithInfo	redis.h	379;"	d
-redisBitpos	bitops.c	/^long redisBitpos(void *s, long count, int bit) {$/;"	f
+redisAssert	redis.h	389;"	d
+redisAssertWithInfo	redis.h	388;"	d
+redisBitpos	bitops.c	/^long redisBitpos(void *s, unsigned long count, int bit) {$/;"	f
 redisBuildId	release.c	/^uint64_t redisBuildId(void) {$/;"	f
 redisClient	redis.h	/^typedef struct redisClient {$/;"	s
 redisClient	redis.h	/^} redisClient;$/;"	t	typeref:struct:redisClient
@@ -2434,8 +2582,8 @@ redisCommandProc	redis.h	/^typedef void redisCommandProc(redisClient *c);$/;"	t
 redisCommandTable	redis.c	/^struct redisCommand redisCommandTable[] = {$/;"	v	typeref:struct:redisCommand
 redisDb	redis.h	/^typedef struct redisDb {$/;"	s
 redisDb	redis.h	/^} redisDb;$/;"	t	typeref:struct:redisDb
-redisDebug	redis.h	1504;"	d
-redisDebugMark	redis.h	1506;"	d
+redisDebug	redis.h	1552;"	d
+redisDebugMark	redis.h	1554;"	d
 redisFunctionSym	redis.h	/^struct redisFunctionSym {$/;"	s
 redisGetKeysProc	redis.h	/^typedef int *redisGetKeysProc(struct redisCommand *cmd, robj **argv, int argc, int *numkeys);$/;"	t
 redisGitDirty	release.c	/^char *redisGitDirty(void) {$/;"	f
@@ -2446,6 +2594,8 @@ redisLogHexDump	debug.c	/^void redisLogHexDump(int level, char *descr, void *val
 redisLogObjectDebugInfo	debug.c	/^void redisLogObjectDebugInfo(robj *o) {$/;"	f
 redisLogRaw	redis.c	/^void redisLogRaw(int level, const char *msg) {$/;"	f
 redisLrand48	rand.c	/^int32_t redisLrand48() {$/;"	f
+redisNodeFlags	cluster.c	/^struct redisNodeFlags {$/;"	s	file:
+redisNodeFlagsTable	cluster.c	/^static struct redisNodeFlags redisNodeFlagsTable[] = {$/;"	v	typeref:struct:redisNodeFlags	file:
 redisObject	redis.h	/^typedef struct redisObject {$/;"	s
 redisOp	redis.h	/^typedef struct redisOp {$/;"	s
 redisOp	redis.h	/^} redisOp;$/;"	t	typeref:struct:redisOp
@@ -2455,7 +2605,7 @@ redisOpArrayAppend	redis.c	/^int redisOpArrayAppend(redisOpArray *oa, struct red
 redisOpArrayFree	redis.c	/^void redisOpArrayFree(redisOpArray *oa) {$/;"	f
 redisOpArrayInit	redis.c	/^void redisOpArrayInit(redisOpArray *oa) {$/;"	f
 redisOutOfMemoryHandler	redis.c	/^void redisOutOfMemoryHandler(size_t allocation_size) {$/;"	f
-redisPanic	redis.h	381;"	d
+redisPanic	redis.h	390;"	d
 redisPopcount	bitops.c	/^size_t redisPopcount(void *s, long count) {$/;"	f
 redisProtocolToLuaType	scripting.c	/^char *redisProtocolToLuaType(lua_State *lua, char* reply) {$/;"	f
 redisProtocolToLuaType_Bulk	scripting.c	/^char *redisProtocolToLuaType_Bulk(lua_State *lua, char *reply) {$/;"	f
@@ -2477,7 +2627,7 @@ redis_stat	config.h	43;"	d
 refcount	redis.h	/^    int refcount;$/;"	m	struct:redisObject
 refreshGoodSlavesCount	replication.c	/^void refreshGoodSlavesCount(void) {$/;"	f
 registers	hyperloglog.c	/^    uint8_t registers[]; \/* Data bytes. *\/$/;"	m	struct:hllhdr	file:
-rehashidx	dict.h	/^    int rehashidx; \/* rehashing not in progress if rehashidx == -1 *\/$/;"	m	struct:dict
+rehashidx	dict.h	/^    long rehashidx; \/* rehashing not in progress if rehashidx == -1 *\/$/;"	m	struct:dict
 releaseSentinelAddr	sentinel.c	/^void releaseSentinelAddr(sentinelAddr *sa) {$/;"	f
 releaseSentinelRedisInstance	sentinel.c	/^void releaseSentinelRedisInstance(sentinelRedisInstance *ri) {$/;"	f
 release_hdr	Makefile	/^release_hdr := $(shell sh -c '.\/mkreleasehdr.sh')$/;"	m
@@ -2487,7 +2637,7 @@ renameCommand	db.c	/^void renameCommand(redisClient *c) {$/;"	f
 renameGenericCommand	db.c	/^void renameGenericCommand(redisClient *c, int nx) {$/;"	f
 renamenxCommand	db.c	/^void renamenxCommand(redisClient *c) {$/;"	f
 repeat	redis-cli.c	/^    long repeat;$/;"	m	struct:config	file:
-repl	redis-cli.c	/^static void repl() {$/;"	f	file:
+repl	redis-cli.c	/^static void repl(void) {$/;"	f	file:
 replScriptCacheDictType	redis.c	/^dictType replScriptCacheDictType = {$/;"	v
 repl_ack_off	redis.h	/^    long long repl_ack_off; \/* replication ack offset, if this is a slave *\/$/;"	m	struct:redisClient
 repl_ack_time	redis.h	/^    long long repl_ack_time;\/* replication ack time, if this is a slave *\/$/;"	m	struct:redisClient
@@ -2510,7 +2660,7 @@ repl_offset_time	cluster.h	/^    mstime_t repl_offset_time;  \/* Unix time we re
 repl_ping_slave_period	redis.h	/^    int repl_ping_slave_period;     \/* Master pings the slave every N seconds *\/$/;"	m	struct:redisServer
 repl_scriptcache_dict	redis.h	/^    dict *repl_scriptcache_dict;        \/* SHA1 all slaves are aware of. *\/$/;"	m	struct:redisServer
 repl_scriptcache_fifo	redis.h	/^    list *repl_scriptcache_fifo;        \/* First in, first out LRU eviction. *\/$/;"	m	struct:redisServer
-repl_scriptcache_size	redis.h	/^    int repl_scriptcache_size;          \/* Max number of elements. *\/$/;"	m	struct:redisServer
+repl_scriptcache_size	redis.h	/^    unsigned int repl_scriptcache_size; \/* Max number of elements. *\/$/;"	m	struct:redisServer
 repl_serve_stale_data	redis.h	/^    int repl_serve_stale_data; \/* Serve stale data when link is down? *\/$/;"	m	struct:redisServer
 repl_slave_ro	redis.h	/^    int repl_slave_ro;          \/* Slave is read only? *\/$/;"	m	struct:redisServer
 repl_state	redis.h	/^    int repl_state;          \/* Replication status if the instance is a slave *\/$/;"	m	struct:redisServer
@@ -2555,18 +2705,19 @@ replstate	redis.h	/^    int replstate;          \/* replication state if this is
 reply	redis.h	/^    list *reply;$/;"	m	struct:redisClient
 replyToBlockedClientTimedOut	blocked.c	/^void replyToBlockedClientTimedOut(redisClient *c) {$/;"	f
 reply_bytes	redis.h	/^    unsigned long reply_bytes; \/* Tot bytes of objects in reply list *\/$/;"	m	struct:redisClient
+representRedisNodeFlags	cluster.c	/^sds representRedisNodeFlags(sds ci, uint16_t flags) {$/;"	f
 reqtype	redis.h	/^    int reqtype;$/;"	m	struct:redisClient
 requests	redis-benchmark.c	/^    int requests;$/;"	m	struct:config	file:
 requests_finished	redis-benchmark.c	/^    int requests_finished;$/;"	m	struct:config	file:
 requests_issued	redis-benchmark.c	/^    int requests_issued;$/;"	m	struct:config	file:
 requirepass	redis.h	/^    char *requirepass;          \/* Pass for AUTH command, or NULL *\/$/;"	m	struct:redisServer
-reset	setproctitle.c	/^	_Bool reset;$/;"	m	struct:__anon29	file:
+reset	setproctitle.c	/^	_Bool reset;$/;"	m	struct:__anon10	file:
 resetClient	networking.c	/^void resetClient(redisClient *c) {$/;"	f
 resetClient	redis-benchmark.c	/^static void resetClient(client c) {$/;"	f	file:
 resetCommandTableStats	redis.c	/^void resetCommandTableStats(void) {$/;"	f
 resetManualFailover	cluster.c	/^void resetManualFailover(void) {$/;"	f
 resetRefCount	object.c	/^robj *resetRefCount(robj *obj) {$/;"	f
-resetServerSaveParams	config.c	/^void resetServerSaveParams() {$/;"	f
+resetServerSaveParams	config.c	/^void resetServerSaveParams(void) {$/;"	f
 resetServerStats	redis.c	/^void resetServerStats(void) {$/;"	f
 reshard_cluster_cmd	redis-trib.rb	/^    def reshard_cluster_cmd(argv,opt)$/;"	f	class:RedisTrib
 resident_set_size	redis.h	/^    size_t resident_set_size;       \/* RSS sampled in serverCron(). *\/$/;"	m	struct:redisServer
@@ -2638,6 +2789,7 @@ rol	sha1.c	33;"	d	file:
 roleCommand	replication.c	/^void roleCommand(redisClient *c) {$/;"	f
 role_reported	sentinel.c	/^    int role_reported;$/;"	m	struct:sentinelRedisInstance	file:
 role_reported_time	sentinel.c	/^    mstime_t role_reported_time;$/;"	m	struct:sentinelRedisInstance	file:
+root	t_graph.h	/^  ListNode *root;$/;"	m	struct:__anon11
 roslaveerr	redis.h	/^    *masterdownerr, *roslaveerr, *execaborterr, *noautherr, *noreplicaserr,$/;"	m	struct:sharedObjectsStruct
 rpop	redis.h	/^    *unsubscribebulk, *psubscribebulk, *punsubscribebulk, *del, *rpop, *lpop,$/;"	m	struct:sharedObjectsStruct
 rpopCommand	redis.h	/^                        *rpopCommand;$/;"	m	struct:redisServer	typeref:struct:redisServer::
@@ -2646,16 +2798,20 @@ rpoplpushCommand	t_list.c	/^void rpoplpushCommand(redisClient *c) {$/;"	f
 rpoplpushHandlePush	t_list.c	/^void rpoplpushHandlePush(redisClient *c, robj *dstkey, robj *dstobj, robj *value) {$/;"	f
 rpushCommand	t_list.c	/^void rpushCommand(redisClient *c) {$/;"	f
 rpushxCommand	t_list.c	/^void rpushxCommand(redisClient *c) {$/;"	f
-run_with_period	redis.h	376;"	d
+run_with_period	redis.h	385;"	d
 runid	redis.h	/^    char runid[REDIS_RUN_ID_SIZE+1];  \/* ID always different at every exec. *\/$/;"	m	struct:redisServer
 runid	sentinel.c	/^    char *runid;    \/* run ID of this instance. *\/$/;"	m	struct:sentinelRedisInstance	file:
 runid	sentinel.c	/^    char *runid;$/;"	m	struct:sentinelLeader	file:
 running_scripts	sentinel.c	/^    int running_scripts;    \/* Number of scripts in execution right now. *\/$/;"	m	struct:sentinelState	file:
-s64	dict.h	/^        int64_t s64;$/;"	m	union:dictEntry::__anon31
+s64	dict.h	/^        int64_t s64;$/;"	m	union:dictEntry::__anon29
 s_down_since_time	sentinel.c	/^    mstime_t s_down_since_time; \/* Subjectively down since time. *\/$/;"	m	struct:sentinelRedisInstance	file:
 saddCommand	t_set.c	/^void saddCommand(redisClient *c) {$/;"	f
-safe	dict.h	/^    int table, index, safe;$/;"	m	struct:dictIterator
+safe	dict.h	/^    int table, safe;$/;"	m	struct:dictIterator
 sameobjecterr	redis.h	/^    *emptymultibulk, *wrongtypeerr, *nokeyerr, *syntaxerr, *sameobjecterr,$/;"	m	struct:sharedObjectsStruct
+sample	sparkline.h	/^struct sample {$/;"	s
+samples	latency.h	/^    struct latencySample samples[LATENCY_TS_LEN]; \/* Latest history. *\/$/;"	m	struct:latencyTimeSeries	typeref:struct:latencyTimeSeries::latencySample
+samples	latency.h	/^    uint32_t samples;       \/* Number of non-zero samples. *\/$/;"	m	struct:latencyStats
+samples	sparkline.h	/^    struct sample *samples;$/;"	m	struct:sequence	typeref:struct:sequence::sample
 saveCommand	rdb.c	/^void saveCommand(redisClient *c) {$/;"	f
 saveparam	redis.h	/^struct saveparam {$/;"	s
 saveparams	redis.h	/^    struct saveparam *saveparams;   \/* Save points array for RDB *\/$/;"	m	struct:redisServer	typeref:struct:redisServer::saveparam
@@ -2663,12 +2819,12 @@ saveparamslen	redis.h	/^    int saveparamslen;              \/* Number of saving
 scanCallback	db.c	/^void scanCallback(void *privdata, const dictEntry *de) {$/;"	f
 scanCommand	db.c	/^void scanCommand(redisClient *c) {$/;"	f
 scanGenericCommand	db.c	/^void scanGenericCommand(redisClient *c, robj *o, unsigned long cursor) {$/;"	f
-scanMode	redis-cli.c	/^static void scanMode() {$/;"	f	file:
+scanMode	redis-cli.c	/^static void scanMode(void) {$/;"	f	file:
 scan_mode	redis-cli.c	/^    int scan_mode;$/;"	m	struct:config	file:
 scardCommand	t_set.c	/^void scardCommand(redisClient *c) {$/;"	f
-score	redis.h	/^        double score;$/;"	m	union:_redisSortObject::__anon8
+score	redis.h	/^        double score;$/;"	m	union:_redisSortObject::__anon31
 score	redis.h	/^    double score;$/;"	m	struct:zskiplistNode
-score	t_zset.c	/^    double score;$/;"	m	struct:__anon7	file:
+score	t_zset.c	/^    double score;$/;"	m	struct:__anon24	file:
 scriptCommand	scripting.c	/^void scriptCommand(redisClient *c) {$/;"	f
 scriptingEnableGlobalsProtection	scripting.c	/^void scriptingEnableGlobalsProtection(lua_State *lua) {$/;"	f
 scriptingInit	scripting.c	/^void scriptingInit(void) {$/;"	f
@@ -2679,7 +2835,7 @@ sdiffCommand	t_set.c	/^void sdiffCommand(redisClient *c) {$/;"	f
 sdiffstoreCommand	t_set.c	/^void sdiffstoreCommand(redisClient *c) {$/;"	f
 sds	sds.h	/^typedef char *sds;$/;"	t
 sdsAllocSize	sds.c	/^size_t sdsAllocSize(sds s) {$/;"	f
-sdsEncodedObject	redis.h	1098;"	d
+sdsEncodedObject	redis.h	1126;"	d
 sdsIncrLen	sds.c	/^void sdsIncrLen(sds s, int incr) {$/;"	f
 sdsMakeRoomFor	sds.c	/^sds sdsMakeRoomFor(sds s, size_t addlen) {$/;"	f
 sdsRemoveFreeSpace	sds.c	/^sds sdsRemoveFreeSpace(sds s) {$/;"	f
@@ -2726,7 +2882,7 @@ sendReplyToClient	networking.c	/^void sendReplyToClient(aeEventLoop *el, int fd,
 sendScan	redis-cli.c	/^static redisReply *sendScan(unsigned long long *it) {$/;"	f	file:
 sendSync	redis-cli.c	/^unsigned long long sendSync(int fd) {$/;"	f
 sendSynchronousCommand	replication.c	/^char *sendSynchronousCommand(int fd, ...) {$/;"	f
-sender	cluster.h	/^    char sender[REDIS_CLUSTER_NAMELEN]; \/* Name of the sender node *\/$/;"	m	struct:__anon28
+sender	cluster.h	/^    char sender[REDIS_CLUSTER_NAMELEN]; \/* Name of the sender node *\/$/;"	m	struct:__anon9
 sentinel	sentinel.c	/^} sentinel;$/;"	v	typeref:struct:sentinelState
 sentinelAbortFailover	sentinel.c	/^void sentinelAbortFailover(sentinelRedisInstance *ri) {$/;"	f
 sentinelAddFlagsToDictOfRedisInstances	sentinel.c	/^void sentinelAddFlagsToDictOfRedisInstances(dict *instances, int flags) {$/;"	f
@@ -2817,10 +2973,11 @@ sentinel_mode	redis.h	/^    int sentinel_mode;          \/* True if this instanc
 sentinelcmds	sentinel.c	/^struct redisCommand sentinelcmds[] = {$/;"	v	typeref:struct:redisCommand
 sentinels	sentinel.c	/^    dict *sentinels;    \/* Other sentinels monitoring the same master. *\/$/;"	m	struct:sentinelRedisInstance	file:
 sentlen	redis.h	/^    int sentlen;            \/* Amount of bytes already sent in the current$/;"	m	struct:redisClient
+sequence	sparkline.h	/^struct sequence {$/;"	s
 serveClientBlockedOnList	t_list.c	/^int serveClientBlockedOnList(redisClient *receiver, robj *key, robj *dstkey, redisDb *db, robj *value, int where)$/;"	f
 server	redis.c	/^struct redisServer server; \/* server global state *\/$/;"	v	typeref:struct:redisServer
 serverCron	redis.c	/^int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {$/;"	f
-set	t_zset.c	/^        } set;$/;"	m	union:__anon1::__anon2	typeref:union:__anon1::__anon2::_iterset	file:
+set	t_zset.c	/^        } set;$/;"	m	union:__anon18::__anon19	typeref:union:__anon18::__anon19::_iterset	file:
 setCommand	t_string.c	/^void setCommand(redisClient *c) {$/;"	f
 setDeferredMultiBulkLength	networking.c	/^void setDeferredMultiBulkLength(redisClient *c, void *node, long length) {$/;"	f
 setDictType	redis.c	/^dictType setDictType = {$/;"	v
@@ -2833,7 +2990,7 @@ setTypeConvert	t_set.c	/^void setTypeConvert(robj *setobj, int enc) {$/;"	f
 setTypeCreate	t_set.c	/^robj *setTypeCreate(robj *value) {$/;"	f
 setTypeInitIterator	t_set.c	/^setTypeIterator *setTypeInitIterator(robj *subject) {$/;"	f
 setTypeIsMember	t_set.c	/^int setTypeIsMember(robj *subject, robj *value) {$/;"	f
-setTypeIterator	redis.h	/^} setTypeIterator;$/;"	t	typeref:struct:__anon11
+setTypeIterator	redis.h	/^} setTypeIterator;$/;"	t	typeref:struct:__anon34
 setTypeNext	t_set.c	/^int setTypeNext(setTypeIterator *si, robj **objele, int64_t *llele) {$/;"	f
 setTypeNextObject	t_set.c	/^robj *setTypeNextObject(setTypeIterator *si) {$/;"	f
 setTypeRandomElement	t_set.c	/^int setTypeRandomElement(robj *setobj, robj **objele, int64_t *llele) {$/;"	f
@@ -2863,12 +3020,12 @@ show_reshard_table	redis-trib.rb	/^    def show_reshard_table(table)$/;"	f	class
 shutdown	redis-cli.c	/^    int shutdown;$/;"	m	struct:config	file:
 shutdownCommand	db.c	/^void shutdownCommand(redisClient *c) {$/;"	f
 shutdown_asap	redis.h	/^    int shutdown_asap;          \/* SHUTDOWN needed ASAP *\/$/;"	m	struct:redisServer
-sig	cluster.h	/^    char sig[4];        \/* Siganture "RCmb" (Redis Cluster message bus). *\/$/;"	m	struct:__anon28
+sig	cluster.h	/^    char sig[4];        \/* Siganture "RCmb" (Redis Cluster message bus). *\/$/;"	m	struct:__anon9
+sigShutdownHandler	redis.c	/^static void sigShutdownHandler(int sig) {$/;"	f	file:
 signalFlushedDb	db.c	/^void signalFlushedDb(int dbid) {$/;"	f
 signalListAsReady	t_list.c	/^void signalListAsReady(redisDb *db, robj *key) {$/;"	f
 signalModifiedKey	db.c	/^void signalModifiedKey(redisDb *db, robj *key) {$/;"	f
 sigsegvHandler	debug.c	/^void sigsegvHandler(int sig, siginfo_t *info, void *secret) {$/;"	f
-sigtermHandler	redis.c	/^static void sigtermHandler(int sig) {$/;"	f	file:
 since	help.h	/^  char *since;$/;"	m	struct:commandHelp
 sinterCommand	t_set.c	/^void sinterCommand(redisClient *c) {$/;"	f
 sinterGenericCommand	t_set.c	/^void sinterGenericCommand(redisClient *c, robj **setkeys, unsigned long setnum, robj *dstkey) {$/;"	f
@@ -2876,9 +3033,10 @@ sinterstoreCommand	t_set.c	/^void sinterstoreCommand(redisClient *c) {$/;"	f
 sismemberCommand	t_set.c	/^void sismemberCommand(redisClient *c) {$/;"	f
 size	cluster.h	/^    int size;             \/* Num of master nodes with at least one slot *\/$/;"	m	struct:clusterState
 size	dict.h	/^    unsigned long size;$/;"	m	struct:dictht
-size	redis-check-dump.c	/^    size_t size;$/;"	m	struct:__anon32	file:
+size	redis-check-dump.c	/^    size_t size;$/;"	m	struct:__anon15	file:
+size	t_graph.h	/^  int size;$/;"	m	struct:__anon11
 sizemask	dict.h	/^    unsigned long sizemask;$/;"	m	struct:dictht
-sl	t_zset.c	/^            } sl;$/;"	m	union:__anon1::__anon2::_iterzset	typeref:struct:__anon1::__anon2::_iterzset::__anon6	file:
+sl	t_zset.c	/^            } sl;$/;"	m	union:__anon18::__anon19::_iterzset	typeref:struct:__anon18::__anon19::_iterzset::__anon23	file:
 slaveMode	redis-cli.c	/^static void slaveMode(void) {$/;"	f	file:
 slaveTryPartialResynchronization	replication.c	/^int slaveTryPartialResynchronization(int fd) {$/;"	f
 slave_conf_change_time	sentinel.c	/^    mstime_t slave_conf_change_time; \/* Last time slave master addr changed. *\/$/;"	m	struct:sentinelRedisInstance	file:
@@ -2891,7 +3049,7 @@ slave_priority	redis.h	/^    int slave_priority;             \/* Reported in INF
 slave_priority	sentinel.c	/^    int slave_priority; \/* Slave priority according to its INFO output. *\/$/;"	m	struct:sentinelRedisInstance	file:
 slave_reconf_sent_time	sentinel.c	/^    mstime_t slave_reconf_sent_time; \/* Time at which we sent SLAVE OF <new> *\/$/;"	m	struct:sentinelRedisInstance	file:
 slave_repl_offset	sentinel.c	/^    unsigned long long slave_repl_offset; \/* Slave replication offset. *\/$/;"	m	struct:sentinelRedisInstance	file:
-slaveof	cluster.h	/^    char slaveof[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon28
+slaveof	cluster.h	/^    char slaveof[REDIS_CLUSTER_NAMELEN];$/;"	m	struct:__anon9
 slaveof	cluster.h	/^    struct clusterNode *slaveof; \/* pointer to the master node *\/$/;"	m	struct:clusterNode	typeref:struct:clusterNode::clusterNode
 slaveofCommand	replication.c	/^void slaveofCommand(redisClient *c) {$/;"	f
 slaves	cluster.h	/^    struct clusterNode **slaves; \/* pointers to slave nodes *\/$/;"	m	struct:clusterNode	typeref:struct:clusterNode::clusterNode
@@ -2902,7 +3060,7 @@ slotToKeyAdd	db.c	/^void slotToKeyAdd(robj *key) {$/;"	f
 slotToKeyDel	db.c	/^void slotToKeyDel(robj *key) {$/;"	f
 slotToKeyFlush	db.c	/^void slotToKeyFlush(void) {$/;"	f
 slots	cluster.h	/^    clusterNode *slots[REDIS_CLUSTER_SLOTS];$/;"	m	struct:clusterState
-slots	cluster.h	/^    unsigned char slots[REDIS_CLUSTER_SLOTS\/8]; \/* Slots bitmap. *\/$/;"	m	struct:__anon23
+slots	cluster.h	/^    unsigned char slots[REDIS_CLUSTER_SLOTS\/8]; \/* Slots bitmap. *\/$/;"	m	struct:__anon4
 slots	cluster.h	/^    unsigned char slots[REDIS_CLUSTER_SLOTS\/8]; \/* slots handled by this node *\/$/;"	m	struct:clusterNode
 slots	redis-trib.rb	/^    def slots $/;"	f	class:ClusterNode
 slots_to_keys	cluster.h	/^    zskiplist *slots_to_keys;$/;"	m	struct:clusterState
@@ -2933,13 +3091,16 @@ sort_desc	redis.h	/^    int sort_desc;$/;"	m	struct:redisServer
 sort_store	redis.h	/^    int sort_store;$/;"	m	struct:redisServer
 space	redis.h	/^    robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,$/;"	m	struct:sharedObjectsStruct
 span	redis.h	/^        unsigned int span;$/;"	m	struct:zskiplistNode::zskiplistLevel
+sparklineRender	sparkline.c	/^sds sparklineRender(sds output, struct sequence *seq, int columns, int rows, int flags) {$/;"	f
+sparklineRenderRange	sparkline.c	/^sds sparklineRenderRange(sds output, struct sequence *seq, int rows, int offset, int len, int flags) {$/;"	f
+sparklineSequenceAddSample	sparkline.c	/^void sparklineSequenceAddSample(struct sequence *seq, double value, char *label) {$/;"	f
 spopCommand	t_set.c	/^void spopCommand(redisClient *c) {$/;"	f
 spt_clearenv	setproctitle.c	/^static int spt_clearenv(void) {$/;"	f	file:
 spt_copyargs	setproctitle.c	/^static int spt_copyargs(int argc, char *argv[]) {$/;"	f	file:
 spt_copyenv	setproctitle.c	/^static int spt_copyenv(char *oldenv[]) {$/;"	f	file:
 spt_init	setproctitle.c	/^void spt_init(int argc, char *argv[]) {$/;"	f
 spt_min	setproctitle.c	/^static inline size_t spt_min(size_t a, size_t b) {$/;"	f	file:
-sptr	t_zset.c	/^                unsigned char *eptr, *sptr;$/;"	m	struct:__anon1::__anon2::_iterzset::__anon5	file:
+sptr	t_zset.c	/^                unsigned char *eptr, *sptr;$/;"	m	struct:__anon18::__anon19::_iterzset::__anon22	file:
 srandmemberCommand	t_set.c	/^void srandmemberCommand(redisClient *c) {$/;"	f
 srandmemberWithCountCommand	t_set.c	/^void srandmemberWithCountCommand(redisClient *c) {$/;"	f
 sremCommand	t_set.c	/^void sremCommand(redisClient *c) {$/;"	f
@@ -2949,9 +3110,10 @@ start	redis-benchmark.c	/^    long long start;$/;"	m	struct:config	file:
 startAppendOnly	aof.c	/^int startAppendOnly(void) {$/;"	f
 startLoading	rdb.c	/^void startLoading(FILE *fp) {$/;"	f
 start_time	sentinel.c	/^    mstime_t start_time;    \/* Script execution time if the script is running,$/;"	m	struct:sentinelScriptJob	file:
-statMode	redis-cli.c	/^static void statMode() {$/;"	f	file:
+statMode	redis-cli.c	/^static void statMode(void) {$/;"	f	file:
 stat_evictedkeys	redis.h	/^    long long stat_evictedkeys;     \/* Number of evicted keys (maxmemory) *\/$/;"	m	struct:redisServer
 stat_expiredkeys	redis.h	/^    long long stat_expiredkeys;     \/* Number of expired keys *\/$/;"	m	struct:redisServer
+stat_fork_rate	redis.h	/^    double stat_fork_rate;          \/* Fork rate in GB\/sec. *\/$/;"	m	struct:redisServer
 stat_fork_time	redis.h	/^    long long stat_fork_time;       \/* Time needed to perform latest fork() *\/$/;"	m	struct:redisServer
 stat_keyspace_hits	redis.h	/^    long long stat_keyspace_hits;   \/* Number of successful lookups of keys *\/$/;"	m	struct:redisServer
 stat_keyspace_misses	redis.h	/^    long long stat_keyspace_misses; \/* Number of failed lookups of keys *\/$/;"	m	struct:redisServer
@@ -2965,8 +3127,8 @@ stat_sync_full	redis.h	/^    long long stat_sync_full;       \/* Number of full 
 stat_sync_partial_err	redis.h	/^    long long stat_sync_partial_err;\/* Number of unaccepted PSYNC requests. *\/$/;"	m	struct:redisServer
 stat_sync_partial_ok	redis.h	/^    long long stat_sync_partial_ok; \/* Number of accepted PSYNC requests. *\/$/;"	m	struct:redisServer
 state	cluster.h	/^    int state;            \/* REDIS_CLUSTER_OK, REDIS_CLUSTER_FAIL, ... *\/$/;"	m	struct:clusterState
-state	cluster.h	/^    unsigned char state; \/* Cluster state from the POV of the sender *\/$/;"	m	struct:__anon28
-state	sha1.h	/^    u_int32_t state[5];$/;"	m	struct:__anon15
+state	cluster.h	/^    unsigned char state; \/* Cluster state from the POV of the sender *\/$/;"	m	struct:__anon9
+state	sha1.h	/^    u_int32_t state[5];$/;"	m	struct:__anon28
 stats_bus_messages_received	cluster.h	/^    long long stats_bus_messages_received; \/* Num of msg rcvd via cluster bus.*\/$/;"	m	struct:clusterState
 stats_bus_messages_sent	cluster.h	/^    long long stats_bus_messages_sent;  \/* Num of msg sent via cluster bus. *\/$/;"	m	struct:clusterState
 stdinarg	redis-cli.c	/^    int stdinarg; \/* get last arg from stdin. (-x option) *\/$/;"	m	struct:config	file:
@@ -2983,13 +3145,13 @@ stringmatch	util.c	/^int stringmatch(const char *pattern, const char *string, in
 stringmatchlen	util.c	/^int stringmatchlen(const char *pattern, int patternLen,$/;"	f
 strlenCommand	t_string.c	/^void strlenCommand(redisClient *c) {$/;"	f
 strtold	object.c	36;"	d	file:
-subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon11
-subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon12
-subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon9
-subject	t_zset.c	/^    robj *subject;$/;"	m	struct:__anon1	file:
+subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon32
+subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon34
+subject	redis.h	/^    robj *subject;$/;"	m	struct:__anon35
+subject	t_zset.c	/^    robj *subject;$/;"	m	struct:__anon18	file:
 subscribeCommand	pubsub.c	/^void subscribeCommand(redisClient *c) {$/;"	f
 subscribebulk	redis.h	/^    *busykeyerr, *oomerr, *plus, *messagebulk, *pmessagebulk, *subscribebulk,$/;"	m	struct:sharedObjectsStruct
-success	redis-check-dump.c	/^    char success;$/;"	m	struct:__anon34	file:
+success	redis-check-dump.c	/^    char success;$/;"	m	struct:__anon17	file:
 summary	help.h	/^  char *summary;$/;"	m	struct:commandHelp
 sunionCommand	t_set.c	/^void sunionCommand(redisClient *c) {$/;"	f
 sunionDiffGenericCommand	t_set.c	/^void sunionDiffGenericCommand(redisClient *c, robj **setkeys, int setnum, robj *dstkey, int op) {$/;"	f
@@ -3007,14 +3169,16 @@ syslog_enabled	redis.h	/^    int syslog_enabled;             \/* Is syslog enabl
 syslog_facility	redis.h	/^    int syslog_facility;            \/* Syslog facility *\/$/;"	m	struct:redisServer
 syslog_ident	redis.h	/^    char *syslog_ident;             \/* Syslog ident *\/$/;"	m	struct:redisServer
 table	dict.h	/^    dictEntry **table;$/;"	m	struct:dictht
-table	dict.h	/^    int table, index, safe;$/;"	m	struct:dictIterator
+table	dict.h	/^    int table, safe;$/;"	m	struct:dictIterator
 tail	adlist.h	/^    listNode *tail;$/;"	m	struct:list
 tail	redis.h	/^    struct zskiplistNode *header, *tail;$/;"	m	struct:zskiplist	typeref:struct:zskiplist::
+tail	t_graph.h	/^  ListNode *tail;$/;"	m	struct:__anon11
 target	redis.h	/^    int argc, dbid, target;$/;"	m	struct:redisOp
 target	redis.h	/^    robj *target;           \/* The key that should receive the element,$/;"	m	struct:blockingState
 tcp_backlog	redis.h	/^    int tcp_backlog;            \/* TCP listen() backlog *\/$/;"	m	struct:redisServer
 tcpkeepalive	redis.h	/^    int tcpkeepalive;               \/* Set SO_KEEPALIVE if non-zero. *\/$/;"	m	struct:redisServer
 tell	rio.h	/^    off_t (*tell)(struct _rio *);$/;"	m	struct:_rio
+testCommand	t_graph.c	/^void testCommand(redisClient *c) {$/;"	f
 test_cond	testhelp.h	44;"	d
 test_is_selected	redis-benchmark.c	/^int test_is_selected(char *name) {$/;"	f
 test_report	testhelp.h	48;"	d
@@ -3025,6 +3189,7 @@ tilt	sentinel.c	/^    int tilt;           \/* Are we in TILT mode? *\/$/;"	m	str
 tilt_start_time	sentinel.c	/^    mstime_t tilt_start_time;   \/* When TITL started. *\/$/;"	m	struct:sentinelState	file:
 time	bio.c	/^    time_t time; \/* Time at which the job was created. *\/$/;"	m	struct:bio_job	file:
 time	cluster.h	/^    mstime_t time;             \/* Time of the last report from this node. *\/$/;"	m	struct:clusterNodeFailReport
+time	latency.h	/^    int32_t time; \/* We don't use time_t to force 4 bytes usage everywhere. *\/$/;"	m	struct:latencySample
 time	slowlog.h	/^    time_t time;        \/* Unix time at which the query was executed. *\/$/;"	m	struct:slowlogEntry
 timeCommand	redis.c	/^void timeCommand(redisClient *c) {$/;"	f
 timeEventHead	ae.h	/^    aeTimeEvent *timeEventHead;$/;"	m	struct:aeEventLoop
@@ -3038,7 +3203,7 @@ toIntType	redis-cli.c	/^static int toIntType(char *key, char *type) {$/;"	f	file
 to_s	redis-trib.rb	/^    def to_s$/;"	f	class:ClusterNode
 todo_before_sleep	cluster.h	/^    int todo_before_sleep; \/* Things to do in clusterBeforeSleep(). *\/$/;"	m	struct:clusterState
 totlatency	redis-benchmark.c	/^    long long totlatency;$/;"	m	struct:config	file:
-totlen	cluster.h	/^    uint32_t totlen;    \/* Total length of this message *\/$/;"	m	struct:__anon28
+totlen	cluster.h	/^    uint32_t totlen;    \/* Total length of this message *\/$/;"	m	struct:__anon9
 touchWatchedKey	multi.c	/^void touchWatchedKey(redisDb *db, robj *key) {$/;"	f
 touchWatchedKeysOnFlush	multi.c	/^void touchWatchedKeysOnFlush(int dbid) {$/;"	f
 trackOperationsPerSecond	redis.c	/^void trackOperationsPerSecond(void) {$/;"	f
@@ -3046,19 +3211,19 @@ tryObjectEncoding	object.c	/^robj *tryObjectEncoding(robj *o) {$/;"	f
 tryResizeHashTables	redis.c	/^void tryResizeHashTables(int dbid) {$/;"	f
 ttlCommand	db.c	/^void ttlCommand(redisClient *c) {$/;"	f
 ttlGenericCommand	db.c	/^void ttlGenericCommand(redisClient *c, int output_ms) {$/;"	f
-type	cluster.h	/^    uint16_t type;      \/* Message type *\/$/;"	m	struct:__anon28
+type	cluster.h	/^    uint16_t type;      \/* Message type *\/$/;"	m	struct:__anon9
 type	dict.h	/^    dictType *type;$/;"	m	struct:dict
-type	redis-check-dump.c	/^    int type;$/;"	m	struct:__anon34	file:
-type	redis-cli.c	/^    int type;$/;"	m	struct:__anon19	file:
+type	redis-check-dump.c	/^    int type;$/;"	m	struct:__anon17	file:
+type	redis-cli.c	/^    int type;$/;"	m	struct:__anon30	file:
 type	redis.h	/^    int type;$/;"	m	struct:_redisSortOperation
 type	redis.h	/^    unsigned type:4;$/;"	m	struct:redisObject
-type	t_zset.c	/^    int type; \/* Set, sorted set *\/$/;"	m	struct:__anon1	file:
+type	t_zset.c	/^    int type; \/* Set, sorted set *\/$/;"	m	struct:__anon18	file:
 typeCommand	db.c	/^void typeCommand(redisClient *c) {$/;"	f
-types	redis-check-dump.c	/^static char types[256][16];$/;"	v	file:
-u	redis.h	/^    } u;$/;"	m	struct:_redisSortObject	typeref:union:_redisSortObject::__anon8
+types	redis-check-dump.c	/^static char types[MAX_TYPES_NUM][MAX_TYPE_NAME_LEN];$/;"	v	file:
+u	redis.h	/^    } u;$/;"	m	struct:_redisSortObject	typeref:union:_redisSortObject::__anon31
 u16	lzfP.h	/^    typedef unsigned int u16;$/;"	t
 u16	lzfP.h	/^    typedef unsigned short u16;$/;"	t
-u64	dict.h	/^        uint64_t u64;$/;"	m	union:dictEntry::__anon31
+u64	dict.h	/^        uint64_t u64;$/;"	m	union:dictEntry::__anon29
 u8	lzfP.h	/^typedef unsigned char u8;$/;"	t
 u_int	solarisfixes.h	48;"	d
 u_int32_t	solarisfixes.h	49;"	d
@@ -3075,19 +3240,21 @@ unsubscribeCommand	pubsub.c	/^void unsubscribeCommand(redisClient *c) {$/;"	f
 unsubscribebulk	redis.h	/^    *unsubscribebulk, *psubscribebulk, *punsubscribebulk, *del, *rpop, *lpop,$/;"	m	struct:sharedObjectsStruct
 unwatchAllKeys	multi.c	/^void unwatchAllKeys(redisClient *c) {$/;"	f
 unwatchCommand	multi.c	/^void unwatchCommand(redisClient *c) {$/;"	f
-update	cluster.h	/^    } update;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon27
+update	cluster.h	/^    } update;$/;"	m	union:clusterMsgData	typeref:struct:clusterMsgData::__anon8
 updateCachedTime	redis.c	/^void updateCachedTime(void) {$/;"	f
 updateDictResizePolicy	redis.c	/^void updateDictResizePolicy(void) {$/;"	f
 updateSlavesWaitingBgsave	replication.c	/^void updateSlavesWaitingBgsave(int bgsaveerr) {$/;"	f
 update_cksum	rio.h	/^    void (*update_cksum)(struct _rio *, const void *buf, size_t len);$/;"	m	struct:_rio
 update_zmalloc_stat_add	zmalloc.c	71;"	d	file:
 update_zmalloc_stat_add	zmalloc.c	74;"	d	file:
-update_zmalloc_stat_alloc	zmalloc.c	88;"	d	file:
-update_zmalloc_stat_free	zmalloc.c	98;"	d	file:
+update_zmalloc_stat_add	zmalloc.c	77;"	d	file:
+update_zmalloc_stat_alloc	zmalloc.c	91;"	d	file:
+update_zmalloc_stat_free	zmalloc.c	101;"	d	file:
 update_zmalloc_stat_sub	zmalloc.c	72;"	d	file:
-update_zmalloc_stat_sub	zmalloc.c	80;"	d	file:
-usage	redis-cli.c	/^static void usage() {$/;"	f	file:
-usage	redis.c	/^void usage() {$/;"	f
+update_zmalloc_stat_sub	zmalloc.c	75;"	d	file:
+update_zmalloc_stat_sub	zmalloc.c	83;"	d	file:
+usage	redis-cli.c	/^static void usage(void) {$/;"	f	file:
+usage	redis.c	/^void usage(void) {$/;"	f
 usec	intset.c	/^long long usec(void) {$/;"	f
 usec	ziplist.c	/^long long usec(void) {$/;"	f
 used	aof.c	/^    unsigned long used, free;$/;"	m	struct:aofrwblock	file:
@@ -3097,23 +3264,27 @@ used_memory_mutex	zmalloc.c	/^pthread_mutex_t used_memory_mutex = PTHREAD_MUTEX_
 ustime	redis-benchmark.c	/^static long long ustime(void) {$/;"	f	file:
 ustime	redis-cli.c	/^static long long ustime(void) {$/;"	f	file:
 ustime	redis.c	/^long long ustime(void) {$/;"	f
-v	dict.h	/^    } v;$/;"	m	struct:dictEntry	typeref:union:dictEntry::__anon31
-val	dict.h	/^        void *val;$/;"	m	union:dictEntry::__anon31
+v	dict.h	/^    } v;$/;"	m	struct:dictEntry	typeref:union:dictEntry::__anon29
+val	dict.h	/^        void *val;$/;"	m	union:dictEntry::__anon29
 valDestructor	dict.h	/^    void (*valDestructor)(void *privdata, void *obj);$/;"	m	struct:dictType
 valDup	dict.h	/^    void *(*valDup)(void *privdata, const void *obj);$/;"	m	struct:dictType
-validSyslogFacilities	config.c	/^} validSyslogFacilities[] = {$/;"	v	typeref:struct:__anon30	file:
+validSyslogFacilities	config.c	/^} validSyslogFacilities[] = {$/;"	v	typeref:struct:__anon38	file:
 value	adlist.h	/^    void *value;$/;"	m	struct:listNode
-value	config.c	/^    const int       value;$/;"	m	struct:__anon30	file:
+value	config.c	/^    const int       value;$/;"	m	struct:__anon38	file:
+value	sparkline.h	/^    double value;$/;"	m	struct:sample
+value	t_graph.h	/^  float value;$/;"	m	struct:__anon12
+value	t_graph.h	/^  float value;$/;"	m	struct:__anon13
+value	t_graph.h	/^  void* value;$/;"	m	struct:ListNode
 vecswap	pqsort.c	86;"	d	file:
-ver	cluster.h	/^    uint16_t ver;       \/* Protocol version, currently set to 0. *\/$/;"	m	struct:__anon28
+ver	cluster.h	/^    uint16_t ver;       \/* Protocol version, currently set to 0. *\/$/;"	m	struct:__anon9
 verbosity	redis.h	/^    int verbosity;                  \/* Loglevel in redis.conf *\/$/;"	m	struct:redisServer
 verify	ziplist.c	/^void verify(unsigned char *zl, zlentry *e) {$/;"	f
 verifyClusterConfigWithData	cluster.c	/^int verifyClusterConfigWithData(void) {$/;"	f
 verifyDumpPayload	cluster.c	/^int verifyDumpPayload(unsigned char *p, size_t len) {$/;"	f
-version	redis.c	/^void version() {$/;"	f
+version	redis.c	/^void version(void) {$/;"	f
 voted_time	cluster.h	/^    mstime_t voted_time;     \/* Last time we voted for a slave of this master *\/$/;"	m	struct:clusterNode
 votes	sentinel.c	/^    unsigned long votes;$/;"	m	struct:sentinelLeader	file:
-vptr	redis.h	/^    unsigned char *fptr, *vptr;$/;"	m	struct:__anon12
+vptr	redis.h	/^    unsigned char *fptr, *vptr;$/;"	m	struct:__anon35
 waitCommand	replication.c	/^void waitCommand(redisClient *c) {$/;"	f
 wait_cluster_join	redis-trib.rb	/^    def wait_cluster_join$/;"	f	class:RedisTrib
 watchCommand	multi.c	/^void watchCommand(redisClient *c) {$/;"	f
@@ -3125,7 +3296,7 @@ watchedKey	multi.c	/^typedef struct watchedKey {$/;"	s	file:
 watchedKey	multi.c	/^} watchedKey;$/;"	t	typeref:struct:watchedKey	file:
 watched_keys	redis.h	/^    dict *watched_keys;         \/* WATCHED keys for MULTI\/EXEC CAS *\/$/;"	m	struct:redisDb
 watched_keys	redis.h	/^    list *watched_keys;     \/* Keys WATCHED for MULTI\/EXEC CAS *\/$/;"	m	struct:redisClient
-weight	t_zset.c	/^    double weight;$/;"	m	struct:__anon1	file:
+weight	t_zset.c	/^    double weight;$/;"	m	struct:__anon18	file:
 wfds	ae_select.c	/^    fd_set rfds, wfds;$/;"	m	struct:aeApiState	file:
 wfileProc	ae.h	/^    aeFileProc *wfileProc;$/;"	m	struct:aeFileEvent
 when_ms	ae.h	/^    long when_ms; \/* milliseconds *\/$/;"	m	struct:aeTimeEvent
@@ -3149,8 +3320,8 @@ zcalloc	zmalloc.c	/^void *zcalloc(size_t size) {$/;"	f
 zcardCommand	t_zset.c	/^void zcardCommand(redisClient *c) {$/;"	f
 zcountCommand	t_zset.c	/^void zcountCommand(redisClient *c) {$/;"	f
 zfree	zmalloc.c	/^void zfree(void *ptr) {$/;"	f
-zi	redis.h	/^    unsigned char *zi;  \/* Entry in ziplist *\/$/;"	m	struct:__anon10
-zi	redis.h	/^    unsigned char *zi;$/;"	m	struct:__anon9
+zi	redis.h	/^    unsigned char *zi;  \/* Entry in ziplist *\/$/;"	m	struct:__anon33
+zi	redis.h	/^    unsigned char *zi;$/;"	m	struct:__anon32
 zincrbyCommand	t_zset.c	/^void zincrbyCommand(redisClient *c) {$/;"	f
 zinterstoreCommand	t_zset.c	/^void zinterstoreCommand(redisClient *c) {$/;"	f
 zipEncodeLength	ziplist.c	/^static unsigned int zipEncodeLength(unsigned char *p, unsigned char encoding, unsigned int rawlen) {$/;"	f	file:
@@ -3197,12 +3368,12 @@ zipmapRequiredLength	zipmap.c	/^static unsigned long zipmapRequiredLength(unsign
 zipmapResize	zipmap.c	/^static inline unsigned char *zipmapResize(unsigned char *zm, unsigned int len) {$/;"	f	file:
 zipmapRewind	zipmap.c	/^unsigned char *zipmapRewind(unsigned char *zm) {$/;"	f
 zipmapSet	zipmap.c	/^unsigned char *zipmapSet(unsigned char *zm, unsigned char *key, unsigned int klen, unsigned char *val, unsigned int vlen, int *update) {$/;"	f
-zl	t_zset.c	/^                unsigned char *zl;$/;"	m	struct:__anon1::__anon2::_iterzset::__anon5	file:
-zl	t_zset.c	/^            } zl;$/;"	m	union:__anon1::__anon2::_iterzset	typeref:struct:__anon1::__anon2::_iterzset::__anon5	file:
+zl	t_zset.c	/^                unsigned char *zl;$/;"	m	struct:__anon18::__anon19::_iterzset::__anon22	file:
+zl	t_zset.c	/^            } zl;$/;"	m	union:__anon18::__anon19::_iterzset	typeref:struct:__anon18::__anon19::_iterzset::__anon22	file:
 zlentry	ziplist.c	/^typedef struct zlentry {$/;"	s	file:
 zlentry	ziplist.c	/^} zlentry;$/;"	t	typeref:struct:zlentry	file:
 zlexcountCommand	t_zset.c	/^void zlexcountCommand(redisClient *c) {$/;"	f
-zlexrangespec	redis.h	/^} zlexrangespec;$/;"	t	typeref:struct:__anon14
+zlexrangespec	redis.h	/^} zlexrangespec;$/;"	t	typeref:struct:__anon37
 zlibc_free	zmalloc.c	/^void zlibc_free(void *ptr) {$/;"	f
 zmalloc	zmalloc.c	/^void *zmalloc(size_t size) {$/;"	f
 zmalloc_default_oom	zmalloc.c	/^static void zmalloc_default_oom(size_t size) {$/;"	f	file:
@@ -3223,7 +3394,7 @@ zrangeCommand	t_zset.c	/^void zrangeCommand(redisClient *c) {$/;"	f
 zrangeGenericCommand	t_zset.c	/^void zrangeGenericCommand(redisClient *c, int reverse) {$/;"	f
 zrangebylexCommand	t_zset.c	/^void zrangebylexCommand(redisClient *c) {$/;"	f
 zrangebyscoreCommand	t_zset.c	/^void zrangebyscoreCommand(redisClient *c) {$/;"	f
-zrangespec	redis.h	/^} zrangespec;$/;"	t	typeref:struct:__anon13
+zrangespec	redis.h	/^} zrangespec;$/;"	t	typeref:struct:__anon36
 zrankCommand	t_zset.c	/^void zrankCommand(redisClient *c) {$/;"	f
 zrankGenericCommand	t_zset.c	/^void zrankGenericCommand(redisClient *c, int reverse) {$/;"	f
 zrealloc	zmalloc.c	/^void *zrealloc(void *ptr, size_t size) {$/;"	f
@@ -3236,19 +3407,19 @@ zrevrangeCommand	t_zset.c	/^void zrevrangeCommand(redisClient *c) {$/;"	f
 zrevrangebylexCommand	t_zset.c	/^void zrevrangebylexCommand(redisClient *c) {$/;"	f
 zrevrangebyscoreCommand	t_zset.c	/^void zrevrangebyscoreCommand(redisClient *c) {$/;"	f
 zrevrankCommand	t_zset.c	/^void zrevrankCommand(redisClient *c) {$/;"	f
-zs	t_zset.c	/^                zset *zs;$/;"	m	struct:__anon1::__anon2::_iterzset::__anon6	file:
+zs	t_zset.c	/^                zset *zs;$/;"	m	struct:__anon18::__anon19::_iterzset::__anon23	file:
 zscanCommand	t_zset.c	/^void zscanCommand(redisClient *c) {$/;"	f
 zscoreCommand	t_zset.c	/^void zscoreCommand(redisClient *c) {$/;"	f
 zset	redis.h	/^typedef struct zset {$/;"	s
 zset	redis.h	/^} zset;$/;"	t	typeref:struct:zset
-zset	t_zset.c	/^        } zset;$/;"	m	union:__anon1::__anon2	typeref:union:__anon1::__anon2::_iterzset	file:
+zset	t_zset.c	/^        } zset;$/;"	m	union:__anon18::__anon19	typeref:union:__anon18::__anon19::_iterzset	file:
 zsetConvert	t_zset.c	/^void zsetConvert(robj *zobj, int encoding) {$/;"	f
 zsetDictType	redis.c	/^dictType zsetDictType = {$/;"	v
 zsetLength	t_zset.c	/^unsigned int zsetLength(robj *zobj) {$/;"	f
 zset_max_ziplist_entries	redis.h	/^    size_t zset_max_ziplist_entries;$/;"	m	struct:redisServer
 zset_max_ziplist_value	redis.h	/^    size_t zset_max_ziplist_value;$/;"	m	struct:redisServer
-zsetopsrc	t_zset.c	/^} zsetopsrc;$/;"	t	typeref:struct:__anon1	file:
-zsetopval	t_zset.c	/^} zsetopval;$/;"	t	typeref:struct:__anon7	file:
+zsetopsrc	t_zset.c	/^} zsetopsrc;$/;"	t	typeref:struct:__anon18	file:
+zsetopval	t_zset.c	/^} zsetopval;$/;"	t	typeref:struct:__anon24	file:
 zskiplist	redis.h	/^typedef struct zskiplist {$/;"	s
 zskiplist	redis.h	/^} zskiplist;$/;"	t	typeref:struct:zskiplist
 zskiplistLevel	redis.h	/^    struct zskiplistLevel {$/;"	s	struct:zskiplistNode
@@ -3293,7 +3464,7 @@ zuiLongLongFromValue	t_zset.c	/^int zuiLongLongFromValue(zsetopval *val) {$/;"	f
 zuiNext	t_zset.c	/^int zuiNext(zsetopsrc *op, zsetopval *val) {$/;"	f
 zuiObjectFromValue	t_zset.c	/^robj *zuiObjectFromValue(zsetopval *val) {$/;"	f
 zunionInterAggregate	t_zset.c	/^inline static void zunionInterAggregate(double *target, double val, int aggregate) {$/;"	f	file:
-zunionInterDictValue	t_zset.c	1826;"	d	file:
+zunionInterDictValue	t_zset.c	1824;"	d	file:
 zunionInterGenericCommand	t_zset.c	/^void zunionInterGenericCommand(redisClient *c, robj *dstkey, int op) {$/;"	f
 zunionInterGetKeys	db.c	/^int *zunionInterGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {$/;"	f
 zunionstoreCommand	t_zset.c	/^void zunionstoreCommand(redisClient *c) {$/;"	f

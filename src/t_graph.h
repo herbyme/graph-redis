@@ -19,6 +19,7 @@ typedef struct ListNode {
 
 typedef struct {
   ListNode *root;
+  ListNode *tail;
   int size;
 } List;
 
