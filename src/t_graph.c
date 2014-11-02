@@ -176,12 +176,12 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
   return edge;
 }
 
-//TODO: Fix using hash
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
   unsigned long int_value = atol(key->ptr);
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
 
+  /*
   ListNode* current = graph->edges->root;
 
   if (current == NULL)
@@ -198,6 +198,7 @@ GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
     return (GraphEdge *)(current->value);
   }
   return NULL;
+  */
 }
 
 void ListAddNode(List *list, ListNode *node) {
