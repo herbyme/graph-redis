@@ -34,6 +34,12 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->incoming = createListObject();
   graphNode->value = value;
 
+  // unique Edge key
+  char *buffer = (char *)(zmalloc(20 * sizeof(char)));
+  sprintf(buffer, "%ld", (unsigned long)(graphNode));
+  graphNode->memory_key = createStringObject(buffer, strlen(buffer));
+  graphNode->memory_key->refcount = 100; //TODO: Fix later
+
   return graphNode;
 }
 
@@ -49,9 +55,7 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
   graphEdge->memory_key->refcount = 100; //TODO: Fix later
 
-  printf("%s\n", buffer);
-
-  // Just for testing
+  // Just for testing to make sure it is working
   GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer)));
   redisAssert(u2 == graphEdge);
 
@@ -61,6 +65,11 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
 void GraphAddNode(Graph *graph, GraphNode *node) {
   ListNode* listNode = ListNodeCreate((void *)(node));
   ListAddNode(graph->nodes, listNode);
+
+  // edges hash
+  sds hash_key = sdsdup(node->key->ptr);
+  //redisAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
+  dictAdd(graph->nodes_hash, hash_key, node);
 }
 
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
@@ -133,6 +142,13 @@ Graph* GraphCreate() {
 }
 
 GraphNode* GraphGetNode(Graph *graph, robj *key) {
+
+  dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
+  if (entry == NULL) return NULL;
+  GraphNode *node = (GraphNode *)(dictGetVal(entry));
+  return node;
+
+  /*
   // TODO: To improve using a hash
   ListNode* current = graph->nodes->root;
   if (current == NULL)
@@ -145,6 +161,7 @@ GraphNode* GraphGetNode(Graph *graph, robj *key) {
     return (GraphNode *)(current->value);
   }
   return NULL;
+  */
 }
 
 int GraphNodeExists(Graph *graph, robj *key) {
@@ -155,7 +172,6 @@ int GraphNodeExists(Graph *graph, robj *key) {
 GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
   dictEntry *entry = dictFind(node1->edges_hash, node2->key->ptr);
   if (entry == NULL) return NULL;
-
   GraphEdge *edge = (GraphEdge *)(dictGetVal(entry));
   return edge;
 }

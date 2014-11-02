@@ -29,6 +29,7 @@ typedef struct {
   robj *edges;
   dict *edges_hash;
   robj *incoming; // Only for directed graphs
+  robj *memory_key;
 } GraphNode;
 
 typedef struct {
