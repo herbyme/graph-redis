@@ -33,6 +33,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->edges_hash = dictCreate(&dbDictType, NULL);
   graphNode->incoming = createListObject();
   graphNode->value = value;
+
   return graphNode;
 }
 
@@ -44,9 +45,15 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
 
   // unique Edge key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
-  sprintf(buffer, "%d", (int)(buffer));
-  graphEdge->key = createStringObject(buffer, strlen(buffer));
-  graphEdge->key->refcount = 100;
+  sprintf(buffer, "%ld", (unsigned long)(graphEdge));
+  graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
+  graphEdge->memory_key->refcount = 100; //TODO: Fix later
+
+  printf("%s\n", buffer);
+
+  // Just for testing
+  GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer)));
+  redisAssert(u2 == graphEdge);
 
   return graphEdge;
 }
@@ -62,17 +69,17 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
 
   // Node 1 edges
   // edges list
-  listTypePush(graphEdge->node1->edges, graphEdge->key, REDIS_TAIL);
+  listTypePush(graphEdge->node1->edges, graphEdge->memory_key, REDIS_TAIL);
   // edges hash
   sds hash_key = sdsdup(graphEdge->node2->key->ptr);
   redisAssert(dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge) == DICT_OK);
 
   // Node 2 edges
   if (graph->directed ) {
-    listTypePush(graphEdge->node2->incoming, graphEdge->key, REDIS_TAIL);
+    listTypePush(graphEdge->node2->incoming, graphEdge->memory_key, REDIS_TAIL);
   }
   else { // Undirected
-    listTypePush(graphEdge->node2->edges, graphEdge->key, REDIS_TAIL);
+    listTypePush(graphEdge->node2->edges, graphEdge->memory_key, REDIS_TAIL);
     sds hash_key2 = sdsdup(graphEdge->node1->key->ptr);
     redisAssert(dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge) == DICT_OK);
   }
@@ -89,7 +96,7 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
 
   // Deleting from node1
   while (listTypeNext(li,&entry)) {
-    if (listTypeEqual(&entry,graphEdge->key)) {
+    if (listTypeEqual(&entry, graphEdge->memory_key)) {
       listTypeDelete(&entry);
       break;
     }
@@ -101,7 +108,7 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   // Deleting from node2
   li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, REDIS_TAIL);
   while (listTypeNext(li,&entry)) {
-    if (listTypeEqual(&entry,graphEdge->key)) {
+    if (listTypeEqual(&entry, graphEdge->memory_key)) {
       listTypeDelete(&entry);
       break;
     }
@@ -120,6 +127,7 @@ Graph* GraphCreate() {
   Graph* graph = zmalloc(sizeof(Graph));
   graph->nodes = ListCreate();
   graph->edges = ListCreate();
+  graph->nodes_hash = dictCreate(&dbDictType, NULL);
   graph->directed = 0;
   return graph;
 }
@@ -152,19 +160,25 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
   return edge;
 }
 
+//TODO: Fix using hash
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
+  unsigned long int_value = atol(key->ptr);
+  GraphEdge *edge1 = (GraphEdge *)(int_value);
+  return edge1;
+
   ListNode* current = graph->edges->root;
 
   if (current == NULL)
     return NULL;
   while (current != NULL) {
     GraphEdge *edge = (GraphEdge *)(current->value);
-    if (equalStringObjects(key, edge->key)) {
+    if (equalStringObjects(key, edge->memory_key)) {
       break;
     }
     current = current->next;
   }
   if (current != NULL) {
+    redisAssert((GraphEdge *)(current->value) == edge1);
     return (GraphEdge *)(current->value);
   }
   return NULL;
@@ -431,7 +445,7 @@ void gmintreeCommand(redisClient *c) {
   for(i = 0; i < count; i++) {
     edge_key = listNodeValue(listIndex(list->ptr, i));
     edge = GraphGetEdgeByKey(graph_object, edge_key);
-    zslInsert(qzs->zsl, edge->value, edge->key);
+    zslInsert(qzs->zsl, edge->value, edge->memory_key);
   }
 
   // While the minimum edge connects existing node to new node, or BETTER: until the
@@ -441,7 +455,7 @@ void gmintreeCommand(redisClient *c) {
     node = qzs->zsl->header->level[0].forward;
     if (node != NULL) {
       GraphEdge *edge = GraphGetEdgeByKey(graph_object, node->obj);
-      zslDelete(qzs->zsl, node->score, edge->key);
+      zslDelete(qzs->zsl, node->score, edge->memory_key);
       GraphNode *node1, *node2;
       node1 = edge->node1;
       node2 = edge->node2;
@@ -468,10 +482,18 @@ void gmintreeCommand(redisClient *c) {
           GraphEdge *edge2;
           edge_key = listNodeValue(listIndex(list->ptr, i));
           edge2 = GraphGetEdgeByKey(graph_object, edge_key);
+
+          GraphNode *g2_node1 = GraphGetNode(graph2_object, edge2->node1->key);
+          GraphNode *g2_node2 = GraphGetNode(graph2_object, edge2->node2->key);
           // Check if the edge already exists in graph2
-          GraphNode *tmp_edge = GraphGetEdgeByKey(graph2_object, edge_key);
-          if (tmp_edge == NULL) {
-            zslInsert(qzs->zsl, edge2->value, edge2->key);
+          //GraphNode *tmp_edge = GraphGetEdgeByKey(graph2_object, edge_key);
+          if ((g2_node1 != NULL) && (g2_node2 != NULL)) {
+            GraphNode *tmp_edge = GraphGetEdge(graph2_object, g2_node1, g2_node2);
+            if (tmp_edge == NULL) {
+              zslInsert(qzs->zsl, edge2->value, edge2->memory_key);
+            }
+          } else {
+            zslInsert(qzs->zsl, edge2->value, edge2->memory_key);
           }
         }
 
@@ -514,7 +536,6 @@ void gvertexCommand(redisClient *c) {
   int i;
   for (i = 2; i < c->argc; i++) {
     GraphNode *graph_node = GraphGetNode(graph_object, c->argv[i]);
-  // TODO: Check if graph vertex already exists
     if (graph_node == NULL) {
       graph_node = GraphNodeCreate(c->argv[i], 0);
       GraphAddNode(graph_object, graph_node);

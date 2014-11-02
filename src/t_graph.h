@@ -35,12 +35,13 @@ typedef struct {
   GraphNode *node1;
   GraphNode *node2;
   float value;
-  robj *key;
+  robj *memory_key;
 } GraphEdge;
 
 typedef struct {
   List *nodes; //TODO: Use redis lists like the GraphNode
   List *edges; //TODO: Use redis lists like the GraphNode
+  robj *nodes_hash;
   char directed;
 } Graph;
 
