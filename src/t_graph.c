@@ -180,25 +180,6 @@ GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
   unsigned long int_value = atol(key->ptr);
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
-
-  /*
-  ListNode* current = graph->edges->root;
-
-  if (current == NULL)
-    return NULL;
-  while (current != NULL) {
-    GraphEdge *edge = (GraphEdge *)(current->value);
-    if (equalStringObjects(key, edge->memory_key)) {
-      break;
-    }
-    current = current->next;
-  }
-  if (current != NULL) {
-    redisAssert((GraphEdge *)(current->value) == edge1);
-    return (GraphEdge *)(current->value);
-  }
-  return NULL;
-  */
 }
 
 void ListAddNode(List *list, ListNode *node) {
