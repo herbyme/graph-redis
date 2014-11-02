@@ -488,10 +488,7 @@ void gmintreeCommand(redisClient *c) {
           // Check if the edge already exists in graph2
           //GraphNode *tmp_edge = GraphGetEdgeByKey(graph2_object, edge_key);
           if ((g2_node1 != NULL) && (g2_node2 != NULL)) {
-            GraphNode *tmp_edge = GraphGetEdge(graph2_object, g2_node1, g2_node2);
-            if (tmp_edge == NULL) {
-              zslInsert(qzs->zsl, edge2->value, edge2->memory_key);
-            }
+            // Nothing
           } else {
             zslInsert(qzs->zsl, edge2->value, edge2->memory_key);
           }
