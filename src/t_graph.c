@@ -33,6 +33,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->edges_hash = dictCreate(&dbDictType, NULL);
   graphNode->incoming = createListObject();
   graphNode->value = value;
+  graphNode->visited = 0;
 
   // unique Edge key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
@@ -223,7 +224,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   robj *distances_obj = createZsetObject();
   zset *distances = distances_obj->ptr;
 
-  robj *visited = createZsetZiplistObject();
+  //robj *visited = createZsetZiplistObject(); SLOW
   robj *parents = createHashObject();
 
   robj **arr = (robj **)(zmalloc(20 * sizeof(robj *)));
@@ -254,10 +255,11 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     dictDelete(distances->dict, current_node->key);
 
     // Marking the node as visited
-    visited->ptr = zzlInsert(visited->ptr, current_node->key, 1);
+    // visited->ptr = zzlInsert(visited->ptr, current_node->key, 1); SLOW
+    current_node->visited = 1;
 
     // Checking each of the neighbours
-    //List *edges = graph->edges;
+    List *edges = graph->edges;
     //ListNode *current_list_node = edges->root;
 
     int neighbours_count = listTypeLength(current_node->edges);
@@ -279,9 +281,11 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
       if (neighbour != NULL) {
 
         // If neighbour already visited, skip
-        if (zzlFind(visited->ptr, neighbour->key, NULL)) {
-          continue;
-        }
+        // SLOW #TODO, fix
+        //if (zzlFind(visited->ptr, neighbour->key, NULL)) {
+        //  continue;
+        //}
+        if (neighbour->visited) continue;
 
         float distance = edge->value + current_node_distance;
         float neighbour_distance;
@@ -298,6 +302,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
             zslInsert(distances->zsl, distance, neighbour->key);
             // Update the parent
             hashTypeSet(parents, neighbour->key, current_node->key);
+            neighbour->parent = current_node;
 
           }
         } else {
@@ -306,6 +311,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
           *float_loc = distance;
           dictAdd(distances->dict, neighbour->key, float_loc);
           hashTypeSet(parents, neighbour->key, current_node->key);
+          neighbour->parent = current_node;
         }
 
       }
@@ -336,12 +342,13 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   int ret;
 
   while(cur_node != NULL) {
-    ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
-    robj *read = createStringObject(vstr, vlen);
-    cur_node = GraphGetNode(graph, read);
+    //ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
+    //robj *read = createStringObject(vstr, vlen);
+    //cur_node = GraphGetNode(graph, read);
+    cur_node = cur_node->parent;
     if (cur_node != NULL)
       count++;
-    if (equalStringObjects(read, node1->key)) {
+    if (equalStringObjects(cur_node->key, node1->key)) {
       break;
     }
   }
@@ -354,13 +361,14 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   replies[k--] = node2->key;
 
   while(cur_node != NULL) {
-    ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
-    robj *read = createStringObject(vstr, vlen);
-    cur_node = GraphGetNode(graph, read);
+    //ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
+    //robj *read = createStringObject(vstr, vlen);
+    //cur_node = GraphGetNode(graph, read);
+    cur_node = cur_node->parent;
     if (cur_node != NULL) {
       replies[k--] = cur_node->key;
     }
-    if (equalStringObjects(read, node1->key)) {
+    if (equalStringObjects(cur_node->key, node1->key)) {
       break;
     }
   }

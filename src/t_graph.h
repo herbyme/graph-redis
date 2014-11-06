@@ -30,6 +30,8 @@ typedef struct {
   dict *edges_hash;
   robj *incoming; // Only for directed graphs
   robj *memory_key;
+  int visited; // TEMP
+  void *parent;
 } GraphNode;
 
 typedef struct {
