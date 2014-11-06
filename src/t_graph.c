@@ -387,7 +387,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   zfree(distances_obj->ptr);
   dictRelease(distances->dict);
   zslFree(distances->zsl);
-  freeHashObject(parents);
+  //freeHashObject(parents);
 
   return REDIS_OK;
 }
