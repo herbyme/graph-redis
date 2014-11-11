@@ -877,7 +877,6 @@ void gedgesCommand(redisClient *c) {
 }
 
 void testCommand(redisClient *c) {
-
   // Writing and reading from a hash
   dict *d = dictCreate(&dbDictType, NULL);
   robj *key = createStringObject("key", strlen("key"));
