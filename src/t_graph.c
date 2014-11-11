@@ -401,6 +401,16 @@ void gshortestpathCommand(redisClient *c) {
   GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
 
+  // Initializing parents and visited
+  ListNode *current_node;
+  current_node = graph_object->nodes->root;
+  while (current_node != NULL) {
+    GraphNode *graphNode = (GraphNode *)(current_node->value);
+    graphNode->parent = NULL;
+    graphNode->visited = 0;
+    current_node = current_node->next;
+  }
+
   redisAssert(node1 != NULL);
   redisAssert(node2 != NULL);
 
@@ -814,7 +824,7 @@ void gverticesCommand(redisClient *c) {
   Graph *graph_object = (Graph *)(graph->ptr);
 
   List *graphNodes = graph_object->nodes;
-  ListNode *current_node = graphNodes->root;
+  ListNode *current_node;
 
   int count = graphNodes->size;
   addReplyMultiBulkLen(c, count);
@@ -880,3 +890,29 @@ void testCommand(redisClient *c) {
 
   RETURN_OK
 }
+
+int delayedPublish(struct aeEventLoop *eventLoop, long long id, void *clientData) {
+  robj **arr = clientData;
+  robj *str1 = arr[0];
+  robj *str2 = arr[1];
+
+  int receivers = pubsubPublishMessage(str1, str2);
+  //forceCommandPropagation(c, REDIS_PROPAGATE_REPL);
+  aeDeleteTimeEvent(eventLoop, id);
+  freeStringObject(str1);
+  freeStringObject(str2);
+}
+
+
+void dpublishCommand(redisClient *c) {
+    robj *str1 = dupStringObject(c->argv[1]);
+    robj *str2 = dupStringObject(c->argv[2]);
+    robj **arr = zmalloc(sizeof(robj *) * 2);
+    arr[0] = str1;
+    arr[1] = str2;
+    if(aeCreateTimeEvent(server.el, 20000, delayedPublish, arr, NULL) == AE_ERR) {
+
+    }
+  addReplyLongLong(c, 0);
+}
+

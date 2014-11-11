@@ -274,6 +274,8 @@ struct redisCommand redisCommandTable[] = {
     {"gshortestpath",gshortestpathCommand,4,"r",0,NULL,1,1,1,0,0},
     {"gmintree",gmintreeCommand,3,"r",0,NULL,1,1,1,0,0},
 
+    {"dpublish",dpublishCommand,3,"pltrF",0,NULL,0,0,0,0,0},
+
     {"watch",watchCommand,-2,"rsF",0,NULL,1,-1,1,0,0},
     {"unwatch",unwatchCommand,1,"rsF",0,NULL,0,0,0,0,0},
 
