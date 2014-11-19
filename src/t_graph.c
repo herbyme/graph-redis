@@ -165,6 +165,18 @@ GraphNode* GraphGetNode(Graph *graph, robj *key) {
   */
 }
 
+GraphNode* GraphGetOrAddNode(Graph *graph, robj *key) {
+  dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
+  GraphNode *node;
+  if (entry == NULL) {
+    node = GraphNodeCreate(key, 0);
+    GraphAddNode(graph, node);
+  } else {
+    node = (GraphNode *)(dictGetVal(entry));
+  }
+  return node;
+}
+
 int GraphNodeExists(Graph *graph, robj *key) {
   GraphNode *node = GraphGetNode(graph, key);
   return (node != NULL);
@@ -714,6 +726,12 @@ void gedgeexistsCommand(redisClient *c) {
   GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
 
+  // Return zero if any of the nodes is/are null
+  if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
+    addReply(c, shared.czero);
+    return REDIS_OK;
+  }
+
   // Check whether the edge already exists
   edge = NULL;
   if (graph_node1 != NULL && graph_node2 != NULL)
@@ -740,8 +758,8 @@ void gedgeCommand(redisClient *c) {
     return REDIS_OK;
   }
 
-  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *graph_node1 = GraphGetOrAddNode(graph_object, c->argv[2]);
+  GraphNode *graph_node2 = GraphGetOrAddNode(graph_object, c->argv[3]);
 
   // Check whether the edge already exists
   edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
