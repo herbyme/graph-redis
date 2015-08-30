@@ -669,6 +669,12 @@ void gcommonCommand(redisClient *c) {
   Graph *graph_object = (Graph *)(graph->ptr);
   GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
   GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
+
+  if (node1 == NULL || node2 == NULL) {
+    addReplyMultiBulkLen(c, 0);
+    return REDIS_OK;
+  }
+
   robj *set1 = NULL;
   robj *set2 = NULL;
 
