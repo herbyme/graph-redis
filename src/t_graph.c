@@ -29,9 +29,9 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   strcpy(new_name, key->ptr);
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
-  graphNode->edges = createZiplistObject();
+  graphNode->edges = createQuicklistObject();
   graphNode->edges_hash = dictCreate(&dbDictType, NULL);
-  graphNode->incoming = createZiplistObject();
+  graphNode->incoming = createQuicklistObject();
   graphNode->value = value;
   graphNode->visited = 0;
 
