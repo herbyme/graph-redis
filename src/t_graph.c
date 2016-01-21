@@ -1,4 +1,4 @@
-#include "redis.h"
+#include "server.h"
 #include "t_graph.h"
 #include <math.h> /* isnan(), isinf() */
 
@@ -29,9 +29,9 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   strcpy(new_name, key->ptr);
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
-  graphNode->edges = createListObject();
+  graphNode->edges = createZiplistObject();
   graphNode->edges_hash = dictCreate(&dbDictType, NULL);
-  graphNode->incoming = createListObject();
+  graphNode->incoming = createZiplistObject();
   graphNode->value = value;
   graphNode->visited = 0;
 
@@ -58,7 +58,7 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
 
   // Just for testing to make sure it is working
   GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer)));
-  redisAssert(u2 == graphEdge);
+  //redisAssert(u2 == graphEdge);
 
   return graphEdge;
 }
@@ -69,7 +69,7 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 
   // edges hash
   sds hash_key = sdsdup(node->key->ptr);
-  //redisAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
+  ////redisAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
   dictAdd(graph->nodes_hash, hash_key, node);
 }
 
@@ -79,19 +79,19 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
 
   // Node 1 edges
   // edges list
-  listTypePush(graphEdge->node1->edges, graphEdge->memory_key, REDIS_TAIL);
+  listTypePush(graphEdge->node1->edges, graphEdge->memory_key, LIST_TAIL);
   // edges hash
   sds hash_key = sdsdup(graphEdge->node2->key->ptr);
-  redisAssert(dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge) == DICT_OK);
+  //redisAssert(dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge) == DICT_OK);
 
   // Node 2 edges
   if (graph->directed ) {
-    listTypePush(graphEdge->node2->incoming, graphEdge->memory_key, REDIS_TAIL);
+    listTypePush(graphEdge->node2->incoming, graphEdge->memory_key, LIST_TAIL);
   }
   else { // Undirected
-    listTypePush(graphEdge->node2->edges, graphEdge->memory_key, REDIS_TAIL);
+    listTypePush(graphEdge->node2->edges, graphEdge->memory_key, LIST_TAIL);
     sds hash_key2 = sdsdup(graphEdge->node1->key->ptr);
-    redisAssert(dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge) == DICT_OK);
+    //redisAssert(dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge) == DICT_OK);
   }
 }
 
@@ -102,12 +102,12 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   GraphNode *node1 = graphEdge->node1;
   GraphNode *node2 = graphEdge->node2;
 
-  li = listTypeInitIterator(node1->edges, 0, REDIS_TAIL);
+  li = listTypeInitIterator(node1->edges, 0, LIST_TAIL);
 
   // Deleting from node1
   while (listTypeNext(li,&entry)) {
     if (listTypeEqual(&entry, graphEdge->memory_key)) {
-      listTypeDelete(&entry);
+      listTypeDelete(li, &entry);
       break;
     }
   }
@@ -116,10 +116,10 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   dictDeleteNoFree(node1->edges_hash, graphEdge->node2->key->ptr);
 
   // Deleting from node2
-  li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, REDIS_TAIL);
+  li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, LIST_TAIL);
   while (listTypeNext(li,&entry)) {
     if (listTypeEqual(&entry, graphEdge->memory_key)) {
-      listTypeDelete(&entry);
+      listTypeDelete(li, &entry);
       break;
     }
   }
@@ -231,7 +231,7 @@ void ListDeleteNode(List *list, void *value) {
   return;
 }
 
-void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
+void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
   robj *distances_obj = createZsetObject();
   zset *distances = distances_obj->ptr;
@@ -263,7 +263,8 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     }
 
     // Deleting the top of the distances
-    zslDelete(distances->zsl, current_node_distance, current_node->key);
+    zskiplistNode *tmp_node;
+    zslDelete(distances->zsl, current_node_distance, current_node->key, &tmp_node);
     dictDelete(distances->dict, current_node->key);
 
     // Marking the node as visited
@@ -309,7 +310,8 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
           neighbour_distance = *((float *)dictGetVal(de));
           if (distance < neighbour_distance) {
             // Deleting
-            zslDelete(distances->zsl, neighbour_distance, neighbour->key);
+            zskiplistNode *tmp_node;
+            zslDelete(distances->zsl, neighbour_distance, neighbour->key, &tmp_node);
             // Inserting again
             zslInsert(distances->zsl, distance, neighbour->key);
             // Update the parent
@@ -337,7 +339,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
     GraphNode *previous_node = current_node;
 
     if (! finished && first_node != NULL) {
-     current_node = GraphGetNode(graph, first_node->obj);
+     current_node = GraphGetNode(graph, first_node->ele);
      current_node_distance = first_node->score;
     } else  {
       current_node = NULL;
@@ -384,7 +386,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
       break;
     }
   }
-  redisAssert(k == -1);
+  //redisAssert(k == -1);
 
   // Path nodes reversed
   for(k = 0; k < count; k++)
@@ -392,7 +394,7 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
 
   zfree(replies);
 
-  robj *distance_reply= createStringObjectFromLongDouble(final_distance);
+  robj *distance_reply= createStringObjectFromLongDouble(final_distance, 0);
   addReplyBulk(c, distance_reply);
 
   // Clear memory
@@ -401,10 +403,10 @@ void dijkstra(redisClient *c, Graph *graph, GraphNode *node1, GraphNode *node2) 
   zslFree(distances->zsl);
   //freeHashObject(parents);
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gshortestpathCommand(redisClient *c) {
+void gshortestpathCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -423,8 +425,8 @@ void gshortestpathCommand(redisClient *c) {
     current_node = current_node->next;
   }
 
-  redisAssert(node1 != NULL);
-  redisAssert(node2 != NULL);
+  //redisAssert(node1 != NULL);
+  //redisAssert(node2 != NULL);
 
   dijkstra(c, graph_object, node1, node2);
 
@@ -433,13 +435,13 @@ void gshortestpathCommand(redisClient *c) {
 
 robj *createGraphObject() {
   Graph *ptr = GraphCreate();
-  robj *obj = createObject(REDIS_GRAPH, ptr);
+  robj *obj = createObject(OBJ_GRAPH, ptr);
   obj->refcount = 100;
-  obj->encoding = REDIS_GRAPH;
+  obj->encoding = OBJ_GRAPH;
   return obj;
 }
 
-void gmintreeCommand(redisClient *c) {
+void gmintreeCommand(client *c) {
   // Using Prim's Algorithm
   robj *graph;
   robj *key = c->argv[1];
@@ -482,8 +484,8 @@ void gmintreeCommand(redisClient *c) {
     zskiplistNode *node;
     node = qzs->zsl->header->level[0].forward;
     if (node != NULL) {
-      GraphEdge *edge = GraphGetEdgeByKey(graph_object, node->obj);
-      zslDelete(qzs->zsl, node->score, edge->memory_key);
+      GraphEdge *edge = GraphGetEdgeByKey(graph_object, node->ele);
+      zslDelete(qzs->zsl, node->score, edge->memory_key, &node); // MODIFIED
       GraphNode *node1, *node2;
       node1 = edge->node1;
       node2 = edge->node2;
@@ -534,7 +536,7 @@ void gmintreeCommand(redisClient *c) {
 
 }
 
-void gsetdirectedCommand(redisClient *c) {
+void gsetdirectedCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyWrite(c->db, key);
@@ -544,7 +546,7 @@ void gsetdirectedCommand(redisClient *c) {
   RETURN_OK
 }
 
-void gvertexCommand(redisClient *c) {
+void gvertexCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyWrite(c->db, key);
@@ -569,10 +571,10 @@ void gvertexCommand(redisClient *c) {
   }
 
   addReplyLongLong(c, added);
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gincomingCommand(redisClient *c) {
+void gincomingCommand(client *c) {
   robj *graph;
   robj *edge_key;
   GraphEdge *edge;
@@ -596,10 +598,10 @@ void gincomingCommand(redisClient *c) {
     }
   }
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gneighboursCommand(redisClient *c) {
+void gneighboursCommand(client *c) {
   robj *graph;
   robj *edge_key;
   GraphEdge *edge;
@@ -623,7 +625,7 @@ void gneighboursCommand(redisClient *c) {
     }
   }
 
-  return REDIS_OK;
+  return C_OK;
 }
 
 robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
@@ -662,7 +664,7 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
   return set;
 }
 
-void gcommonCommand(redisClient *c) {
+void gcommonCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -672,7 +674,7 @@ void gcommonCommand(redisClient *c) {
 
   if (node1 == NULL || node2 == NULL) {
     addReplyMultiBulkLen(c, 0);
-    return REDIS_OK;
+    return C_OK;
   }
 
   robj *set1 = NULL;
@@ -683,7 +685,7 @@ void gcommonCommand(redisClient *c) {
 
   if (set1 == NULL || set2 == NULL) {
     addReplyMultiBulkLen(c, 0);
-    return REDIS_OK;
+    return C_OK;
   }
 
   robj *result = createIntsetObject();
@@ -720,10 +722,10 @@ void gcommonCommand(redisClient *c) {
   freeSetObject(set2);
   freeSetObject(result);
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gedgeexistsCommand(redisClient *c) {
+void gedgeexistsCommand(client *c) {
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];
@@ -735,7 +737,7 @@ void gedgeexistsCommand(redisClient *c) {
   // Return zero if any of the nodes is/are null
   if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
     addReply(c, shared.czero);
-    return REDIS_OK;
+    return C_OK;
   }
 
   // Check whether the edge already exists
@@ -748,10 +750,10 @@ void gedgeexistsCommand(redisClient *c) {
   } else {
     addReply(c, shared.czero);
   }
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gedgeCommand(redisClient *c) {
+void gedgeCommand(client *c) {
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];
@@ -761,7 +763,7 @@ void gedgeCommand(redisClient *c) {
 
   if (equalStringObjects(c->argv[2], c->argv[3])) {
     addReply(c, shared.czero);
-    return REDIS_OK;
+    return C_OK;
   }
 
   GraphNode *graph_node1 = GraphGetOrAddNode(graph_object, c->argv[2]);
@@ -776,18 +778,18 @@ void gedgeCommand(redisClient *c) {
   if (edge != NULL) {
     edge->value = value_float;
     addReply(c, shared.czero);
-    return REDIS_OK;
+    return C_OK;
   } else {
     edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
     GraphAddEdge(graph_object, edge);
 
     robj *value;
     addReply(c, shared.cone);
-    return REDIS_OK;
+    return C_OK;
   }
 }
 
-void gedgeremCommand(redisClient *c) {
+void gedgeremCommand(client *c) {
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];
@@ -808,10 +810,10 @@ void gedgeremCommand(redisClient *c) {
     addReply(c, shared.czero);
   }
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gedgeincrbyCommand(redisClient *c) {
+void gedgeincrbyCommand(client *c) {
   robj *graph;
   GraphEdge *edge;
   robj *key = c->argv[1];
@@ -829,18 +831,18 @@ void gedgeincrbyCommand(redisClient *c) {
   if (edge != NULL) {
     edge->value += value_float;
     addReplyLongLong(c, edge->value);
-    return REDIS_OK;
+    return C_OK;
   } else {
     gedgeCommand(c);
   }
 }
 
-void gverticesCommand(redisClient *c) {
+void gverticesCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
 
-  if (graph == NULL || checkType(c, graph, REDIS_GRAPH)) {
+  if (graph == NULL || checkType(c, graph, OBJ_GRAPH)) {
     addReply(c, shared.czero);
     return;
   }
@@ -862,10 +864,10 @@ void gverticesCommand(redisClient *c) {
     current_node = current_node->next;
   }
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void gedgesCommand(redisClient *c) {
+void gedgesCommand(client *c) {
   robj *graph;
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
@@ -892,24 +894,24 @@ void gedgesCommand(redisClient *c) {
     addReplyBulk(c, reply1);
     robj *reply2 = graphEdge->node2->key;
     addReplyBulk(c, reply2);
-    robj *reply3 = createStringObjectFromLongDouble(graphEdge->value);
+    robj *reply3 = createStringObjectFromLongDouble(graphEdge->value, 0);
     addReplyBulk(c, reply3);
     current_node = current_node->next;
   }
 
-  return REDIS_OK;
+  return C_OK;
 }
 
-void testCommand(redisClient *c) {
+void testCommand(client *c) {
   // Writing and reading from a hash
   dict *d = dictCreate(&dbDictType, NULL);
   robj *key = createStringObject("key", strlen("key"));
   sds key_str = sdsdup(key->ptr);
   robj *value = createStringObject("omar", strlen("omar"));
-  redisAssert(dictAdd(d, key_str, value) == DICT_OK);
+  //redisAssert(dictAdd(d, key_str, value) == DICT_OK);
   dictEntry *entry = dictFind(d,key->ptr);
   robj *get_value = (robj *)(dictGetVal(entry));
-  redisAssert(equalStringObjects(get_value, value));
+  //redisAssert(equalStringObjects(get_value, value));
 
   RETURN_OK
 }
@@ -927,7 +929,7 @@ int delayedPublish(struct aeEventLoop *eventLoop, long long id, void *clientData
 }
 
 
-void dpublishCommand(redisClient *c) {
+void dpublishCommand(client *c) {
     robj *str1 = dupStringObject(c->argv[1]);
     robj *str2 = dupStringObject(c->argv[2]);
     robj **arr = zmalloc(sizeof(robj *) * 2);

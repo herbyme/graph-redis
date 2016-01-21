@@ -38,8 +38,10 @@
 #include <sys/time.h>
 #include <float.h>
 #include <stdint.h>
+#include <errno.h>
 
 #include "util.h"
+#include "sha1.h"
 
 /* Glob-style pattern matching. */
 int stringmatchlen(const char *pattern, int patternLen,
@@ -169,11 +171,12 @@ int stringmatch(const char *pattern, const char *string, int nocase) {
 }
 
 /* Convert a string representing an amount of memory into the number of
- * bytes, so for instance memtoll("1Gi") will return 1073741824 that is
+ * bytes, so for instance memtoll("1Gb") will return 1073741824 that is
  * (1024*1024*1024).
  *
  * On parsing error, if *err is not NULL, it's set to 1, otherwise it's
- * set to 0 */
+ * set to 0. On error the function return value is 0, regardless of the
+ * fact 'err' is NULL or not. */
 long long memtoll(const char *p, int *err) {
     const char *u;
     char buf[128];
@@ -182,6 +185,7 @@ long long memtoll(const char *p, int *err) {
     unsigned int digits;
 
     if (err) *err = 0;
+
     /* Search the first non digit character. */
     u = p;
     if (*u == '-') u++;
@@ -202,16 +206,26 @@ long long memtoll(const char *p, int *err) {
         mul = 1024L*1024*1024;
     } else {
         if (err) *err = 1;
-        mul = 1;
+        return 0;
     }
+
+    /* Copy the digits into a buffer, we'll use strtoll() to convert
+     * the digit (without the unit) into a number. */
     digits = u-p;
     if (digits >= sizeof(buf)) {
         if (err) *err = 1;
-        return LLONG_MAX;
+        return 0;
     }
     memcpy(buf,p,digits);
     buf[digits] = '\0';
-    val = strtoll(buf,NULL,10);
+
+    char *endptr;
+    errno = 0;
+    val = strtoll(buf,&endptr,10);
+    if ((val == 0 && errno == EINVAL) || *endptr != '\0') {
+        if (err) *err = 1;
+        return 0;
+    }
     return val*mul;
 }
 
@@ -235,6 +249,18 @@ uint32_t digits10(uint64_t v) {
         return 11 + (v >= 100000000000UL);
     }
     return 12 + digits10(v / 1000000000000UL);
+}
+
+/* Like digits10() but for signed values. */
+uint32_t sdigits10(int64_t v) {
+    if (v < 0) {
+        /* Abs value of LLONG_MIN requires special handling. */
+        uint64_t uv = (v != LLONG_MIN) ?
+                      (uint64_t)-v : ((uint64_t) LLONG_MAX)+1;
+        return digits10(uv)+1; /* +1 for the minus. */
+    } else {
+        return digits10(v);
+    }
 }
 
 /* Convert a long long into a string. Returns the number of
@@ -304,7 +330,16 @@ int ll2string(char* dst, size_t dstlen, long long svalue) {
 
 /* Convert a string into a long long. Returns 1 if the string could be parsed
  * into a (non-overflowing) long long, 0 otherwise. The value will be set to
- * the parsed value when appropriate. */
+ * the parsed value when appropriate.
+ *
+ * Note that this function demands that the string strictly represents
+ * a long long: no spaces or other characters before or after the string
+ * representing the number are accepted, nor zeroes at the start if not
+ * for the string "0" representing the zero number.
+ *
+ * Because of its strictness, it is safe to use this function to check if
+ * you can convert a string into a long long, and obtain back the string
+ * from the number without any loss in the string representation. */
 int string2ll(const char *s, size_t slen, long long *value) {
     const char *p = s;
     size_t plen = 0;
@@ -384,8 +419,40 @@ int string2l(const char *s, size_t slen, long *lval) {
     return 1;
 }
 
+/* Convert a string into a double. Returns 1 if the string could be parsed
+ * into a (non-overflowing) double, 0 otherwise. The value will be set to
+ * the parsed value when appropriate.
+ *
+ * Note that this function demands that the string strictly represents
+ * a double: no spaces or other characters before or after the string
+ * representing the number are accepted. */
+int string2ld(const char *s, size_t slen, long double *dp) {
+    char buf[256];
+    long double value;
+    char *eptr;
+
+    if (slen >= sizeof(buf)) return 0;
+    memcpy(buf,s,slen);
+    buf[slen] = '\0';
+
+    errno = 0;
+    value = strtold(buf, &eptr);
+    if (isspace(buf[0]) || eptr[0] != '\0' ||
+        (errno == ERANGE &&
+            (value == HUGE_VAL || value == -HUGE_VAL || value == 0)) ||
+        errno == EINVAL ||
+        isnan(value))
+        return 0;
+
+    if (dp) *dp = value;
+    return 1;
+}
+
 /* Convert a double to a string representation. Returns the number of bytes
- * required. The representation should always be parsable by strtod(3). */
+ * required. The representation should always be parsable by strtod(3).
+ * This function does not support human-friendly formatting like ld2string
+ * does. It is intented mainly to be used inside t_zset.c when writing scores
+ * into a ziplist representing a sorted set. */
 int d2string(char *buf, size_t len, double value) {
     if (isnan(value)) {
         len = snprintf(buf,len,"nan");
@@ -423,16 +490,95 @@ int d2string(char *buf, size_t len, double value) {
     return len;
 }
 
+/* Convert a long double into a string. If humanfriendly is non-zero
+ * it does not use exponential format and trims trailing zeroes at the end,
+ * however this results in loss of precision. Otherwise exp format is used
+ * and the output of snprintf() is not modified.
+ *
+ * The function returns the length of the string or zero if there was not
+ * enough buffer room to store it. */
+int ld2string(char *buf, size_t len, long double value, int humanfriendly) {
+    size_t l;
+
+    if (isinf(value)) {
+        /* Libc in odd systems (Hi Solaris!) will format infinite in a
+         * different way, so better to handle it in an explicit way. */
+        if (len < 5) return 0; /* No room. 5 is "-inf\0" */
+        if (value > 0) {
+            memcpy(buf,"inf",3);
+            l = 3;
+        } else {
+            memcpy(buf,"-inf",4);
+            l = 4;
+        }
+    } else if (humanfriendly) {
+        /* We use 17 digits precision since with 128 bit floats that precision
+         * after rounding is able to represent most small decimal numbers in a
+         * way that is "non surprising" for the user (that is, most small
+         * decimal numbers will be represented in a way that when converted
+         * back into a string are exactly the same as what the user typed.) */
+        l = snprintf(buf,len,"%.17Lf", value);
+        if (l+1 > len) return 0; /* No room. */
+        /* Now remove trailing zeroes after the '.' */
+        if (strchr(buf,'.') != NULL) {
+            char *p = buf+l-1;
+            while(*p == '0') {
+                p--;
+                l--;
+            }
+            if (*p == '.') l--;
+        }
+    } else {
+        l = snprintf(buf,len,"%.17Lg", value);
+        if (l+1 > len) return 0; /* No room. */
+    }
+    buf[l] = '\0';
+    return l;
+}
+
 /* Generate the Redis "Run ID", a SHA1-sized random number that identifies a
  * given execution of Redis, so that if you are talking with an instance
  * having run_id == A, and you reconnect and it has run_id == B, you can be
  * sure that it is either a different instance or it was restarted. */
 void getRandomHexChars(char *p, unsigned int len) {
-    FILE *fp = fopen("/dev/urandom","r");
     char *charset = "0123456789abcdef";
     unsigned int j;
 
-    if (fp == NULL || fread(p,len,1,fp) == 0) {
+    /* Global state. */
+    static int seed_initialized = 0;
+    static unsigned char seed[20]; /* The SHA1 seed, from /dev/urandom. */
+    static uint64_t counter = 0; /* The counter we hash with the seed. */
+
+    if (!seed_initialized) {
+        /* Initialize a seed and use SHA1 in counter mode, where we hash
+         * the same seed with a progressive counter. For the goals of this
+         * function we just need non-colliding strings, there are no
+         * cryptographic security needs. */
+        FILE *fp = fopen("/dev/urandom","r");
+        if (fp && fread(seed,sizeof(seed),1,fp) == 1)
+            seed_initialized = 1;
+        if (fp) fclose(fp);
+    }
+
+    if (seed_initialized) {
+        while(len) {
+            unsigned char digest[20];
+            SHA1_CTX ctx;
+            unsigned int copylen = len > 20 ? 20 : len;
+
+            SHA1Init(&ctx);
+            SHA1Update(&ctx, seed, sizeof(seed));
+            SHA1Update(&ctx, (unsigned char*)&counter,sizeof(counter));
+            SHA1Final(digest, &ctx);
+            counter++;
+
+            memcpy(p,digest,copylen);
+            /* Convert to hex digits. */
+            for (j = 0; j < copylen; j++) p[j] = charset[p[j] & 0x0F];
+            len -= copylen;
+            p += copylen;
+        }
+    } else {
         /* If we can't read from /dev/urandom, do some reasonable effort
          * in order to create some entropy, since this function is used to
          * generate run_id and cluster instance IDs */
@@ -459,14 +605,12 @@ void getRandomHexChars(char *p, unsigned int len) {
             x += sizeof(pid);
         }
         /* Finally xor it with rand() output, that was already seeded with
-         * time() at startup. */
-        for (j = 0; j < len; j++)
+         * time() at startup, and convert to hex digits. */
+        for (j = 0; j < len; j++) {
             p[j] ^= rand();
+            p[j] = charset[p[j] & 0x0F];
+        }
     }
-    /* Turn it into hex digits taking just 4 bits out of 8 for every byte. */
-    for (j = 0; j < len; j++)
-        p[j] = charset[p[j] & 0x0F];
-    if (fp) fclose(fp);
 }
 
 /* Given the filename, return the absolute path as an SDS string, or NULL
@@ -529,10 +673,10 @@ int pathIsBaseName(char *path) {
     return strchr(path,'/') == NULL && strchr(path,'\\') == NULL;
 }
 
-#ifdef UTIL_TEST_MAIN
+#ifdef REDIS_TEST
 #include <assert.h>
 
-void test_string2ll(void) {
+static void test_string2ll(void) {
     char buf[32];
     long long v;
 
@@ -587,7 +731,7 @@ void test_string2ll(void) {
     assert(string2ll(buf,strlen(buf),&v) == 0);
 }
 
-void test_string2l(void) {
+static void test_string2l(void) {
     char buf[32];
     long v;
 
@@ -636,9 +780,55 @@ void test_string2l(void) {
 #endif
 }
 
-int main(int argc, char **argv) {
+static void test_ll2string(void) {
+    char buf[32];
+    long long v;
+    int sz;
+
+    v = 0;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 1);
+    assert(!strcmp(buf, "0"));
+
+    v = -1;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 2);
+    assert(!strcmp(buf, "-1"));
+
+    v = 99;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 2);
+    assert(!strcmp(buf, "99"));
+
+    v = -99;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 3);
+    assert(!strcmp(buf, "-99"));
+
+    v = -2147483648;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 11);
+    assert(!strcmp(buf, "-2147483648"));
+
+    v = LLONG_MIN;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 20);
+    assert(!strcmp(buf, "-9223372036854775808"));
+
+    v = LLONG_MAX;
+    sz = ll2string(buf, sizeof buf, v);
+    assert(sz == 19);
+    assert(!strcmp(buf, "9223372036854775807"));
+}
+
+#define UNUSED(x) (void)(x)
+int utilTest(int argc, char **argv) {
+    UNUSED(argc);
+    UNUSED(argv);
+
     test_string2ll();
     test_string2l();
+    test_ll2string();
     return 0;
 }
 #endif
