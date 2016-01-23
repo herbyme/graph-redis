@@ -30,6 +30,10 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->key = createStringObject(new_name, strlen(new_name));
   graphNode->key->refcount = 100;
   graphNode->edges = createQuicklistObject();
+
+  quicklistSetOptions(graphNode->edges->ptr, server.list_max_ziplist_size,
+      server.list_compress_depth);
+
   graphNode->edges_hash = dictCreate(&dbDictType, NULL);
   graphNode->incoming = createQuicklistObject();
   graphNode->value = value;
@@ -37,8 +41,9 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
 
   // unique Edge key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
-  sprintf(buffer, "%ld", (unsigned long)(graphNode));
+  sprintf(buffer, "M%ld", (unsigned long)(graphNode));
   graphNode->memory_key = createStringObject(buffer, strlen(buffer));
+  graphNode->memory_key = tryObjectEncoding(graphNode->memory_key);
   graphNode->memory_key->refcount = 100; //TODO: Fix later
 
   return graphNode;
@@ -52,8 +57,10 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
 
   // unique Edge key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
-  sprintf(buffer, "%ld", (unsigned long)(graphEdge));
+  sprintf(buffer, "M%ld", (unsigned long)(graphEdge));
   graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
+  //graphEdge->memory_key = createStringObject("L", 1); // TEMP
+  graphEdge->memory_key = tryObjectEncoding(graphEdge->memory_key);
   graphEdge->memory_key->refcount = 100; //TODO: Fix later
 
   // Just for testing to make sure it is working
@@ -69,7 +76,7 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 
   // edges hash
   sds hash_key = sdsdup(node->key->ptr);
-  ////redisAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
+  dictAdd(graph->nodes_hash, hash_key, node); // == DICT_OK);
   dictAdd(graph->nodes_hash, hash_key, node);
 }
 
@@ -82,7 +89,7 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   listTypePush(graphEdge->node1->edges, graphEdge->memory_key, LIST_TAIL);
   // edges hash
   sds hash_key = sdsdup(graphEdge->node2->key->ptr);
-  //redisAssert(dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge) == DICT_OK);
+  dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge);
 
   // Node 2 edges
   if (graph->directed ) {
@@ -91,7 +98,7 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   else { // Undirected
     listTypePush(graphEdge->node2->edges, graphEdge->memory_key, LIST_TAIL);
     sds hash_key2 = sdsdup(graphEdge->node1->key->ptr);
-    //redisAssert(dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge) == DICT_OK);
+    dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge); // == DICT_OK;
   }
 }
 
@@ -190,7 +197,7 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
 }
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
-  unsigned long int_value = atol(key->ptr);
+  unsigned long int_value = atol(key->ptr + sizeof(char));
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
 }
@@ -611,13 +618,21 @@ void gneighboursCommand(client *c) {
   GraphNode *node = GraphGetNode(graph_object, c->argv[2]);
 
   // Neighbours count
-  long count = listTypeLength(node->edges);
-  addReplyMultiBulkLen(c, count);
   int i;
   robj *list = node->edges;
+  long count = listTypeLength(list);
+  addReplyMultiBulkLen(c, count);
+
+  quicklistEntry entry;
+
   for (i = 0; i < count; i++) {
-    edge_key = listNodeValue(listIndex(list->ptr, i));
-    edge = GraphGetEdgeByKey(graph_object, edge_key);
+    quicklistIndex(list->ptr, i, &entry);
+    char *omar = entry.value;
+    robj *value;
+    value = createStringObject((char*)entry.value,entry.sz);
+    char *l = value->ptr;
+    edge = GraphGetEdgeByKey(graph_object, value);
+    //decrRefCount(value);
     if (equalStringObjects(edge->node1->key, node->key)) {
       addReplyBulk(c, edge->node2->key);
     } else {
@@ -908,10 +923,9 @@ void testCommand(client *c) {
   robj *key = createStringObject("key", strlen("key"));
   sds key_str = sdsdup(key->ptr);
   robj *value = createStringObject("omar", strlen("omar"));
-  //redisAssert(dictAdd(d, key_str, value) == DICT_OK);
+  dictAdd(d, key_str, value);
   dictEntry *entry = dictFind(d,key->ptr);
   robj *get_value = (robj *)(dictGetVal(entry));
-  //redisAssert(equalStringObjects(get_value, value));
 
   RETURN_OK
 }
