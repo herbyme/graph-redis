@@ -2,6 +2,8 @@
 #include "t_graph.h"
 #include <math.h> /* isnan(), isinf() */
 
+//serverLog(LL_NOTICE,"DB loaded from disk: %.3f seconds", 5)
+
 robj *cloneStringObject(robj *obj) {
   char *str = zmalloc(sizeof(char) * strlen(obj->ptr));
   strcpy(str, obj->ptr);
@@ -769,6 +771,34 @@ void gedgeexistsCommand(client *c) {
 
   if (edge != NULL) {
     addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
+  return C_OK;
+}
+
+void gedgevalueCommand(client *c) {
+  robj *graph;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+
+  // Return zero if any of the nodes is/are null
+  if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
+    addReply(c, shared.czero);
+    return C_OK;
+  }
+
+  // Check whether the edge already exists
+  edge = NULL;
+  if (graph_node1 != NULL && graph_node2 != NULL)
+    edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
+
+  if (edge != NULL) {
+    addReplyLongLong(c, edge->value);
   } else {
     addReply(c, shared.czero);
   }
