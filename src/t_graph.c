@@ -627,7 +627,6 @@ void gneighboursCommand(client *c) {
 
   for (i = 0; i < count; i++) {
     quicklistIndex(list->ptr, i, &entry);
-    char *omar = entry.value;
     robj *value;
     value = createStringObject((char*)entry.value,entry.sz);
     char *l = value->ptr;
@@ -648,19 +647,22 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
   // Creating neighbours set of the first node
 
   GraphEdge *edge;
+  robj *set;
   robj *edge_key;
-  robj *set = NULL;
 
-  set = setTypeCreate(node->key);
-  //return set;
-  //return set;
+  set = setTypeCreate(node->key->ptr);
 
   long count;
+
   count = listTypeLength(node->edges);
   robj *list = node->edges;
   int i;
+
+  quicklistEntry entry;
+
   for (i = 0; i < count; i++) {
-    edge_key = listNodeValue(listIndex(list->ptr, i));
+    quicklistIndex(list->ptr, i, &entry);
+    edge_key = createStringObject((char*)entry.value,entry.sz);
     edge = GraphGetEdgeByKey(graph_object, edge_key);
     robj *neighbour_key;
     if (equalStringObjects(edge->node1->key, node->key)) {
@@ -673,7 +675,8 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
       //setTypeAdd(set, neighbour_key);
     } else {
     }
-    setTypeAdd(set, neighbour_key);
+    setTypeAdd(set, neighbour_key->ptr);
+    // TODO :Free up edge_key;
   }
 
   return set;
@@ -703,22 +706,25 @@ void gcommonCommand(client *c) {
     return C_OK;
   }
 
-  robj *result = createIntsetObject();
+  //robj *result = createIntsetObject();
+  robj *result = createSetObject();
 
   // Switch set1, and set2 if set1 length is bigger. To improve performance
   robj *temp;
-  if (setTypeSize(set1) > setTypeSize(set2)) {
-    temp = set2;
-    set2 = set1;
-    set1 = temp;
-  }
+  //if (setTypeSize(set1) > setTypeSize(set2)) {
+  //  temp = set2;
+  //  set2 = set1;
+  //  set1 = temp;
+  //}
 
   setTypeIterator *si = setTypeInitIterator(set1);
   int encoding;
   int intobj;
-  robj *eleobj;
+  sds *eleobj;
 
-  while((encoding = setTypeNext(si,&eleobj,&intobj)) != -1) {
+  while(eleobj = setTypeNextObject(si)) {
+    //setTypeAdd(result, createStringObject("QUNSUL", 6)->ptr);
+    char *l = eleobj; // FOR DEBUGGING
     if (setTypeIsMember(set2, eleobj)){
       setTypeAdd(result, eleobj);
     }
@@ -727,9 +733,10 @@ void gcommonCommand(client *c) {
 
   addReplyMultiBulkLen(c, setTypeSize(result));
 
-  si = setTypeInitIterator(set1);
-  while((encoding = setTypeNext(si,&eleobj,&intobj)) != -1) {
-    addReplyBulk(c, eleobj);
+  si = setTypeInitIterator(result);
+  //addReplyBulk(c, createStringObject("OMAR", 4));
+  while(eleobj = setTypeNextObject(si)) {
+    addReplyBulk(c, createStringObject(eleobj, sdslen(eleobj)));
   }
   setTypeReleaseIterator(si);
 
@@ -919,6 +926,7 @@ void gedgesCommand(client *c) {
 
 void testCommand(client *c) {
   // Writing and reading from a hash
+  /*
   dict *d = dictCreate(&dbDictType, NULL);
   robj *key = createStringObject("key", strlen("key"));
   sds key_str = sdsdup(key->ptr);
@@ -926,7 +934,13 @@ void testCommand(client *c) {
   dictAdd(d, key_str, value);
   dictEntry *entry = dictFind(d,key->ptr);
   robj *get_value = (robj *)(dictGetVal(entry));
+  */
 
+  robj *key = createStringObject("key", strlen("key"));
+  robj *set;
+  set = setTypeCreate(key);
+  //setTypeAdd(set,c->argv[j]->ptr)
+  
   RETURN_OK
 }
 
