@@ -32,5 +32,13 @@ describe 'basic commands' do
     redis.gedgevalue('graph1', 'a', 'b').should eq 2
     redis.gedgevalue('graph1', 'd', 'c').should eq 10
   end
+
+  it 'should be able to remove edge' do
+    redis.gedgerem('graph1', 'b', 'd')
+    redis.gedgeexists('graph1', 'b', 'd').should eq 0
+    redis.gedge('graph1', 'b', 'd', 4)
+    redis.gedgeexists('graph1', 'b', 'd').should eq 1
+    redis.gedgevalue('graph1', 'b', 'd').should eq 4
+  end
 end
 
