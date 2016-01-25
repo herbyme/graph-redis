@@ -15,14 +15,14 @@ redis.gedge 'graph1', 'd', 'f', 2
 
 describe 'basic commands' do
   it 'should generate correct neighbours' do
-    redis.gneighbours('graph1', 'a').should eq ['b', 'c']
+    redis.gneighbours('graph1', 'a').sort.should eq ['b', 'c']
     redis.gneighbours('graph1', 'b').should eq ['a', 'd']
     redis.gneighbours('graph1', 'f').should eq ['d']
     redis.gneighbours('graph1', 'j').should eq []
   end
 
   it 'should generate correct common neighbours' do
-    redis.gcommon('graph1', 'a', 'd').should eq ['b', 'c']
+    redis.gcommon('graph1', 'a', 'd').sort.should eq ['b', 'c']
     redis.gcommon('graph1', 'a', 'f').should eq []
   end
 
@@ -36,6 +36,9 @@ describe 'basic commands' do
   it 'should be able to remove edge' do
     redis.gedgerem('graph1', 'b', 'd')
     redis.gedgeexists('graph1', 'b', 'd').should eq 0
+    redis.gcommon('graph1', 'a', 'd').should eq ['c']
+    redis.gneighbours('graph1', 'b').should eq ['a']
+
     redis.gedge('graph1', 'b', 'd', 4)
     redis.gedgeexists('graph1', 'b', 'd').should eq 1
     redis.gedgevalue('graph1', 'b', 'd').should eq 4
