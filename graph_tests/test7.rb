@@ -26,6 +26,11 @@ describe 'basic commands' do
     redis.gcommon('graph1', 'a', 'f').should eq []
   end
 
+  it 'should tell correctly whether node exists or not' do
+    redis.gvertexexists('graph1', 'a').should eq 1
+    redis.gvertexexists('graph1', 'z').should eq 0
+  end
+
   it 'should return the correct values for edges' do
     redis.gedgeexists('graph1', 'a', 'd').should eq 0
     redis.gedgeexists('graph1', 'a', 'c').should eq 1

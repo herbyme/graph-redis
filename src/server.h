@@ -1668,6 +1668,7 @@ void gsetdirectedCommand(client *c);
 void gedgeCommand(client *c);
 void gedgeremCommand(client *c);
 void gedgevalueCommand(client *c);
+void gvertexexistsCommand(client *c);
 void gedgeexistsCommand(client *c);
 void gedgeincrbyCommand(client *c);
 void gneighboursCommand(client *c);

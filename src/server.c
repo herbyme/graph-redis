@@ -271,6 +271,7 @@ struct redisCommand redisCommandTable[] = {
     {"gedgerem",gedgeremCommand,4,"wm",0,NULL,1,1,1,0,0},
     {"gedgevalue",gedgevalueCommand,4,"r",0,NULL,1,1,1,0,0},
     {"gedgeincrby",gedgeincrbyCommand,5,"wm",0,NULL,1,1,1,0,0},
+    {"gvertexexists",gvertexexistsCommand,3,"r",0,NULL,1,1,1,0,0},
     {"gedgeexists",gedgeexistsCommand,4,"r",0,NULL,1,1,1,0,0},
     {"test",testCommand,2,"r",0,NULL,1,1,1,0,0},
 

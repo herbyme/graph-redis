@@ -2,8 +2,6 @@
 #include "t_graph.h"
 #include <math.h> /* isnan(), isinf() */
 
-//serverLog(LL_NOTICE,"DB loaded from disk: %.3f seconds", 5)
-
 robj *cloneStringObject(robj *obj) {
   char *str = zmalloc(sizeof(char) * strlen(obj->ptr));
   strcpy(str, obj->ptr);
@@ -41,7 +39,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   graphNode->value = value;
   graphNode->visited = 0;
 
-  // unique Edge key
+  // unique Node key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
   sprintf(buffer, "M%ld", (unsigned long)(graphNode));
   graphNode->memory_key = createStringObject(buffer, strlen(buffer));
@@ -78,8 +76,7 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
 
   // edges hash
   sds hash_key = sdsdup(node->key->ptr);
-  dictAdd(graph->nodes_hash, hash_key, node); // == DICT_OK);
-  dictAdd(graph->nodes_hash, hash_key, node);
+  serverAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
 }
 
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
@@ -152,30 +149,22 @@ Graph* GraphCreate() {
 }
 
 GraphNode* GraphGetNode(Graph *graph, robj *key) {
-
   dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
+  //serverLog(LL_WARNING,"N %X", entry);
+
   if (entry == NULL) return NULL;
   GraphNode *node = (GraphNode *)(dictGetVal(entry));
+
+  //serverLog(LL_WARNING,"%X", node);
+
   return node;
-
-  /*
-  // TODO: To improve using a hash
-  ListNode* current = graph->nodes->root;
-  if (current == NULL)
-    return NULL;
-
-  while (current != NULL && ! equalStringObjects(key, ((GraphNode *)(current->value))->key ) ) {
-    current = current->next;
-  }
-  if (current != NULL) {
-    return (GraphNode *)(current->value);
-  }
-  return NULL;
-  */
 }
 
 GraphNode* GraphGetOrAddNode(Graph *graph, robj *key) {
   dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
+
+  //serverLog(LL_WARNING,"%X", entry);
+
   GraphNode *node;
   if (entry == NULL) {
     node = GraphNodeCreate(key, 0);
@@ -570,9 +559,12 @@ void gvertexCommand(client *c) {
   int added = 0;
 
   int i;
-  for (i = 2; i < c->argc; i++) {
+  for (i = 2; i < (c->argc); i++) {
     GraphNode *graph_node = GraphGetNode(graph_object, c->argv[i]);
+    //serverLog(LL_WARNING, "%X", graph_object);
+    //serverLog(LL_WARNING,"%d %s\n", graph_node, c->argv[i]->ptr);
     if (graph_node == NULL) {
+      //serverLog(LL_WARNING, "ADDINg");
       graph_node = GraphNodeCreate(c->argv[i], 0);
       GraphAddNode(graph_object, graph_node);
       added++;
@@ -746,6 +738,20 @@ void gcommonCommand(client *c) {
   freeSetObject(set2);
   freeSetObject(result);
 
+  return C_OK;
+}
+
+void gvertexexistsCommand(client *c) {
+  robj *graph;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *graph_node = GraphGetNode(graph_object, c->argv[2]);
+  if (graph_node != NULL) {
+    addReply(c, shared.cone);
+  } else {
+    addReply(c, shared.czero);
+  }
   return C_OK;
 }
 
