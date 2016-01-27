@@ -188,7 +188,6 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
 }
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
-  char *omar = key->ptr;
   unsigned long int_value = atol(key->ptr + sizeof(char));
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
@@ -238,11 +237,9 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   //robj *visited = createZsetZiplistObject(); SLOW
   robj *parents = createHashObject();
 
-  robj **arr = (robj **)(zmalloc(20 * sizeof(robj *)));
-
   // Initialization
   zslInsert(distances->zsl, 0, node1->key->ptr);
-  dictAdd(distances->dict, node1->key, NULL);
+  dictAdd(distances->dict, node1->key->ptr, NULL);
 
   // Main loop
   GraphNode *current_node = node1;
@@ -263,6 +260,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
     // Deleting the top of the distances
     zskiplistNode *tmp_node;
+
     zslDelete(distances->zsl, current_node_distance, current_node->key->ptr, &tmp_node);
     dictDelete(distances->dict, current_node->key);
 
@@ -270,15 +268,10 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     // visited->ptr = zzlInsert(visited->ptr, current_node->key, 1); SLOW
     current_node->visited = 1;
 
-    // Checking each of the neighbours
-    List *edges = graph->edges;
-    //ListNode *current_list_node = edges->root;
-
     int neighbours_count = listTypeLength(current_node->edges);
     int j;
 
     GraphEdge *edge;
-    robj *edge_key;
 
     for (j = 0; j < neighbours_count; j++) {
       quicklistEntry entry;
@@ -329,7 +322,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
           zslInsert(distances->zsl, distance, neighbour->key->ptr);
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
-          dictAdd(distances->dict, neighbour->key, float_loc);
+          dictAdd(distances->dict, neighbour->key->ptr, float_loc);
           hashTypeSet(parents, neighbour->key, current_node->key);
           neighbour->parent = current_node;
         }
@@ -341,7 +334,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     // FOOTER
     zskiplistNode *first_node = distances->zsl->header->level[0].forward;
 
-    GraphNode *previous_node = current_node;
 
     robj *key;
     if (!finished && first_node != NULL) {
@@ -357,10 +349,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   // Building reply
   GraphNode *cur_node = node2;
   int count = 1;
-  unsigned char *vstr = NULL;
-  unsigned int vlen = UINT_MAX;
-  long long vll = LLONG_MAX;
-  int ret;
 
   while(cur_node != NULL) {
     //ret = hashTypeGetFromZiplist(parents, cur_node->key, &vstr, &vlen, &vll);
@@ -921,12 +909,10 @@ void gverticesCommand(client *c) {
   int count = graphNodes->size;
   addReplyMultiBulkLen(c, count);
 
-  robj *reply = createStringObject("Done", strlen("Done"));
-
   current_node = graphNodes->root;
   while (current_node != NULL) {
     GraphNode *graphNode = (GraphNode *)(current_node->value);
-    addReplyBulk(c, graphNode->key);
+    addReplyBulkSds(c, graphNode->key->ptr);
     current_node = current_node->next;
   }
 
