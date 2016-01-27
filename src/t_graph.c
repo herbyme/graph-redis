@@ -60,7 +60,7 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   sprintf(buffer, "M%ld", (unsigned long)(graphEdge));
   graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
   //graphEdge->memory_key = createStringObject("L", 1); // TEMP
-  graphEdge->memory_key = tryObjectEncoding(graphEdge->memory_key);
+  //graphEdge->memory_key = tryObjectEncoding(graphEdge->memory_key);
   graphEdge->memory_key->refcount = 100; //TODO: Fix later
 
   // Just for testing to make sure it is working
@@ -188,6 +188,7 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
 }
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
+  char *omar = key->ptr;
   unsigned long int_value = atol(key->ptr + sizeof(char));
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
@@ -240,7 +241,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   robj **arr = (robj **)(zmalloc(20 * sizeof(robj *)));
 
   // Initialization
-  zslInsert(distances->zsl, 0, node1->key);
+  zslInsert(distances->zsl, 0, node1->key->ptr);
   dictAdd(distances->dict, node1->key, NULL);
 
   // Main loop
@@ -262,7 +263,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
     // Deleting the top of the distances
     zskiplistNode *tmp_node;
-    zslDelete(distances->zsl, current_node_distance, current_node->key, &tmp_node);
+    zslDelete(distances->zsl, current_node_distance, current_node->key->ptr, &tmp_node);
     dictDelete(distances->dict, current_node->key);
 
     // Marking the node as visited
@@ -276,11 +277,18 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     int neighbours_count = listTypeLength(current_node->edges);
     int j;
 
-    for (j = 0; j < neighbours_count; j++) {
+    GraphEdge *edge;
+    robj *edge_key;
 
-      listNode *ln = listIndex(current_node->edges->ptr, j);
-      robj *edge_key = listNodeValue(ln);
-      GraphEdge *edge = GraphGetEdgeByKey(graph, edge_key);
+    for (j = 0; j < neighbours_count; j++) {
+      quicklistEntry entry;
+
+      quicklistIndex(current_node->edges->ptr, j, &entry);
+
+      robj *value;
+      value = createStringObject((char*)entry.value,entry.sz);
+      edge = GraphGetEdgeByKey(graph, value);
+
       GraphNode *neighbour = NULL;
 
       if (edge->node1 == current_node) {
@@ -309,16 +317,16 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
           if (distance < neighbour_distance) {
             // Deleting
             zskiplistNode *tmp_node;
-            zslDelete(distances->zsl, neighbour_distance, neighbour->key, &tmp_node);
+            zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
             // Inserting again
-            zslInsert(distances->zsl, distance, neighbour->key);
+            zslInsert(distances->zsl, distance, neighbour->key->ptr);
             // Update the parent
             hashTypeSet(parents, neighbour->key, current_node->key);
             neighbour->parent = current_node;
 
           }
         } else {
-          zslInsert(distances->zsl, distance, neighbour->key);
+          zslInsert(distances->zsl, distance, neighbour->key->ptr);
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
           dictAdd(distances->dict, neighbour->key, float_loc);
@@ -331,18 +339,19 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
     // READING MINIMUM
     // FOOTER
-    zskiplistNode *first_node;
-    first_node = distances->zsl->header->level[0].forward;
+    zskiplistNode *first_node = distances->zsl->header->level[0].forward;
 
     GraphNode *previous_node = current_node;
 
-    if (! finished && first_node != NULL) {
-     current_node = GraphGetNode(graph, first_node->ele);
-     current_node_distance = first_node->score;
+    robj *key;
+    if (!finished && first_node != NULL) {
+      key = createStringObject(first_node->ele, sdslen(first_node->ele));
+      current_node = GraphGetNode(graph, key);
+      //freeStringObject(key);
+      current_node_distance = first_node->score;
     } else  {
       current_node = NULL;
     }
-
   }
 
   // Building reply
@@ -623,7 +632,6 @@ void gneighboursCommand(client *c) {
     quicklistIndex(list->ptr, i, &entry);
     robj *value;
     value = createStringObject((char*)entry.value,entry.sz);
-    char *l = value->ptr;
     edge = GraphGetEdgeByKey(graph_object, value);
     //decrRefCount(value);
     if (equalStringObjects(edge->node1->key, node->key)) {
