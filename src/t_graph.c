@@ -238,7 +238,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   robj *parents = createHashObject();
 
   // Initialization
-  zslInsert(distances->zsl, 0, node1->key->ptr);
+  zslInsert(distances->zsl, 0, sdsdup(node1->key->ptr));
   dictAdd(distances->dict, node1->key->ptr, NULL);
 
   // Main loop
@@ -265,7 +265,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     dictDelete(distances->dict, current_node->key);
 
     // Marking the node as visited
-    // visited->ptr = zzlInsert(visited->ptr, current_node->key, 1); SLOW
     current_node->visited = 1;
 
     int neighbours_count = listTypeLength(current_node->edges);
@@ -312,14 +311,14 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
             zskiplistNode *tmp_node;
             zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
             // Inserting again
-            zslInsert(distances->zsl, distance, neighbour->key->ptr);
+            zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
             // Update the parent
             hashTypeSet(parents, neighbour->key, current_node->key);
             neighbour->parent = current_node;
 
           }
         } else {
-          zslInsert(distances->zsl, distance, neighbour->key->ptr);
+          zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
           dictAdd(distances->dict, neighbour->key->ptr, float_loc);
@@ -333,7 +332,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     // READING MINIMUM
     // FOOTER
     zskiplistNode *first_node = distances->zsl->header->level[0].forward;
-
 
     robj *key;
     if (!finished && first_node != NULL) {
@@ -387,16 +385,16 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   for(k = 0; k < count; k++)
     addReplyBulk(c, replies[k]);
 
-  zfree(replies);
 
   robj *distance_reply= createStringObjectFromLongDouble(final_distance, 0);
   addReplyBulk(c, distance_reply);
 
   // Clear memory
+  zfree(replies);
   zfree(distances_obj->ptr);
   dictRelease(distances->dict);
   zslFree(distances->zsl);
-  //freeHashObject(parents);
+  freeHashObject(parents);
 
   return C_OK;
 }
@@ -420,8 +418,8 @@ void gshortestpathCommand(client *c) {
     current_node = current_node->next;
   }
 
-  //redisAssert(node1 != NULL);
-  //redisAssert(node2 != NULL);
+  serverAssert(node1 != NULL);
+  serverAssert(node2 != NULL);
 
   dijkstra(c, graph_object, node1, node2);
 
