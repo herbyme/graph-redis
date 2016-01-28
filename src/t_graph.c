@@ -234,9 +234,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   robj *distances_obj = createZsetObject();
   zset *distances = distances_obj->ptr;
 
-  //addReply(c, shared.czero);
-  //return C_OK;
-
   // Initialization
   zslInsert(distances->zsl, 0, (node1->key->ptr));
   dictAdd(distances->dict, (node1->key->ptr), NULL);
