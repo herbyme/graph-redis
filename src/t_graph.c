@@ -75,7 +75,7 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
   ListAddNode(graph->nodes, listNode);
 
   // edges hash
-  sds hash_key = sdsdup(node->key->ptr);
+  sds hash_key = (node->key->ptr);
   serverAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
 }
 
@@ -87,7 +87,7 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   // edges list
   listTypePush(graphEdge->node1->edges, graphEdge->memory_key, LIST_TAIL);
   // edges hash
-  sds hash_key = sdsdup(graphEdge->node2->key->ptr);
+  sds hash_key = (graphEdge->node2->key->ptr);
   dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge);
 
   // Node 2 edges
@@ -96,7 +96,7 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   }
   else { // Undirected
     listTypePush(graphEdge->node2->edges, graphEdge->memory_key, LIST_TAIL);
-    sds hash_key2 = sdsdup(graphEdge->node1->key->ptr);
+    sds hash_key2 = (graphEdge->node1->key->ptr);
     dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge); // == DICT_OK;
   }
 }
@@ -238,8 +238,8 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   //return C_OK;
 
   // Initialization
-  zslInsert(distances->zsl, 0, sdsdup(node1->key->ptr));
-  dictAdd(distances->dict, node1->key->ptr, NULL);
+  zslInsert(distances->zsl, 0, (node1->key->ptr));
+  dictAdd(distances->dict, (node1->key->ptr), NULL);
 
   // Main loop
   GraphNode *current_node = node1;
@@ -312,13 +312,13 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
             zskiplistNode *tmp_node;
             zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
             // Inserting again
-            zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
+            zslInsert(distances->zsl, distance, (neighbour->key->ptr));
             // Update the parent
             neighbour->parent = current_node;
 
           }
         } else {
-          zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
+          zslInsert(distances->zsl, distance, (neighbour->key->ptr));
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
           dictAdd(distances->dict, neighbour->key->ptr, float_loc);
@@ -945,7 +945,7 @@ void testCommand(client *c) {
   /*
   dict *d = dictCreate(&dbDictType, NULL);
   robj *key = createStringObject("key", strlen("key"));
-  sds key_str = sdsdup(key->ptr);
+  sds key_str = (key->ptr);
   robj *value = createStringObject("omar", strlen("omar"));
   dictAdd(d, key_str, value);
   dictEntry *entry = dictFind(d,key->ptr);
