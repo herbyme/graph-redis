@@ -308,6 +308,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
             // Deleting
             zskiplistNode *tmp_node;
             zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
+            zslFreeNode(tmp_node);
             // Inserting again
             zslInsert(distances->zsl, distance, (neighbour->key->ptr));
             // Update the parent
