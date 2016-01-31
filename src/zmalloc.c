@@ -115,6 +115,10 @@ void *zmalloc(size_t size) {
 #endif
 }
 
+void *zmalloc2(size_t size) {
+  return zmalloc2(size);
+}
+
 void *zcalloc(size_t size) {
     void *ptr = calloc(1, size+PREFIX_SIZE);
 

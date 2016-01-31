@@ -1,16 +1,3 @@
-#define RETURN_OK \
-  robj* value10 = createStringObject("OK", strlen("OK")); \
-  addReplyBulk(c, value10); \
-
-#define RETURN_REPLY \
-  addReplyBulk(c, reply); \
-  return REDIS_OK;
-
-#define RETURN_CANCEL \
-  robj* value20 = createStringObject("Cancel", strlen("Cancel")); \
-  addReplyBulk(c, value20); \
-  return REDIS_OK;
-
 typedef struct ListNode {
   void* value;
   struct ListNode *next;

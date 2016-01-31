@@ -2,11 +2,19 @@
 #include "t_graph.h"
 #include <math.h> /* isnan(), isinf() */
 
-robj *cloneStringObject(robj *obj) {
-  char *str = zmalloc(sizeof(char) * strlen(obj->ptr));
-  strcpy(str, obj->ptr);
-  return createStringObject(str, strlen(str));
-}
+#define RETURN_OK \
+  robj* value10 = createStringObject("OK", strlen("OK")); \
+  addReplyBulk(c, value10); \
+  decrRefCount(value10);
+
+#define RETURN_REPLY \
+  addReplyBulk(c, reply); \
+  return REDIS_OK;
+
+#define RETURN_CANCEL \
+  robj* value20 = createStringObject("Cancel", strlen("Cancel")); \
+  addReplyBulk(c, value20); \
+  return REDIS_OK;
 
 ListNode* ListNodeCreate(void* value) {
   ListNode* listNode = (ListNode *)zmalloc(sizeof(ListNode));
@@ -28,7 +36,6 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   char *new_name = zmalloc(strlen(key->ptr));
   strcpy(new_name, key->ptr);
   graphNode->key = createStringObject(new_name, strlen(new_name));
-  graphNode->key->refcount = 100;
   graphNode->edges = createQuicklistObject();
 
   quicklistSetOptions(graphNode->edges->ptr, server.list_max_ziplist_size,
@@ -44,7 +51,6 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   sprintf(buffer, "M%ld", (unsigned long)(graphNode));
   graphNode->memory_key = createStringObject(buffer, strlen(buffer));
   graphNode->memory_key = tryObjectEncoding(graphNode->memory_key);
-  graphNode->memory_key->refcount = 100; //TODO: Fix later
 
   return graphNode;
 }
@@ -61,7 +67,6 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
   //graphEdge->memory_key = createStringObject("L", 1); // TEMP
   //graphEdge->memory_key = tryObjectEncoding(graphEdge->memory_key);
-  graphEdge->memory_key->refcount = 100; //TODO: Fix later
 
   // Just for testing to make sure it is working
   GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer)));
@@ -235,7 +240,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   zset *distances = distances_obj->ptr;
 
   // Initialization
-  zslInsert(distances->zsl, 0, (node1->key->ptr));
+  zslInsert(distances->zsl, 0, sdsdup(node1->key->ptr));
   dictAdd(distances->dict, (node1->key->ptr), NULL);
 
   // Main loop
@@ -263,6 +268,10 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
     // Marking the node as visited
     current_node->visited = 1;
+
+  //decrRefCount(distances_obj);
+  //RETURN_OK
+    //return;
 
     int neighbours_count = listTypeLength(current_node->edges);
     int j;
@@ -310,13 +319,13 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
             zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
             zfree(tmp_node);
             // Inserting again
-            zslInsert(distances->zsl, distance, (neighbour->key->ptr));
+            zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
             // Update the parent
             neighbour->parent = current_node;
 
           }
         } else {
-          zslInsert(distances->zsl, distance, (neighbour->key->ptr));
+          zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
           dictAdd(distances->dict, neighbour->key->ptr, float_loc);
@@ -384,7 +393,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
   // Clear memory
   zfree(replies);
-  decrRefCount(distances);
+  decrRefCount(distances_obj);
 
   return C_OK;
 }
@@ -416,7 +425,6 @@ void gshortestpathCommand(client *c) {
 robj *createGraphObject() {
   Graph *ptr = GraphCreate();
   robj *obj = createObject(OBJ_GRAPH, ptr);
-  obj->refcount = 100;
   obj->encoding = OBJ_GRAPH;
   return obj;
 }
@@ -710,13 +718,12 @@ void gcommonCommand(client *c) {
   addReplyMultiBulkLen(c, setTypeSize(result));
 
   si = setTypeInitIterator(result);
-  //addReplyBulk(c, createStringObject("OMAR", 4));
   while(eleobj = setTypeNextObject(si)) {
     addReplyBulk(c, createStringObject(eleobj, sdslen(eleobj)));
   }
   setTypeReleaseIterator(si);
 
-  freeSetObject(set1);
+  freeSetObject(set1); // decReft
   freeSetObject(set2);
   freeSetObject(result);
 
