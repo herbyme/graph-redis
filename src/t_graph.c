@@ -605,7 +605,7 @@ void gneighboursCommand(client *c) {
     value = createStringObject((char*)entry.value,entry.sz);
     edge = GraphGetEdgeByKey(graph_object, value);
     //decrRefCount(value);
-    if (equalStringObjects(edge->node1->key, node->key)) {
+    if (sdscmp(edge->node1->key, node->key) == 0) {
       addReplyBulk(c, edge->node2->key);
     } else {
       addReplyBulk(c, edge->node1->key);
