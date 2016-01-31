@@ -12,20 +12,20 @@ typedef struct {
 
 typedef struct {
   float value;
-  robj *key;
+  sds key;
   robj *edges;
   dict *edges_hash;
   robj *incoming; // Only for directed graphs
-  robj *memory_key;
+  sds memory_key;
   int visited; // TEMP
-  void *parent;
+  struct GraphNode *parent;
 } GraphNode;
 
 typedef struct {
   GraphNode *node1;
   GraphNode *node2;
   float value;
-  robj *memory_key;
+  sds memory_key;
 } GraphEdge;
 
 typedef struct {
@@ -36,8 +36,9 @@ typedef struct {
 } Graph;
 
 robj *createGraphObject();
-GraphNode* GraphNodeCreate(robj *key, float value);
+GraphNode* GraphNodeCreate(sds key, float value);
 void GraphAddNode(Graph *graph, GraphNode *node);
-GraphNode* GraphGetNode(Graph *graph, robj *key);
+GraphNode* GraphGetNode(Graph *graph, sds key);
 GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value);
-void GraphAddEdge(graph2_object, new_edge);
+void GraphAddEdge(Graph *graph, GraphEdge *graph_edge);
+void ListDeleteNode(List *, void *);

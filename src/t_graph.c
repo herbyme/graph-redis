@@ -31,11 +31,9 @@ List* ListCreate() {
   return list;
 }
 
-GraphNode* GraphNodeCreate(robj *key, float value) {
+GraphNode* GraphNodeCreate(sds key, float value) {
   GraphNode* graphNode = zmalloc(sizeof(GraphNode));
-  char *new_name = zmalloc(strlen(key->ptr));
-  strcpy(new_name, key->ptr);
-  graphNode->key = createStringObject(new_name, strlen(new_name));
+  graphNode->key = sdsdup(key);
   graphNode->edges = createQuicklistObject();
 
   quicklistSetOptions(graphNode->edges->ptr, server.list_max_ziplist_size,
@@ -49,8 +47,7 @@ GraphNode* GraphNodeCreate(robj *key, float value) {
   // unique Node key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
   sprintf(buffer, "M%ld", (unsigned long)(graphNode));
-  graphNode->memory_key = createStringObject(buffer, strlen(buffer));
-  graphNode->memory_key = tryObjectEncoding(graphNode->memory_key);
+  graphNode->memory_key = sdsnew(buffer);
 
   return graphNode;
 }
@@ -64,13 +61,11 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   // unique Edge key
   char *buffer = (char *)(zmalloc(20 * sizeof(char)));
   sprintf(buffer, "M%ld", (unsigned long)(graphEdge));
-  graphEdge->memory_key = createStringObject(buffer, strlen(buffer));
-  //graphEdge->memory_key = createStringObject("L", 1); // TEMP
-  //graphEdge->memory_key = tryObjectEncoding(graphEdge->memory_key);
+  graphEdge->memory_key = sdsnew(buffer);
 
   // Just for testing to make sure it is working
-  GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer)));
-  //redisAssert(u2 == graphEdge);
+  GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer + sizeof(char))));
+  serverAssert(u2 == graphEdge);
 
   return graphEdge;
 }
@@ -80,29 +75,26 @@ void GraphAddNode(Graph *graph, GraphNode *node) {
   ListAddNode(graph->nodes, listNode);
 
   // edges hash
-  sds hash_key = (node->key->ptr);
-  serverAssert(dictAdd(graph->nodes_hash, hash_key, node) == DICT_OK);
+  serverAssert(dictAdd(graph->nodes_hash, node->key, node) == DICT_OK);
 }
 
 void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   ListNode* listNode = ListNodeCreate((void *)(graphEdge));
-  ListAddNode(graph->edges, listNode); // TODO: Change !
+  ListAddNode(graph->edges, listNode);
 
   // Node 1 edges
   // edges list
-  listTypePush(graphEdge->node1->edges, graphEdge->memory_key, LIST_TAIL);
+  listTypePush(graphEdge->node1->edges, createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key)), LIST_TAIL);
   // edges hash
-  sds hash_key = (graphEdge->node2->key->ptr);
-  dictAdd(graphEdge->node1->edges_hash, hash_key, graphEdge);
+  dictAdd(graphEdge->node1->edges_hash, graphEdge->node2->key, graphEdge);
 
   // Node 2 edges
   if (graph->directed ) {
     listTypePush(graphEdge->node2->incoming, graphEdge->memory_key, LIST_TAIL);
   }
   else { // Undirected
-    listTypePush(graphEdge->node2->edges, graphEdge->memory_key, LIST_TAIL);
-    sds hash_key2 = (graphEdge->node1->key->ptr);
-    dictAdd(graphEdge->node2->edges_hash, hash_key2, graphEdge); // == DICT_OK;
+    listTypePush(graphEdge->node2->edges, createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key)), LIST_TAIL);
+    dictAdd(graphEdge->node2->edges_hash, graphEdge->node1->key, graphEdge); // == DICT_OK;
   }
 }
 
@@ -124,7 +116,7 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   }
   listTypeReleaseIterator(li);
   // Deleting from node1 hash
-  dictDeleteNoFree(node1->edges_hash, graphEdge->node2->key->ptr);
+  dictDeleteNoFree(node1->edges_hash, graphEdge->node2->key);
 
   // Deleting from node2
   li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, LIST_TAIL);
@@ -137,7 +129,7 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   listTypeReleaseIterator(li);
   if (!graph->directed) {
     // Deleting from node2 hash
-    dictDeleteNoFree(node2->edges_hash, graphEdge->node1->key->ptr);
+    dictDeleteNoFree(node2->edges_hash, graphEdge->node1->key);
   }
 
   // Deleting from Graph
@@ -153,20 +145,17 @@ Graph* GraphCreate() {
   return graph;
 }
 
-GraphNode* GraphGetNode(Graph *graph, robj *key) {
-  dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
-  //serverLog(LL_WARNING,"N %X", entry);
+GraphNode* GraphGetNode(Graph *graph, sds key) {
+  dictEntry *entry = dictFind(graph->nodes_hash, key);
 
   if (entry == NULL) return NULL;
   GraphNode *node = (GraphNode *)(dictGetVal(entry));
 
-  //serverLog(LL_WARNING,"%X", node);
-
   return node;
 }
 
-GraphNode* GraphGetOrAddNode(Graph *graph, robj *key) {
-  dictEntry *entry = dictFind(graph->nodes_hash, key->ptr);
+GraphNode* GraphGetOrAddNode(Graph *graph, sds key) {
+  dictEntry *entry = dictFind(graph->nodes_hash, key);
 
   //serverLog(LL_WARNING,"%X", entry);
 
@@ -180,20 +169,20 @@ GraphNode* GraphGetOrAddNode(Graph *graph, robj *key) {
   return node;
 }
 
-int GraphNodeExists(Graph *graph, robj *key) {
+int GraphNodeExists(Graph *graph, sds key) {
   GraphNode *node = GraphGetNode(graph, key);
   return (node != NULL);
 }
 
 GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
-  dictEntry *entry = dictFind(node1->edges_hash, node2->key->ptr);
+  dictEntry *entry = dictFind(node1->edges_hash, node2->key);
   if (entry == NULL) return NULL;
   GraphEdge *edge = (GraphEdge *)(dictGetVal(entry));
   return edge;
 }
 
-GraphEdge *GraphGetEdgeByKey(Graph *graph, robj *key) {
-  unsigned long int_value = atol(key->ptr + sizeof(char));
+GraphEdge *GraphGetEdgeByKey(Graph *graph, sds key) {
+  unsigned long int_value = atol(key + sizeof(char));
   GraphEdge *edge1 = (GraphEdge *)(int_value);
   return edge1;
 }
@@ -240,8 +229,8 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   zset *distances = distances_obj->ptr;
 
   // Initialization
-  zslInsert(distances->zsl, 0, sdsdup(node1->key->ptr));
-  dictAdd(distances->dict, (node1->key->ptr), NULL);
+  zslInsert(distances->zsl, 0, sdsdup(node1->key));
+  dictAdd(distances->dict, node1->key, NULL);
 
   // Main loop
   GraphNode *current_node = node1;
@@ -255,14 +244,14 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   while (current_node != NULL) {
 
     // Reached Destination, and print the total distance
-    if (equalStringObjects(current_node->key, node2->key)) {
+    if (sdscmp(current_node->key, node2->key) == 0) {
       final_distance = current_node_distance;
       finished = 1;
       break;
     }
 
     // Deleting the top of the distances
-    zslDelete(distances->zsl, current_node_distance, current_node->key->ptr, &tmp_node);
+    zslDelete(distances->zsl, current_node_distance, current_node->key, &tmp_node);
     zfree(tmp_node);
     dictDelete(distances->dict, current_node->key);
 
@@ -316,19 +305,19 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
           if (distance < neighbour_distance) {
             // Deleting
             zskiplistNode *tmp_node;
-            zslDelete(distances->zsl, neighbour_distance, neighbour->key->ptr, &tmp_node);
+            zslDelete(distances->zsl, neighbour_distance, neighbour->key, &tmp_node);
             zfree(tmp_node);
             // Inserting again
-            zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
+            zslInsert(distances->zsl, distance, sdsdup(neighbour->key));
             // Update the parent
             neighbour->parent = current_node;
 
           }
         } else {
-          zslInsert(distances->zsl, distance, sdsdup(neighbour->key->ptr));
+          zslInsert(distances->zsl, distance, sdsdup(neighbour->key));
           float *float_loc = zmalloc(sizeof(float));
           *float_loc = distance;
-          dictAdd(distances->dict, neighbour->key->ptr, float_loc);
+          dictAdd(distances->dict, neighbour->key, float_loc);
           zfree(float_loc);
           neighbour->parent = current_node;
         }
@@ -634,7 +623,7 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
   robj *set;
   robj *edge_key;
 
-  set = setTypeCreate(node->key->ptr);
+  set = setTypeCreate(node->key);
 
   long count;
 
@@ -905,7 +894,7 @@ void gverticesCommand(client *c) {
   current_node = graphNodes->root;
   while (current_node != NULL) {
     GraphNode *graphNode = (GraphNode *)(current_node->value);
-    addReplyBulkSds(c, graphNode->key->ptr);
+    addReplyBulkSds(c, graphNode->key);
     current_node = current_node->next;
   }
 
