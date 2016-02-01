@@ -281,10 +281,9 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
       quicklistIndex(current_node->edges->ptr, j, &entry);
 
-      robj *value;
-      value = createStringObject((char*)entry.value,entry.sz);
-      edge = GraphGetEdgeByKey(graph, value);
-      decrRefCount(value);
+      sds key = sdsfromlonglong(entry.longval);
+      edge = GraphGetEdgeByKey(graph, key);
+      sdsfree(key);
 
       GraphNode *neighbour = NULL;
 
@@ -315,7 +314,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
             // Deleting
             zskiplistNode *tmp_node;
             zslDelete(distances->zsl, neighbour_distance, neighbour->key, &tmp_node);
-            zfree(tmp_node);
+            //zfree(tmp_node);
             // Inserting again
             zslInsert(distances->zsl, distance, sdsdup(neighbour->key));
             // Update the parent
@@ -341,9 +340,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     robj *key;
 
     if (!finished && first_node != NULL) {
-      key = createStringObject(first_node->ele, sdslen(first_node->ele));
-      current_node = GraphGetNode(graph, key);
-      decrRefCount(key);
+      current_node = GraphGetNode(graph, first_node->ele);
       current_node_distance = first_node->score;
     } else  {
       current_node = NULL;
@@ -358,7 +355,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     cur_node = cur_node->parent;
     if (cur_node != NULL)
       count++;
-    if (equalStringObjects(cur_node->key, node1->key)) {
+    if (sdscmp(cur_node->key, node1->key) == 0) {
       break;
     }
   }
@@ -368,14 +365,14 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
   robj **replies = zmalloc(sizeof(robj *) * count);
   int k = count - 1;
-  replies[k--] = node2->key;
+  replies[k--] = createStringObject(node2->key, sdslen(node2->key));
 
   while(cur_node != NULL) {
     cur_node = cur_node->parent;
     if (cur_node != NULL) {
-      replies[k--] = cur_node->key;
+      replies[k--] = createStringObject(cur_node->key, sdslen(cur_node->key));
     }
-    if (equalStringObjects(cur_node->key, node1->key)) {
+    if (sdscmp(cur_node->key, node1->key) == 0) {
       break;
     }
   }
@@ -402,8 +399,8 @@ void gshortestpathCommand(client *c) {
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
 
-  GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]->ptr);
+  GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]->ptr);
 
   ListNode *current_node;
   current_node = graph_object->nodes->root;
