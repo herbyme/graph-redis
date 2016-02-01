@@ -91,8 +91,8 @@ void GraphAddEdge(Graph *graph, GraphEdge *graphEdge) {
   dictAdd(graphEdge->node1->edges_hash, graphEdge->node2->key, graphEdge);
 
   // Node 2 edges
-  if (graph->directed ) {
-    listTypePush(graphEdge->node2->incoming, graphEdge->memory_key, LIST_TAIL);
+  if (graph->directed) {
+    listTypePush(graphEdge->node2->incoming, createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key)), LIST_TAIL);
   }
   else { // Undirected
     listTypePush(graphEdge->node2->edges, createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key)), LIST_TAIL);
@@ -451,12 +451,14 @@ void gmintreeCommand(client *c) {
 
   // Insert the first node edges to the queue
   robj *list = root->edges;
-  robj *edge_key;
+  robj *list_node_value;
+  sds edge_key;
   GraphEdge *edge;
   int count, i;
   count = listTypeLength(list);
   for(i = 0; i < count; i++) {
-    edge_key = listNodeValue(listIndex(list->ptr, i));
+    list_node_value = listNodeValue(listIndex(list->ptr, i));
+    edge_key = list_node_value->ptr;
     edge = GraphGetEdgeByKey(graph_object, edge_key);
     zslInsert(qzs->zsl, edge->value, edge->memory_key);
   }
@@ -571,7 +573,42 @@ void gincomingCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *node = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *node = GraphGetNode(graph_object, c->argv[2]->ptr);
+
+  // Neighbours count
+  int i;
+  robj *list = node->incoming;
+  long count = listTypeLength(list);
+  addReplyMultiBulkLen(c, count);
+
+  quicklistEntry entry;
+
+  for (i = 0; i < count; i++) {
+    quicklistIndex(list->ptr, i, &entry);
+    robj *value;
+    value = sdsfromlonglong(entry.longval);
+    edge = GraphGetEdgeByKey(graph_object, value);
+    serverLog(LL_WARNING,"%s", edge->node1->key);
+    sdsfree(value);
+    serverAssert(edge != NULL);
+    if (sdscmp(edge->node1->key, node->key) == 0) {
+      addReplyBulk(c, createStringObject(sdsdup(edge->node2->key), sdslen(edge->node2->key)));
+    } else {
+      addReplyBulk(c, createStringObject(sdsdup(edge->node1->key), sdslen(edge->node1->key)));
+    }
+  }
+
+  return C_OK;
+
+
+  /*
+  robj *graph;
+  robj *edge_key;
+  GraphEdge *edge;
+  robj *key = c->argv[1];
+  graph = lookupKeyRead(c->db, key);
+  Graph *graph_object = (Graph *)(graph->ptr);
+  GraphNode *node = GraphGetNode(graph_object, c->argv[2]->ptr);
 
   // Neighbours count
   long count = listTypeLength(node->incoming);
@@ -580,15 +617,16 @@ void gincomingCommand(client *c) {
   robj *list = node->incoming;
   for (i = 0; i < count; i++) {
     edge_key = listNodeValue(listIndex(list->ptr, i));
-    edge = GraphGetEdgeByKey(graph_object, edge_key);
-    if (equalStringObjects(edge->node1->key, node->key)) {
-      addReplyBulk(c, edge->node2->key);
+    edge = GraphGetEdgeByKey(graph_object, edge_key->ptr);
+    if (sdscmp(edge->node1->key, node->key) == 0) {
+      addReplyBulkSds(c, edge->node2->key);
     } else {
-      addReplyBulk(c, edge->node1->key);
+      addReplyBulkSds(c, edge->node1->key);
     }
   }
 
   return C_OK;
+  */
 }
 
 void gneighboursCommand(client *c) {
@@ -936,9 +974,9 @@ void gedgesCommand(client *c) {
   current_node = graphEdges->root;
   while (current_node != NULL) {
     GraphEdge *graphEdge = (GraphNode *)(current_node->value);
-    robj *reply1 = graphEdge->node1->key;
+    robj *reply1 = createStringObject(graphEdge->node1->key, sdslen(graphEdge->node1->key));
     addReplyBulk(c, reply1);
-    robj *reply2 = graphEdge->node2->key;
+    robj *reply2 = createStringObject(graphEdge->node2->key, sdslen(graphEdge->node2->key));
     addReplyBulk(c, reply2);
     robj *reply3 = createStringObjectFromLongDouble(graphEdge->value, 0);
     addReplyBulk(c, reply3);
