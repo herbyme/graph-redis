@@ -16,6 +16,10 @@
   addReplyBulk(c, value20); \
   return REDIS_OK;
 
+void freeGraphObject(robj *graph_object) {
+  //TODO
+}
+
 ListNode* ListNodeCreate(void* value) {
   ListNode* listNode = (ListNode *)zmalloc(sizeof(ListNode));
   listNode->value = value;
@@ -45,9 +49,7 @@ GraphNode* GraphNodeCreate(sds key, float value) {
   graphNode->visited = 0;
 
   // unique Node key
-  char *buffer = (char *)(zmalloc(20 * sizeof(char)));
-  sprintf(buffer, "M%ld", (unsigned long)(graphNode));
-  graphNode->memory_key = sdsnew(buffer);
+  graphNode->memory_key = sdsfromlonglong((unsigned long)(graphNode));
 
   return graphNode;
 }
@@ -59,12 +61,12 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   graphEdge->value = value;
 
   // unique Edge key
-  char *buffer = (char *)(zmalloc(20 * sizeof(char)));
-  sprintf(buffer, "M%ld", (unsigned long)(graphEdge));
-  graphEdge->memory_key = sdsnew(buffer);
+  graphEdge->memory_key = sdsfromlonglong((unsigned long)(graphEdge));
+
+  serverLog(LL_WARNING,"%s", graphEdge->memory_key);
 
   // Just for testing to make sure it is working
-  GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(buffer + sizeof(char))));
+  GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(graphEdge->memory_key)));
   serverAssert(u2 == graphEdge);
 
   return graphEdge;
@@ -108,8 +110,13 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   li = listTypeInitIterator(node1->edges, 0, LIST_TAIL);
 
   // Deleting from node1
+  bool equal;
+  robj * key;
   while (listTypeNext(li,&entry)) {
-    if (listTypeEqual(&entry, graphEdge->memory_key)) {
+    key = createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key));
+    equal = listTypeEqual(&entry, key);
+    decrRefCount(key);
+    if (equal) {
       listTypeDelete(li, &entry);
       break;
     }
@@ -121,7 +128,10 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   // Deleting from node2
   li = listTypeInitIterator(graph->directed ? node2->incoming : node2->edges, 0, LIST_TAIL);
   while (listTypeNext(li,&entry)) {
-    if (listTypeEqual(&entry, graphEdge->memory_key)) {
+    key = createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key));
+    equal = listTypeEqual(&entry, key);
+    decrRefCount(key);
+    if (equal) {
       listTypeDelete(li, &entry);
       break;
     }
@@ -182,9 +192,8 @@ GraphEdge* GraphGetEdge(Graph *graph, GraphNode *node1, GraphNode *node2) {
 }
 
 GraphEdge *GraphGetEdgeByKey(Graph *graph, sds key) {
-  unsigned long int_value = atol(key + sizeof(char));
-  GraphEdge *edge1 = (GraphEdge *)(int_value);
-  return edge1;
+  GraphEdge *edge = (GraphEdge *)((unsigned long)(atol(key)));
+  return edge;
 }
 
 void ListAddNode(List *list, ListNode *node) {
@@ -540,14 +549,17 @@ void gvertexCommand(client *c) {
 
   int i;
   for (i = 2; i < (c->argc); i++) {
-    GraphNode *graph_node = GraphGetNode(graph_object, c->argv[i]);
+    sds key = sdsnew(c->argv[i]->ptr);
+    GraphNode *graph_node = GraphGetNode(graph_object, key);
     //serverLog(LL_WARNING, "%X", graph_object);
     //serverLog(LL_WARNING,"%d %s\n", graph_node, c->argv[i]->ptr);
     if (graph_node == NULL) {
       //serverLog(LL_WARNING, "ADDINg");
-      graph_node = GraphNodeCreate(c->argv[i], 0);
+      graph_node = GraphNodeCreate(key, 0);
       GraphAddNode(graph_object, graph_node);
       added++;
+    } else {
+      sdsfree(key);
     }
   }
 
@@ -589,7 +601,7 @@ void gneighboursCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *node = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *node = GraphGetNode(graph_object, c->argv[2]->ptr);
 
   // Neighbours count
   int i;
@@ -602,13 +614,15 @@ void gneighboursCommand(client *c) {
   for (i = 0; i < count; i++) {
     quicklistIndex(list->ptr, i, &entry);
     robj *value;
-    value = createStringObject((char*)entry.value,entry.sz);
+    value = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, value);
-    //decrRefCount(value);
+    serverLog(LL_WARNING,"%s", edge->node1->key);
+    sdsfree(value);
+    serverAssert(edge != NULL);
     if (sdscmp(edge->node1->key, node->key) == 0) {
-      addReplyBulk(c, edge->node2->key);
+      addReplyBulk(c, createStringObject(sdsdup(edge->node2->key), sdslen(edge->node2->key)));
     } else {
-      addReplyBulk(c, edge->node1->key);
+      addReplyBulk(c, createStringObject(sdsdup(edge->node1->key), sdslen(edge->node1->key)));
     }
   }
 
@@ -621,7 +635,7 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
 
   GraphEdge *edge;
   robj *set;
-  robj *edge_key;
+  sds edge_key;
 
   set = setTypeCreate(node->key);
 
@@ -635,20 +649,21 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
 
   for (i = 0; i < count; i++) {
     quicklistIndex(list->ptr, i, &entry);
-    edge_key = createStringObject((char*)entry.value,entry.sz);
+    edge_key = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, edge_key);
-    robj *neighbour_key;
-    if (equalStringObjects(edge->node1->key, node->key)) {
-      neighbour_key = edge->node2->key;
+    sdsfree(edge_key);
+    sds neighbour_key;
+    if (sdscmp(edge->node1->key, node->key) == 0) {
+      neighbour_key = sdsdup(edge->node2->key);
     } else {
-      neighbour_key = edge->node1->key;
+      neighbour_key = sdsdup(edge->node1->key);
     }
     if (set == NULL) {
       //set = setTypeCreate(neighbour_key);
       //setTypeAdd(set, neighbour_key);
     } else {
     }
-    setTypeAdd(set, neighbour_key->ptr);
+    setTypeAdd(set, neighbour_key);
     // TODO :Free up edge_key;
   }
 
@@ -660,8 +675,8 @@ void gcommonCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *node1 = GraphGetNode(graph_object, c->argv[2]->ptr);
+  GraphNode *node2 = GraphGetNode(graph_object, c->argv[3]->ptr);
 
   if (node1 == NULL || node2 == NULL) {
     addReplyMultiBulkLen(c, 0);
@@ -724,7 +739,7 @@ void gvertexexistsCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *graph_node = GraphGetNode(graph_object, c->argv[2]);
+  GraphNode *graph_node = GraphGetNode(graph_object, c->argv[2]->ptr);
   if (graph_node != NULL) {
     addReply(c, shared.cone);
   } else {
@@ -739,8 +754,8 @@ void gedgeexistsCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]->ptr);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]->ptr);
 
   // Return zero if any of the nodes is/are null
   if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
@@ -767,8 +782,8 @@ void gedgevalueCommand(client *c) {
   robj *key = c->argv[1];
   graph = lookupKeyRead(c->db, key);
   Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]->ptr);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]->ptr);
 
   // Return zero if any of the nodes is/are null
   if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
@@ -802,8 +817,8 @@ void gedgeCommand(client *c) {
     return C_OK;
   }
 
-  GraphNode *graph_node1 = GraphGetOrAddNode(graph_object, c->argv[2]);
-  GraphNode *graph_node2 = GraphGetOrAddNode(graph_object, c->argv[3]);
+  GraphNode *graph_node1 = GraphGetOrAddNode(graph_object, sdsnew(c->argv[2]->ptr));
+  GraphNode *graph_node2 = GraphGetOrAddNode(graph_object, sdsnew(c->argv[3]->ptr));
 
   // Check whether the edge already exists
   edge = GraphGetEdge(graph_object, graph_node1, graph_node2);
@@ -833,8 +848,8 @@ void gedgeremCommand(client *c) {
 
   Graph *graph_object = (Graph *)(graph->ptr);
 
-  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]);
-  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]);
+  GraphNode *graph_node1 = GraphGetNode(graph_object, c->argv[2]->ptr);
+  GraphNode *graph_node2 = GraphGetNode(graph_object, c->argv[3]->ptr);
 
   // Check whether the edge already exists
   edge = GraphGetEdge(graph_object, graph_node1, graph_node2);

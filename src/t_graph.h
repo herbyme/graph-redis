@@ -42,3 +42,4 @@ GraphNode* GraphGetNode(Graph *graph, sds key);
 GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value);
 void GraphAddEdge(Graph *graph, GraphEdge *graph_edge);
 void ListDeleteNode(List *, void *);
+void freeGraphObject(robj *graph_object);
