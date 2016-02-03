@@ -63,8 +63,6 @@ GraphEdge* GraphEdgeCreate(GraphNode *node1, GraphNode *node2, float value) {
   // unique Edge key
   graphEdge->memory_key = sdsfromlonglong((unsigned long)(graphEdge));
 
-  serverLog(LL_WARNING,"%s", graphEdge->memory_key);
-
   // Just for testing to make sure it is working
   GraphEdge* u2 = (GraphEdge *)((unsigned long)(atol(graphEdge->memory_key)));
   serverAssert(u2 == graphEdge);
@@ -166,8 +164,6 @@ GraphNode* GraphGetNode(Graph *graph, sds key) {
 
 GraphNode* GraphGetOrAddNode(Graph *graph, sds key) {
   dictEntry *entry = dictFind(graph->nodes_hash, key);
-
-  //serverLog(LL_WARNING,"%X", entry);
 
   GraphNode *node;
   if (entry == NULL) {
@@ -446,7 +442,6 @@ void gmintreeCommand(client *c) {
   quicklistEntry entry;
 
   int i;
-  sds edge_key;
   GraphEdge *edge;
   for(i = 0; i < count; i++) {
     quicklistIndex(list->ptr, i, &entry);
@@ -546,10 +541,7 @@ void gvertexCommand(client *c) {
   for (i = 2; i < (c->argc); i++) {
     sds key = sdsnew(c->argv[i]->ptr);
     GraphNode *graph_node = GraphGetNode(graph_object, key);
-    //serverLog(LL_WARNING, "%X", graph_object);
-    //serverLog(LL_WARNING,"%d %s\n", graph_node, c->argv[i]->ptr);
     if (graph_node == NULL) {
-      //serverLog(LL_WARNING, "ADDINg");
       graph_node = GraphNodeCreate(key, 0);
       GraphAddNode(graph_object, graph_node);
       added++;
@@ -584,7 +576,6 @@ void gincomingCommand(client *c) {
     robj *value;
     value = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, value);
-    serverLog(LL_WARNING,"%s", edge->node1->key);
     sdsfree(value);
     serverAssert(edge != NULL);
     if (sdscmp(edge->node1->key, node->key) == 0) {
@@ -619,7 +610,6 @@ void gneighboursCommand(client *c) {
     sds value;
     value = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, value);
-    serverLog(LL_WARNING,"%s", edge->node1->key);
     sdsfree(value);
     serverAssert(edge != NULL);
     if (sdscmp(edge->node1->key, node->key) == 0) {
