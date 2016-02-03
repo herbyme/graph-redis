@@ -5,9 +5,7 @@ require 'redis'
 redis = Redis.new
 
 describe 'Minimum spanning tree' do
-
   it 'should calculate the correct minimum spanning tree' do
-
     redis.flushdb
     redis.gvertex 'graph1', 'a', 'b', 'c', 'd'
     redis.gsetdirected 'graph1'
@@ -27,9 +25,6 @@ describe 'Minimum spanning tree' do
     redis.gneighbours('graph1', 'c').should eq ['b', 'd']
     redis.gneighbours('graph1', 'd').should eq []
     redis.gincoming('graph1', 'd').should eq ['c']
-
-
   end
-
 end
 

@@ -2,18 +2,19 @@ require 'redis'
 
 redis = Redis.new
 
-redis.flushdb
-redis.gvertex 'graph1', 'a', 'b', 'c', 'd', 'e', 'f', 'j'
-redis.gedge 'graph1', 'a', 'b', 2
-redis.gedge 'graph1', 'a', 'c', 1
-redis.gedge 'graph1', 'c', 'd', 10
-redis.gedge 'graph1', 'c', 'e', 3
-redis.gedge 'graph1', 'b', 'd', 4
-redis.gedge 'graph1', 'd', 'e', 5
-redis.gedge 'graph1', 'd', 'f', 2
-
-
 describe 'basic commands' do
+  before do
+    redis.flushdb
+    redis.gvertex 'graph1', 'a', 'b', 'c', 'd', 'e', 'f', 'j'
+    redis.gedge 'graph1', 'a', 'b', 2
+    redis.gedge 'graph1', 'a', 'c', 1
+    redis.gedge 'graph1', 'c', 'd', 10
+    redis.gedge 'graph1', 'c', 'e', 3
+    redis.gedge 'graph1', 'b', 'd', 4
+    redis.gedge 'graph1', 'd', 'e', 5
+    redis.gedge 'graph1', 'd', 'f', 2
+  end
+
   it 'should generate correct neighbours' do
     redis.gneighbours('graph1', 'a').sort.should eq ['b', 'c']
     redis.gneighbours('graph1', 'b').should eq ['a', 'd']
@@ -49,4 +50,3 @@ describe 'basic commands' do
     redis.gedgevalue('graph1', 'b', 'd').should eq 4
   end
 end
-

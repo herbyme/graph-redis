@@ -267,10 +267,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
     // Marking the node as visited
     current_node->visited = 1;
 
-  //decrRefCount(distances_obj);
-  //RETURN_OK
-    //return;
-
     int neighbours_count = listTypeLength(current_node->edges);
     int j;
 
@@ -295,11 +291,6 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
 
       if (neighbour != NULL) {
 
-        // If neighbour already visited, skip
-        // SLOW #TODO, fix
-        //if (zzlFind(visited->ptr, neighbour->key, NULL)) {
-        //  continue;
-        //}
         if (neighbour->visited) continue;
 
         float distance = edge->value + current_node_distance;
@@ -448,24 +439,6 @@ void gmintreeCommand(client *c) {
   zset *qzs = queue->ptr;
 
   // TODO: Make sure first node has edges, and that's not a problem, but it should be a connected graph !
-  //
-  //
-/*
- *
-  robj *list = node->edges;
-  long count = listTypeLength(list);
-  addReplyMultiBulkLen(c, count);
-
-  quicklistEntry entry;
-
-  for (i = 0; i < count; i++) {
-    quicklistIndex(list->ptr, i, &entry);
-    robj *value;
-    value = sdsfromlonglong(entry.longval);
-    edge = GraphGetEdgeByKey(graph_object, value);
- *
- *
- */
 
   // Insert the first node edges to the queue
   robj *list = root->edges;
@@ -480,7 +453,6 @@ void gmintreeCommand(client *c) {
     sds value;
     value = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, value);
-    //zfree(entry);
     sdsfree(value);
     zslInsert(qzs->zsl, edge->value, edge->memory_key);
   }
@@ -517,18 +489,6 @@ void gmintreeCommand(client *c) {
         list = (a ? node2 : node1)->edges;
         count = listTypeLength(list);
         for(i = 0; i < count; i++) {
-
-
-          /*
-    quicklistIndex(list->ptr, i, &entry);
-    sds value;
-    value = sdsfromlonglong(entry.longval);
-    edge = GraphGetEdgeByKey(graph_object, value);
-    zfree(entry);
-    sdsfree(value);
-    */
-
-
           GraphEdge *edge2;
           quicklistIndex(list->ptr, i, &entry);
           sds value = sdsfromlonglong(entry.longval);
@@ -635,34 +595,6 @@ void gincomingCommand(client *c) {
   }
 
   return C_OK;
-
-
-  /*
-  robj *graph;
-  robj *edge_key;
-  GraphEdge *edge;
-  robj *key = c->argv[1];
-  graph = lookupKeyRead(c->db, key);
-  Graph *graph_object = (Graph *)(graph->ptr);
-  GraphNode *node = GraphGetNode(graph_object, c->argv[2]->ptr);
-
-  // Neighbours count
-  long count = listTypeLength(node->incoming);
-  addReplyMultiBulkLen(c, count);
-  int i;
-  robj *list = node->incoming;
-  for (i = 0; i < count; i++) {
-    edge_key = listNodeValue(listIndex(list->ptr, i));
-    edge = GraphGetEdgeByKey(graph_object, edge_key->ptr);
-    if (sdscmp(edge->node1->key, node->key) == 0) {
-      addReplyBulkSds(c, edge->node2->key);
-    } else {
-      addReplyBulkSds(c, edge->node1->key);
-    }
-  }
-
-  return C_OK;
-  */
 }
 
 void gneighboursCommand(client *c) {
@@ -729,13 +661,7 @@ robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
     } else {
       neighbour_key = sdsdup(edge->node1->key);
     }
-    if (set == NULL) {
-      //set = setTypeCreate(neighbour_key);
-      //setTypeAdd(set, neighbour_key);
-    } else {
-    }
     setTypeAdd(set, neighbour_key);
-    // TODO :Free up edge_key;
   }
 
   return set;
@@ -770,11 +696,6 @@ void gcommonCommand(client *c) {
 
   // Switch set1, and set2 if set1 length is bigger. To improve performance
   robj *temp;
-  //if (setTypeSize(set1) > setTypeSize(set2)) {
-  //  temp = set2;
-  //  set2 = set1;
-  //  set1 = temp;
-  //}
 
   setTypeIterator *si = setTypeInitIterator(set1);
   int encoding;
@@ -782,7 +703,6 @@ void gcommonCommand(client *c) {
   sds *eleobj;
 
   while(eleobj = setTypeNextObject(si)) {
-    //setTypeAdd(result, createStringObject("QUNSUL", 6)->ptr);
     char *l = eleobj; // FOR DEBUGGING
     if (setTypeIsMember(set2, eleobj)){
       setTypeAdd(result, eleobj);
@@ -1023,22 +943,6 @@ void gedgesCommand(client *c) {
 }
 
 void testCommand(client *c) {
-  // Writing and reading from a hash
-  /*
-  dict *d = dictCreate(&dbDictType, NULL);
-  robj *key = createStringObject("key", strlen("key"));
-  sds key_str = (key->ptr);
-  robj *value = createStringObject("omar", strlen("omar"));
-  dictAdd(d, key_str, value);
-  dictEntry *entry = dictFind(d,key->ptr);
-  robj *get_value = (robj *)(dictGetVal(entry));
-  */
-
-  robj *key = createStringObject("key", strlen("key"));
-  robj *set;
-  set = setTypeCreate(key);
-  //setTypeAdd(set,c->argv[j]->ptr)
-  
   RETURN_OK
 }
 
