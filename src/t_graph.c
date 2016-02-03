@@ -448,18 +448,40 @@ void gmintreeCommand(client *c) {
   zset *qzs = queue->ptr;
 
   // TODO: Make sure first node has edges, and that's not a problem, but it should be a connected graph !
+  //
+  //
+/*
+ *
+  robj *list = node->edges;
+  long count = listTypeLength(list);
+  addReplyMultiBulkLen(c, count);
+
+  quicklistEntry entry;
+
+  for (i = 0; i < count; i++) {
+    quicklistIndex(list->ptr, i, &entry);
+    robj *value;
+    value = sdsfromlonglong(entry.longval);
+    edge = GraphGetEdgeByKey(graph_object, value);
+ *
+ *
+ */
 
   // Insert the first node edges to the queue
   robj *list = root->edges;
-  robj *list_node_value;
+  long count = listTypeLength(list);
+  quicklistEntry entry;
+
+  int i;
   sds edge_key;
   GraphEdge *edge;
-  int count, i;
-  count = listTypeLength(list);
   for(i = 0; i < count; i++) {
-    list_node_value = listNodeValue(listIndex(list->ptr, i));
-    edge_key = list_node_value->ptr;
-    edge = GraphGetEdgeByKey(graph_object, edge_key);
+    quicklistIndex(list->ptr, i, &entry);
+    sds value;
+    value = sdsfromlonglong(entry.longval);
+    edge = GraphGetEdgeByKey(graph_object, value);
+    //zfree(entry);
+    sdsfree(value);
     zslInsert(qzs->zsl, edge->value, edge->memory_key);
   }
 
@@ -495,9 +517,23 @@ void gmintreeCommand(client *c) {
         list = (a ? node2 : node1)->edges;
         count = listTypeLength(list);
         for(i = 0; i < count; i++) {
+
+
+          /*
+    quicklistIndex(list->ptr, i, &entry);
+    sds value;
+    value = sdsfromlonglong(entry.longval);
+    edge = GraphGetEdgeByKey(graph_object, value);
+    zfree(entry);
+    sdsfree(value);
+    */
+
+
           GraphEdge *edge2;
-          edge_key = listNodeValue(listIndex(list->ptr, i));
-          edge2 = GraphGetEdgeByKey(graph_object, edge_key);
+          quicklistIndex(list->ptr, i, &entry);
+          sds value = sdsfromlonglong(entry.longval);
+          edge2 = GraphGetEdgeByKey(graph_object, value);
+          //zfree(entry);
 
           GraphNode *g2_node1 = GraphGetNode(graph2_object, edge2->node1->key);
           GraphNode *g2_node2 = GraphGetNode(graph2_object, edge2->node2->key);
@@ -648,7 +684,7 @@ void gneighboursCommand(client *c) {
 
   for (i = 0; i < count; i++) {
     quicklistIndex(list->ptr, i, &entry);
-    robj *value;
+    sds value;
     value = sdsfromlonglong(entry.longval);
     edge = GraphGetEdgeByKey(graph_object, value);
     serverLog(LL_WARNING,"%s", edge->node1->key);
