@@ -108,7 +108,7 @@ void GraphDeleteEdge(Graph *graph, GraphEdge *graphEdge) {
   li = listTypeInitIterator(node1->edges, 0, LIST_TAIL);
 
   // Deleting from node1
-  bool equal;
+  _Bool equal;
   robj * key;
   while (listTypeNext(li,&entry)) {
     key = createStringObject(graphEdge->memory_key, sdslen(graphEdge->memory_key));
@@ -377,7 +377,7 @@ void dijkstra(client *c, Graph *graph, GraphNode *node1, GraphNode *node2) {
   zfree(replies);
   decrRefCount(distances_obj);
 
-  return C_OK;
+  return;
 }
 
 void gshortestpathCommand(client *c) {
@@ -551,7 +551,7 @@ void gvertexCommand(client *c) {
   }
 
   addReplyLongLong(c, added);
-  return C_OK;
+  return;
 }
 
 void gincomingCommand(client *c) {
@@ -585,7 +585,7 @@ void gincomingCommand(client *c) {
     }
   }
 
-  return C_OK;
+  return;
 }
 
 void gneighboursCommand(client *c) {
@@ -619,7 +619,7 @@ void gneighboursCommand(client *c) {
     }
   }
 
-  return C_OK;
+  return;
 }
 
 robj *neighboursToSet(GraphNode *node, Graph *graph_object) {
@@ -667,7 +667,7 @@ void gcommonCommand(client *c) {
 
   if (node1 == NULL || node2 == NULL) {
     addReplyMultiBulkLen(c, 0);
-    return C_OK;
+    return;
   }
 
   robj *set1 = NULL;
@@ -678,7 +678,7 @@ void gcommonCommand(client *c) {
 
   if (set1 == NULL || set2 == NULL) {
     addReplyMultiBulkLen(c, 0);
-    return C_OK;
+    return;
   }
 
   //robj *result = createIntsetObject();
@@ -712,7 +712,7 @@ void gcommonCommand(client *c) {
   freeSetObject(set2);
   freeSetObject(result);
 
-  return C_OK;
+  return;
 }
 
 void gvertexexistsCommand(client *c) {
@@ -726,7 +726,7 @@ void gvertexexistsCommand(client *c) {
   } else {
     addReply(c, shared.czero);
   }
-  return C_OK;
+  return;
 }
 
 void gedgeexistsCommand(client *c) {
@@ -741,7 +741,7 @@ void gedgeexistsCommand(client *c) {
   // Return zero if any of the nodes is/are null
   if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
     addReply(c, shared.czero);
-    return C_OK;
+    return;
   }
 
   // Check whether the edge already exists
@@ -754,7 +754,7 @@ void gedgeexistsCommand(client *c) {
   } else {
     addReply(c, shared.czero);
   }
-  return C_OK;
+  return;
 }
 
 void gedgevalueCommand(client *c) {
@@ -769,7 +769,7 @@ void gedgevalueCommand(client *c) {
   // Return zero if any of the nodes is/are null
   if ((graph_node1 == NULL) || (graph_node2 == NULL)) {
     addReply(c, shared.czero);
-    return C_OK;
+    return;
   }
 
   // Check whether the edge already exists
@@ -782,7 +782,7 @@ void gedgevalueCommand(client *c) {
   } else {
     addReply(c, shared.czero);
   }
-  return C_OK;
+  return;
 }
 
 void gedgeCommand(client *c) {
@@ -795,7 +795,7 @@ void gedgeCommand(client *c) {
 
   if (equalStringObjects(c->argv[2], c->argv[3])) {
     addReply(c, shared.czero);
-    return C_OK;
+    return;
   }
 
   GraphNode *graph_node1 = GraphGetOrAddNode(graph_object, sdsnew(c->argv[2]->ptr));
@@ -810,14 +810,14 @@ void gedgeCommand(client *c) {
   if (edge != NULL) {
     edge->value = value_float;
     addReply(c, shared.czero);
-    return C_OK;
+    return;
   } else {
     edge = GraphEdgeCreate(graph_node1, graph_node2, value_float);
     GraphAddEdge(graph_object, edge);
 
     robj *value;
     addReply(c, shared.cone);
-    return C_OK;
+    return;
   }
 }
 
@@ -842,7 +842,7 @@ void gedgeremCommand(client *c) {
     addReply(c, shared.czero);
   }
 
-  return C_OK;
+  return;
 }
 
 void gedgeincrbyCommand(client *c) {
@@ -863,7 +863,7 @@ void gedgeincrbyCommand(client *c) {
   if (edge != NULL) {
     edge->value += value_float;
     addReplyLongLong(c, edge->value);
-    return C_OK;
+    return;
   } else {
     gedgeCommand(c);
   }
@@ -894,7 +894,7 @@ void gverticesCommand(client *c) {
     current_node = current_node->next;
   }
 
-  return C_OK;
+  return;
 }
 
 void gedgesCommand(client *c) {
@@ -929,7 +929,7 @@ void gedgesCommand(client *c) {
     current_node = current_node->next;
   }
 
-  return C_OK;
+  return;
 }
 
 void testCommand(client *c) {
